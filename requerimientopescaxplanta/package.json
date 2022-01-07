@@ -1,0 +1,45 @@
+{
+    "name": "requerimientopescaxplanta",
+    "version": "0.0.1",
+    "private": true,
+    "description": "App de Requerimiento Pesca x Planta",
+    "keywords": [
+        "ui5",
+        "openui5",
+        "sapui5"
+    ],
+    "main": "webapp/index.html",
+    "dependencies": {},
+    "devDependencies": {
+        "@ui5/cli": "^2.14.1",
+        "@sap/ux-ui5-tooling": "1",
+        "eslint": "7.32.0",
+        "eslint-plugin-fiori-custom": "2.2.1",
+        "@babel/eslint-parser": "7.14.7",
+        "@sap/ui5-builder-webide-extension": "1.0.x",
+        "ui5-task-zipper": "^0.3.1",
+        "mbt": "^1.0.15"
+    },
+    "scripts": {
+        "start": "fiori run --open 'index.html",
+        "start-local": "fiori run --config ./ui5-local.yaml --open 'test/flpSandbox.html#comtasarequerimientopescaxplanta-display'",
+        "build": "ui5 build --config=ui5.yaml --clean-dest --dest dist",
+        "lint": "eslint ./ --rulesdir ./node_modules/eslint-plugin-fiori-custom/lib/rules/",
+        "deploy": "fiori verify",
+        "deploy-config": "fiori add deploy-config",
+        "start-noflp": "fiori run --open 'index.html'",
+        "start-variants-management": "fiori run --open \"preview.html?fiori-tools-rta-mode=true&sap-ui-rta-skip-flex-validation=true#preview-app\"",
+        "unit-tests": "fiori run --open test/unit/unitTests.qunit.html",
+        "int-tests": "fiori run --open test/integration/opaTests.qunit.html",
+        "build:cf": "ui5 build preload --clean-dest --config ui5-deploy.yaml --include-task=generateManifestBundle generateCachebusterInfo"
+    },
+    "ui5": {
+        "dependencies": [
+            "@sap/ux-ui5-tooling",
+            "@sap/ui5-builder-webide-extension",
+            "ui5-task-zipper",
+            "mbt"
+        ]
+    },
+    "sapuxLayer": "CUSTOMER_BASE"
+}

@@ -1,0 +1,183 @@
+<mvc:View
+    controllerName="com.tasa.requerimientopescaxplanta.controller.Main" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:f="sap.f"
+	xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout"
+	xmlns:t="sap.ui.table" xmlns:dnd="sap.ui.core.dnd" height="100%" xmlns:form="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:filterbar="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:variants="sap.ui.comp.variants">
+    		<f:DynamicPage id="dynamicPageId" headerExpanded="{/headerExpanded}" toggleHeaderOnTitleClick="{/titleClickable}">
+			<!-- DynamicPage Title -->
+			<f:title>
+				<f:DynamicPageTitle>
+				</f:DynamicPageTitle>
+			</f:title>
+			<!-- DynamicPage Header -->
+			<f:header>
+				<f:DynamicPageHeader pinnable="true">
+                <form:Form width="100%" editable="true" visible="true">
+                    <form:title>
+                        <core:Title text="Selección de Datos" level="Auto"/>
+                    </form:title>
+                    <form:formContainers>
+                        <form:FormContainer visible="true">
+                            <form:formElements>
+                                <form:FormElement visible="true">
+                                    <form:label>
+                                        <Label text="Fecha Inicio" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                    </form:label>
+                                    <form:fields>
+                                        <DatePicker id="idFechaInicio" width="50%" displayFormat="dd/MM/YYYY" value="{modelReqPescaxPlanta>/SearchTemporada/FHITM}" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="yyyyMMdd"/>
+                                    </form:fields>
+                                </form:FormElement>
+                                <form:FormElement visible="true">
+                                    <form:label>
+                                        <Label text="Fecha Fin" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                    </form:label>
+                                    <form:fields>
+                                        <DatePicker id="idFechaFin" width="50%" displayFormat="dd/MM/YYYY" value="{modelReqPescaxPlanta>/SearchTemporada/FHFTM}" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="yyyyMMdd"/>
+                                    </form:fields>
+                                </form:FormElement>
+                                <form:FormElement visible="true">
+                                    <form:label>
+                                        <Label text="Temporada" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                    </form:label>
+                                    <form:fields>
+                                    
+                                        <Input type="Text" showValueHelp="true" value="{modelReqPescaxPlanta>/SearchTemporada/CDPCN}" enabled="true" visible="true" width="50%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogTemporada"/>
+                                        <!--
+                                                <Input
+                                                    id="TemporadaInput"
+                                                    value="{modelReqPesca>/SearchTemporada/CDPCN}"
+                                                    textFormatMode="ValueKey"
+                                                    showSuggestion="true"
+                                                    width="50%"
+                                                    showTableSuggestionValueHelp="false"
+                                                    suggestionRows="{path:'modelReqPescaxPlanta>/ListTemporada', sorter : {path : 'CDPCN', descending : true}, templateShareable:true}"
+                                                    suggestionItemSelected=".onSuggestionTemporadaItemSelected">
+                                                    <suggestionColumns>
+                                                        <Column width="10%" hAlign="Left" vAlign="Top" minScreenWidth="Phone" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+                                                            <header>
+                                                                <Text text="Código" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            </header>
+                                                            <footer/>
+                                                        </Column>
+                                                        <Column width="25%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                                            <header>
+                                                                <Text text="Descripción" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            </header>
+                                                            <footer/>
+                                                        </Column>
+                                                        <Column width="10%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                                            <header>
+                                                                <Text text="Fecha Inicio" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            </header>
+                                                            <footer/>
+                                                        </Column>
+                                                        <Column width="10%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                                            <header>
+                                                                <Text text="Fecha Fin" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            </header>
+                                                            <footer/>
+                                                        </Column>
+                                                        <Column width="10%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                                            <header>
+                                                                <Text text="Cuota" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            </header>
+                                                            <footer/>
+                                                        </Column>
+                                                        <Column width="10%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                                            <header>
+                                                                <Text text="Zona" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            </header>
+                                                            <footer/>
+                                                        </Column>
+                                                    </suggestionColumns>
+
+                                                    <suggestionRows>
+                                                        <ColumnListItem>
+                                                            <Text text="{modelReqPescaxPlanta>CDPCN}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            <Text text="{modelReqPescaxPlanta>DSPCN}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            <Text text="{modelReqPescaxPlanta>FHITM}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            <Text text="{modelReqPescaxPlanta>FHFTM}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            <Text text="{modelReqPescaxPlanta>CTNAC}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            <Text text="{modelReqPescaxPlanta>ZCDZAR}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                        </ColumnListItem>
+                                                    </suggestionRows>
+                                                </Input>
+                                        -->
+                                    </form:fields>
+                                </form:FormElement>
+                                <form:FormElement visible="true">
+                                    <form:label>
+                                        <Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                    </form:label>
+                                    <form:fields>
+                                        <Button text="Buscar" type="Emphasized" icon="sap-icon://search" iconFirst="true" width="50%" enabled="true" visible="true" iconDensityAware="false" press="_onSearchReqButton"/>
+                                    </form:fields>
+                                </form:FormElement>
+                                <form:FormElement visible="true">
+                                    <form:label>
+                                        <Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                    </form:label>
+                                    <form:fields>
+                                        <Button text="Limpiar" type="Emphasized" icon="sap-icon://eraser" iconFirst="true" width="50%" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPressLimpiar"/>
+                                    </form:fields>
+                                </form:FormElement>                                
+                            </form:formElements>
+                            <form:title/>
+                        </form:FormContainer>
+                    </form:formContainers>
+                    <form:layout>
+                        <form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
+                    </form:layout>
+                </form:Form>
+				</f:DynamicPageHeader>
+			</f:header>
+			<f:content>
+
+                <t:Table id="tbl_reqpescaxplanta" rows="{ path:'modelReqPescaxPlanta>/ListReqPlanta', templateShareable:true}" width="45%" selectionMode="MultiToggle" class="sapUiResponsiveMargin" visibleRowCount="{modelReqPescaxPlanta>/RowListReqPlanta}">
+                    <t:extension>
+                        <OverflowToolbar style="Clear">
+                            <Title text="Lista de Registro" titleStyle="Auto" width="auto" textAlign="Begin" visible="true" wrapping="false"/>
+                            <ToolbarSpacer/>
+                            <ToggleButton text="Cargar Req" type="Emphasized" icon="sap-icon://save" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_onCargaReqButton"/>
+                            <ToggleButton press="onExportar" visible="false" icon="sap-icon://excel-attachment" type="Emphasized"/>
+                            <SearchField placeholder="Busqueda rápida" showSearchButton="true" visible="false" width="auto" search="handleLiveChange"/>
+                            <OverflowToolbarButton text="Settings" type="Transparent" icon="sap-icon://sort" iconFirst="true" width="auto" enabled="true" visible="false" iconDensityAware="false" press="_onOverflowToolbarButtonPress"/>
+                            <OverflowToolbarButton text="Group" type="Transparent" icon="sap-icon://group-2" iconFirst="true" width="auto" enabled="true" visible="false" iconDensityAware="false"/>
+                        </OverflowToolbar>
+                    </t:extension>
+					<t:columns>
+						<t:Column width="16%"
+                            sortProperty="zdszar"
+                            filterProperty="zdszar"
+                            showFilterMenuEntry="true"
+                            showSortMenuEntry="true">
+							<Label text="Planta"/>
+							<t:template>
+								<Text text="{modelReqPescaxPlanta>zdszar}" width="auto" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							</t:template>
+						</t:Column>
+						<t:Column width="16%"
+                            sortProperty="cnprq"
+                            filterProperty="cnprq"
+                            showFilterMenuEntry="true"
+                            showSortMenuEntry="true">
+							<Label text="Requerimiento"/>
+							<t:template>
+								<Input type="Text" textAlign="End" showValueHelp="false" value="{modelReqPescaxPlanta>cnprq}" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+							</t:template>
+						</t:Column>
+					</t:columns>
+				</t:Table>
+			</f:content>
+			<!-- DynamicPage Footer -->
+			<f:footer>
+                <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
+                    <content>
+                        <ToolbarSpacer width=""/>
+                        <Button text="Save" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onPressSave" />
+                        <Button text="Cancel" type="Reject" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                    </content>
+                </OverflowToolbar>
+			</f:footer>
+		</f:DynamicPage>
+</mvc:View>
