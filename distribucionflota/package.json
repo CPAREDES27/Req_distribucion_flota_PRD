@@ -21,7 +21,7 @@
         "mbt": "^1.0.15"
     },
     "scripts": {
-        "start": "fiori run --open 'index.html",
+        "start": "fiori run --open 'index.html'",
         "start-local": "fiori run --config ./ui5-local.yaml --open 'test/flpSandbox.html#comtasadistribucionflota-display'",
         "build": "ui5 build --config=ui5.yaml --clean-dest --dest dist",
         "lint": "eslint ./ --rulesdir ./node_modules/eslint-plugin-fiori-custom/lib/rules/",

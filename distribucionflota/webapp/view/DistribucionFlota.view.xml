@@ -75,12 +75,12 @@
                                 <form:fields>
                                     <HBox >
 										<ComboBox selectedKey="{modelDistFlota>/Search/cdplta}" id="cbo_filter_codPlanta"  editable="true" enabled="true" visible="true" width="auto"
-											valueState="None" maxWidth="100%" items="{ path : 'modelDistFlota>/ListPlantaCbo' }">
+											valueState="None" maxWidth="80%" items="{ path : 'modelDistFlota>/ListPlantaCbo' }">
 											<items>
 												<core:Item text="{modelDistFlota>descPlanta}" enabled="true" key="{modelDistFlota>codPlanta}" />
 											</items>
 										</ComboBox>
-                                        <Input  id="txt_RowCount" value="{modelDistFlota>/Search/numfilas}" type="Text" placeholder="" maxLength="0"/>
+                                       <!-- <Input  id="txt_RowCount" value="{modelDistFlota>/Search/numfilas}" type="Text" placeholder="" maxLength="0"/>-->
                                     </HBox>
                                 </form:fields>
                             </form:FormElement>                       
