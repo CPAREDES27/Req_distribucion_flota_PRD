@@ -693,6 +693,7 @@ sap.ui.define([
                 sap.ui.getCore().byId("__bar1").destroyContent();
                 var now = this.formatDate(new Date());
                 now = now.substring(0, 16);
+                var me = this;
 
                 this.getView().getModel("modelDistFlota").setProperty("/Now", now);
                 this.getView().getModel("modelDistFlota").setProperty("/ShowTdc", false);
@@ -902,8 +903,13 @@ sap.ui.define([
                                 cells: [new sap.m.Text({
                                     text: "{modelDistFlota>FlagEmba}",
                                     class: ".sapMTextEMB"
-                                }), new sap.m.Text({
-                                    text: "{modelDistFlota>descEmba}"
+                                }), new sap.m.Link({
+                                    text: "{modelDistFlota>descEmba}",
+                                    press: async function(evt){
+                                        //console.log(evt.getSource().getParent().getBindingContext("modelDistFlota").getObject());
+                                        var object = evt.getSource().getParent().getBindingContext("modelDistFlota").getObject();
+                                        await me._onNavDetalleMarea(object);
+                                    }
                                 }), new sap.m.Text({
                                     text: "{ parts: [ {path: 'modelDistFlota>cbodEmba'}], formatter : '.formatter.formatoEnteros'}"
                                 }), new sap.m.Text({
@@ -976,8 +982,38 @@ sap.ui.define([
                 if (!this._oDialogMoverEmbarcacion) {
                     this._oDialogMoverEmbarcacion = sap.ui.xmlfragment("com.tasa.distribucionflota.view.DlgMoverEmbarcacion", this.getView().getController());
                     this.getView().addDependent(this._oDialogMoverEmbarcacion);
-                }
+                }   
                 return this._oDialogMoverEmbarcacion;
+            },
+
+            _onNavDetalleMarea: async function(objeto){
+                BusyIndicator.show(0);
+                var nrmar = !isNaN(objeto.numMarea) ? parseInt(objeto.numMarea) : 0;
+                if(nrmar > 0){
+                    var cargarMarea = await this.cargarDatosMarea(nrmar);
+                    if(cargarMarea){
+                        var modelo = this.getOwnerComponent().getModel("DetalleMarea");
+						var modeloDistrFlota = this.getModel("modelDistFlota");
+						var dataModelo = modelo.getData();
+						var dataDistrFlota = modeloDistrFlota.getData(); 
+						var oStore = jQuery.sap.storage(jQuery.sap.storage.Type.Session);
+						oStore.put("DataModelo", dataModelo);
+						oStore.put("DistrFlota", dataDistrFlota);
+						oStore.put("AppOrigin", "DistribucionFlota");
+						BusyIndicator.hide();
+						var oCrossAppNav = sap.ushell.Container.getService("CrossApplicationNavigation");
+						oCrossAppNav.toExternal({
+							target: {
+								semanticObject: "mareaevento",
+								action: "display"
+							}
+						});
+                    }else{
+                        BusyIndicator.hide();
+                    }
+                }else{
+                    BusyIndicator.hide();
+                }
             }
 
         });
