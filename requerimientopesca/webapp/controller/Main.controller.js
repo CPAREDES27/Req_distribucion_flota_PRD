@@ -284,6 +284,12 @@ sap.ui.define([
                             self.getView().getModel(model).setProperty(property, data.data);
                         }
                         console.log(data);
+
+                        if(table==="ZV_FLRP"){
+                            var cantidadRegistros="Lista de registros ("+data.data.length+")";
+                            self.byId("idListaReg").setText(cantidadRegistros);
+                        }
+
                     },
                     error: function (xhr, readyState) {
                         console.log(xhr);

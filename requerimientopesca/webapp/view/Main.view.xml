@@ -144,7 +144,7 @@
                                         <Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                     </form:label>
                                     <form:fields>
-                                        <Button text="Limpiar" type="Emphasized" icon="sap-icon://clear-filter" iconFirst="true" width="50%" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPressLimpiar"/>
+                                        <Button text="Limpiar"  icon="sap-icon://clear-filter" iconFirst="true" width="50%" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPressLimpiar"/>
                                     </form:fields>
                                 </form:FormElement>
                             </form:formElements>
@@ -162,7 +162,7 @@
                 <t:Table id="tbl_reqpesca" rows="{ path:'modelReqPesca>/ListReqPesca', sorter : [{path: 'NRREQ', descending: true}, {path: 'FHCRN', descending: true}], templateShareable:true}" width="auto" selectionMode="None"  class="bigLabel">
                     <t:extension>
                         <OverflowToolbar style="Clear">
-                            <Title text="Lista de Registro" titleStyle="Auto" width="auto" textAlign="Begin" visible="true" wrapping="false"/>
+                            <Title text="Lista de Registro" id="idListaReg" titleStyle="Auto" width="auto" textAlign="Begin" visible="true" wrapping="false"/>
                             <ToolbarSpacer/>
                             <ToggleButton text="Nuevo" type="Default" icon="sap-icon://add" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_OpenNewReg"/>
                             <ToggleButton press="onExportar" icon="sap-icon://excel-attachment" tooltip="Exportar excel" type="Emphasized"/>
