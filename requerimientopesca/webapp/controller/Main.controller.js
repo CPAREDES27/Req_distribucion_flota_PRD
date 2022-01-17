@@ -20,6 +20,8 @@ sap.ui.define([
     function (BaseController, MessageBox, MessageToast, Filter, FilterOperator,
         JSONModel, exportLibrary, Spreadsheet, CoreLibrary, Token, formatter, Item, BusyIndicator, sessionService) {
         "use strict";
+        var oGlobalBusyDialog = new sap.m.BusyDialog();
+
         const HOST = sessionService.getHostService(); //"https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com";
         var EdmType = exportLibrary.EdmType;
         var ValueState = CoreLibrary.ValueState;
@@ -246,10 +248,13 @@ sap.ui.define([
             },
 
             _onButtonPress: function () {
+                oGlobalBusyDialog.open();
+
                 this.searchReqPesca();
             },
 
             ejecutarReadTable: function (table, options, user, numfilas, model, property, callBack) {
+
 
                 var self = this;
                 //var urlNodeJS = sessionService.getHostService(); //"https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com";
@@ -289,6 +294,7 @@ sap.ui.define([
                             var cantidadRegistros="Lista de registros ("+data.data.length+")";
                             self.byId("idListaReg").setText(cantidadRegistros);
                         }
+                        oGlobalBusyDialog.close();
 
                     },
                     error: function (xhr, readyState) {
@@ -317,6 +323,8 @@ sap.ui.define([
 
             searchReqPesca: function () {
                 BusyIndicator.show(0);
+                oGlobalBusyDialog.open();
+
                 var self = this;
                 var oView = this.getView();
                 var dayIni;

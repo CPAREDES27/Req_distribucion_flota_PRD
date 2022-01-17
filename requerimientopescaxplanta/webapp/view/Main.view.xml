@@ -37,7 +37,7 @@
                                 </form:FormElement>
                                 <form:FormElement visible="true">
                                     <form:label>
-                                        <Label text="Temporada" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        <Label text="Temporada" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true" valueHelpOnly="true"/>
                                     </form:label>
                                     <form:fields>
                                     
