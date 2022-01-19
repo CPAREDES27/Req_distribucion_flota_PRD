@@ -7,12 +7,13 @@
 			<!-- DynamicPage Title -->
 			<f:title>
 				<f:DynamicPageTitle>
+                
 				</f:DynamicPageTitle>
 			</f:title>
 			<!-- DynamicPage Header -->
 			<f:header>
-				<f:DynamicPageHeader pinnable="true">
-                <form:Form width="100%" editable="true" visible="true">
+				<f:DynamicPageHeader pinnable="true" hAlign="End">
+                <form:Form width="100%" editable="true" visible="true" hAlign="End">
                     <form:title>
                         <core:Title text="Selección de Datos" level="Auto"/>
                     </form:title>
@@ -25,9 +26,9 @@
                                     </form:label>
                                     <form:fields>
                                         <HBox>
-                                            <Input type="Text" showValueHelp="false" value="{modelReqPesca>/Search/NRREQ1}" enabled="true" visible="true" width="254px" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="10"/>
+                                            <Input type="Text" id="idNumReq1" showValueHelp="false" value="{modelReqPesca>/Search/NRREQ1}" enabled="true" visible="true" width="520px" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="10"/>
                                             <Text text="a" width="20px" textAlign="Center" />
-                                            <Input type="Text" showValueHelp="false" value="{modelReqPesca>/Search/NRREQ2}" enabled="true" visible="true" width="254px" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="10"/>
+                                            <Input type="Text" id="idNumReq2" showValueHelp="false" value="{modelReqPesca>/Search/NRREQ2}" enabled="true" visible="true" width="400px" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="10"/>
                                         </HBox>
                                     </form:fields>
                                 </form:FormElement>
@@ -36,12 +37,14 @@
                                         <Label text="Fecha" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                     </form:label>
                                     <form:fields>
-                                        <DateRangeSelection width="50%" id="DRS1" delimiter="{path:'/delimiterDRS1'}" dateValue="{path:'/dateValueDRS1'}" secondDateValue="{path:'/secondDateValueDRS1'}" displayFormat="dd/MM/yyyy" change="handleChange"/>    
+                                        <!--<DateRangeSelection width="50%" id="DRS1" delimiter="{path:'/delimiterDRS1'}" dateValue="{path:'/dateValueDRS1'}" secondDateValue="{path:'/secondDateValueDRS1'}" displayFormat="dd/MM/yyyy" change="handleChange"/>-->    
+                                        <DatePicker id="fechaInicio"  displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
+                                        <DatePicker id="fechaFin"  displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy" />
                                     </form:fields>
                                 </form:FormElement>
                                 <form:FormElement visible="true">
                                     <form:label>
-                                        <Label text="Centro" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        <Label text="Centro"  design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                     </form:label>
                                     <form:fields>
                                     <!--
@@ -52,7 +55,7 @@
                                                 value="{modelReqPesca>/Search/WERKS}"
                                                 textFormatMode="ValueKey"
                                                 showSuggestion="true"
-                                                width="50%"
+                                                width="auto"
                                                 showTableSuggestionValueHelp="false"
                                                 suggestionRows="{path:'modelReqPesca>/ListCentroReqPesca', sorter : {path : 'DESCR', descending : false}, templateShareable:true}"
                                                 suggestionItemSelected=".onSuggestionCentroItemSelected">
@@ -128,7 +131,7 @@
                                         <Label text="Número de Filas" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                     </form:label>
                                     <form:fields>
-                                        <Input type="Number" name="codigo" id="idcodigo" showValueHelp="false" value="{modelReqPesca>/Search/Numfilas}" enabled="true" visible="true" width="50%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="5" />
+                                        <Input type="Number" name="codigo" id="idcodigo" showValueHelp="false" value="{modelReqPesca>/Search/Numfilas}" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="5" />
                                     </form:fields>
                                 </form:FormElement>
                                 <form:FormElement visible="true">
@@ -136,17 +139,19 @@
                                         <Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                     </form:label>
                                     <form:fields>
-                                        <Button text="Buscar" type="Emphasized" icon="sap-icon://search" iconFirst="true" width="50%" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPress"/>
+                                        <Button text="Buscar" type="Emphasized" icon="sap-icon://search" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPress"/>
+                                         <Button text="Limpiar"  icon="sap-icon://clear-filter" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPressLimpiar"/>
+
                                     </form:fields>
                                 </form:FormElement>
-                                <form:FormElement visible="true">
+                               <!-- <form:FormElement visible="true">
                                     <form:label>
                                         <Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                     </form:label>
                                     <form:fields>
                                         <Button text="Limpiar"  icon="sap-icon://clear-filter" iconFirst="true" width="50%" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPressLimpiar"/>
                                     </form:fields>
-                                </form:FormElement>
+                                </form:FormElement>-->
                             </form:formElements>
                             <form:title/>
                         </form:FormContainer>
@@ -162,7 +167,7 @@
                 <t:Table id="tbl_reqpesca" rows="{ path:'modelReqPesca>/ListReqPesca', sorter : [{path: 'NRREQ', descending: true}, {path: 'FHCRN', descending: true}], templateShareable:true}" width="auto" selectionMode="None"  class="bigLabel">
                     <t:extension>
                         <OverflowToolbar style="Clear">
-                            <Title text="Lista de Registro" id="idListaReg" titleStyle="Auto" width="auto" textAlign="Begin" visible="true" wrapping="false"/>
+                            <Title text="Lista de Registro: 0" id="idListaReg" titleStyle="Auto" width="auto" textAlign="Begin" visible="true" wrapping="false"/>
                             <ToolbarSpacer/>
                             <ToggleButton text="Nuevo" type="Default" icon="sap-icon://add" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_OpenNewReg"/>
                             <ToggleButton press="onExportar" icon="sap-icon://excel-attachment" tooltip="Exportar excel" type="Emphasized"/>

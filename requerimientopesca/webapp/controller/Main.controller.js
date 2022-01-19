@@ -248,7 +248,6 @@ sap.ui.define([
             },
 
             _onButtonPress: function () {
-                oGlobalBusyDialog.open();
 
                 this.searchReqPesca();
             },
@@ -273,7 +272,8 @@ sap.ui.define([
                     "tabla": table
                 };
 
-                var urlPost = this.onLocation() + "General/Read_Table/";
+                console.log(objectRT);
+                var urlPost = this.onLocation() + "General/Maestro_ObtenerRegistros/";
 
                 $.ajax({
                     url: urlPost,
@@ -291,7 +291,7 @@ sap.ui.define([
                         console.log(data);
 
                         if(table==="ZV_FLRP"){
-                            var cantidadRegistros="Lista de registros ("+data.data.length+")";
+                            var cantidadRegistros="Lista de registros: "+data.data.length;
                             self.byId("idListaReg").setText(cantidadRegistros);
                         }
                         oGlobalBusyDialog.close();
@@ -323,12 +323,42 @@ sap.ui.define([
 
             searchReqPesca: function () {
                 BusyIndicator.show(0);
-                oGlobalBusyDialog.open();
 
                 var self = this;
                 var oView = this.getView();
                 var dayIni;
                 var dayFin;
+
+                var numRequerimiento1=this.byId("idNumReq1").getValue();
+                var numRequerimiento2=this.byId("idNumReq2").getValue();
+                var fechaInicio=this.byId("fechaInicio").getValue();
+				var fechaFin=this.byId("fechaFin").getValue();
+                var centro=this.byId("centroInput").getValue();
+                
+                if(!numRequerimiento1 && !numRequerimiento2 && !fechaInicio && !fechaFin && !centro ){
+						var msj="Por favor ingrese un dato de selección";
+				
+						MessageBox.error(msj);
+                        BusyIndicator.hide();
+						return false;
+                }
+
+                if(fechaInicio){
+					fechaInicio = fechaInicio.split("/")[2].concat(fechaInicio.split("/")[1], fechaInicio.split("/")[0]);
+
+				}
+
+				if(fechaFin){
+					fechaFin = fechaFin.split("/")[2].concat(fechaFin.split("/")[1], fechaFin.split("/")[0]);
+
+				}
+                if(fechaInicio && !fechaFin){
+					fechaFin= fechaInicio;
+				}
+				if(fechaFin && !fechaInicio){
+					fechaInicio= fechaFin;
+				}
+
                 var nrreq = self.getView().getModel("modelReqPesca").getProperty("/Search").NRREQ;
                 var fhreq1 = self.getView().getModel("modelReqPesca").getProperty("/Search").FHREQ1;
                 if (fhreq1) {
@@ -361,7 +391,7 @@ sap.ui.define([
                 var options = [];
                 if (nrreq1 || nrreq2) options.push({ cantidad: "40", control: "MULTIINPUT", "key": "NRREQ", valueHigh: nrreq2 ? nrreq2 : "", valueLow: nrreq1 });
                 if (werks) options.push({ cantidad: "40", control: "INPUT", "key": "WERKS", valueHigh: "", valueLow: werks.toUpperCase() });
-                if (fhreq2 && fhreq1) options.push({ cantidad: "40", control: "MULTIINPUT", "key": "FHREQ", valueHigh: fhreq2, valueLow: fhreq1 });
+                if (fechaInicio && fechaFin) options.push({ cantidad: "40", control: "MULTIINPUT", "key": "FHREQ", valueHigh: fechaFin, valueLow: fechaInicio });
 
                 self.ejecutarReadTable(table, options, user, numfilas, model, property, function (callBack) {
                     callBack.forEach(function (item) {
@@ -987,7 +1017,7 @@ sap.ui.define([
 
             _onButtonLimpiar: function () {
                 var self = this;
-                this.getView().byId("DRS1").setValue("");
+                //this.getView().byId("DRS1").setValue("");
                 self.getView().getModel("modelReqPesca").setProperty("/Search/NRREQ1", "");
                 self.getView().getModel("modelReqPesca").setProperty("/Search/NRREQ2", "");
                 self.getView().getModel("modelReqPesca").setProperty("/Search/FHREQ", "");
@@ -996,6 +1026,12 @@ sap.ui.define([
                 self.getView().getModel("modelReqPesca").setProperty("/Search/Numfilas", "200");
                 self.getView().getModel("modelReqPesca").setProperty("/ListReqPesca", {});
                 self.getView().getModel("modelReqPesca").setProperty("/Search/searchField", "");
+                self.getView().getModel("modelReqPesca").setProperty("/Search/searchField", "");
+
+                this.byId("idListaReg").setText("Lista de registros: 0");
+
+                this.byId("fechaInicio").setValue("");
+				this.byId("fechaFin").setValue("");
             },
 
             _onLimpiarCentro: function () {
