@@ -8,11 +8,17 @@ sap.ui.define([
     "com/tasa/distribucionflota/util/formatter",
     "sap/ui/core/BusyIndicator",
     "com/tasa/distribucionflota/util/sessionService",
+    "sap/ui/core/Fragment",
+    'sap/ui/Device',
+    "sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+    'sap/ui/model/Sorter',
+    "./Utils"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, RowSettings, MessageBox, MessageToast, JSONModel, CustomData, formatter, BusyIndicator, sessionService) {
+    function (BaseController, RowSettings, MessageBox, MessageToast, JSONModel, CustomData, formatter, BusyIndicator, sessionService, Fragment, Device, Filter, FilterOperator, Sorter, Utils) {
         "use strict";
         var oGlobalBusyDialog = new sap.m.BusyDialog();
 
@@ -21,6 +27,8 @@ sap.ui.define([
 
             formatter: formatter,
             onInit: function () {
+                var self = this;
+                self._mViewSettingsDialogs = [];
                 this.getView().getModel("modelDistFlota").setProperty("/ListDistFlota", {});
                 this.getView().getModel("modelDistFlota").setProperty("/MoverEmbarcacion", {});
                 this.getView().getModel("modelDistFlota").setProperty("/EmbarcacionesSelectas", {});
@@ -48,7 +56,27 @@ sap.ui.define([
                 this.CargarIndPropiedad();
                 this.CargaTipoMarea();
             },
-
+            
+            getViewSettingsDialog: function (sDialogFragmentName) {
+                var self = this;
+                var pDialog = self._mViewSettingsDialogs[sDialogFragmentName];
+    
+                if (!pDialog) {
+                    pDialog = Fragment.load({
+                        id: self.getView().getId(),
+                        name: sDialogFragmentName,
+                        controller: self
+                    }).then(function (oDialog) {
+                        if (Device.system.desktop) {
+                            oDialog.addStyleClass("sapUiSizeCompact");
+                        }
+                        return oDialog;
+                    });
+                    self._mViewSettingsDialogs[sDialogFragmentName] = pDialog;
+                }
+                return pDialog;
+            },
+            
             onAfterRendering: function () {
 
                 for (var i = 0; i < this.objMTable.length; i++) {
@@ -685,7 +713,8 @@ sap.ui.define([
             },
 
             generarPlantasDinamicas: function (self, numfilas, codPlanta) {
-
+                var self =  this;
+                var oView = self.getView();
                 var NumZonasDistribucion = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota").length;
                 var zonaIndex = 0;
                 var plantaIndex = 0;
@@ -720,6 +749,20 @@ sap.ui.define([
                         expanded: true
                     });
 
+                    var oHBoxDistribucionPlanta = new sap.m.HBox({
+                        renderType: "Bare",
+                        class: "sapUiNoMargin",
+                        width: "58%"
+                    });
+
+                    var oPanelDistribucionPlanta = new sap.m.Panel({
+                        expandable: true,
+                        headerText: ZonaDistribucion,
+                        width: "auto",
+                        class: "sapUiNoMargin",
+                        expanded: true
+                    });
+
                     for (var j = 2; j < NumPlantasDistribucion + 2; j++) {
 
                         plantaIndex = j - 2;
@@ -746,20 +789,7 @@ sap.ui.define([
                             var IdTable = "Tbl" + PlantaDistribucion + zonaIndex + plantaIndex;
                             var Row = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/listaEmbarcaciones/0/cbodEmba");
 
-                            var oHBoxDistribucionPlanta = new sap.m.HBox({
-                                renderType: "Bare",
-                                class: "sapUiNoMargin",
-                                width: "58%"
-                            });
-
-                            var oPanelDistribucionPlanta = new sap.m.Panel({
-                                expandable: true,
-                                headerText: ZonaDistribucion,
-                                width: "auto",
-                                class: "sapUiNoMargin",
-                                expanded: true
-                            });
-
+                            
                             var oHBoxPlantaBase = new sap.m.HBox({
                                 width: "100%",
                                 class: "sapUiNoMargin"
@@ -788,7 +818,7 @@ sap.ui.define([
                             var oTable = new sap.m.Table("idRandomDataTable" + IdTable, {
                                 width: "auto",
                                 class: "sapUiNoMargin",
-                                mode: sap.m.ListMode.MultiSelect,
+                                mode: "MultiSelect",
                                 selectionChange: function (oEvent) {
                                     var sPath = oEvent.getParameters().listItem.oBindingContexts.modelDistFlota.sPath;
                                     var rowSelected = this.getView().getModel('modelDistFlota').getProperty(sPath);
@@ -806,10 +836,199 @@ sap.ui.define([
                                         }
                                     }
                                 }.bind(this),
+                                headerToolbar: new sap.m.Toolbar({
+                                    content: [                                    
+                                    new sap.m.ToolbarSpacer({}),
+                                    new sap.m.Button("idGroupButton" + IdTable, {
+                                        icon: "sap-icon://sort",
+                                        tooltip: "Sort",
+                                        type: "Emphasized",
+                                        press: function (oEvent) {
+                                            var table = oEvent.getSource().getParent().getParent();
+
+                                            var columns = oEvent.getSource().getParent().getParent().getColumns();
+                                            var list = [];
+                                            for (let index = 0; index < columns.length; index++) {
+                                                const element = columns[index];
+                                                var obj = {};
+                                                var cabecera = element.getAggregation("header").getProperty("text");
+                                                var flag = false;
+                                                if(index === 1){
+                                                    obj.flag = true;
+                                                    obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].descEmba;
+                                                    obj.fieldName = cabecera;   
+                                                    list.push(obj);                                                      
+                                                } else if(index === 2){
+                                                    obj.flag = false;
+                                                    obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].cbodEmba;
+                                                    obj.fieldName = cabecera;
+                                                    list.push(obj);     
+                                                } else if(index === 3){
+                                                    obj.flag = false;
+                                                    obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].pescDecl;
+                                                    obj.fieldName = cabecera;    
+                                                    list.push(obj);                                                     
+                                                } else if(index === 4){
+                                                    obj.flag = false;
+                                                    obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].estado;
+                                                    obj.fieldName = cabecera;    
+                                                    list.push(obj);                                                     
+                                                } else if(index === 5){
+                                                    obj.flag = false;
+                                                    obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].horaArribo;
+                                                    obj.fieldName = cabecera;      
+                                                    list.push(obj);                                                   
+                                                } 
+                                                // else if(index === 6){
+                                                //     flag = this.getView().getModel("modelDistFlota").getProperty("/ShowTdc");
+                                                //     obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].tdc;
+                                                //     obj.fieldName = cabecera;     
+                                                //     if(flag){
+                                                //         list.push(obj);  
+                                                //     }                                                    
+                                                // } 
+                                                else if(index === 7){
+                                                    obj.flag = false;
+                                                    flag = this.getView().getModel("modelDistFlota").getProperty("/ShowZonP");
+                                                    obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].tdc;
+                                                    obj.fieldName = cabecera;   
+                                                    if(flag){
+                                                        list.push(obj);  
+                                                    }                                               
+                                                } else if(index === 8){
+                                                    obj.flag = false;
+                                                    flag = this.getView().getModel("modelDistFlota").getProperty("/ShowEstSisFrio");
+                                                    obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].descZonaCala;
+                                                    obj.fieldName = cabecera;
+                                                    if(flag){
+                                                        list.push(obj);  
+                                                    }                                                          
+                                                }                                              
+                                                
+                                                
+                                            }
+                                            var model = this.getOwnerComponent().getModel("modelDistFlota");
+                                            model.setProperty("/listField", list);         
+                                            model.setProperty("/currentTable", table);
+                                            //open dialog
+                                            var oDialog = self.byId("DialogSort");
+                                            if (!oDialog) {
+                                                // load asynchronous XML fragment
+                                                oDialog = sap.ui.xmlfragment(oView.getId(), "com.tasa.distribucionflota.fragment.SortDialog", self);
+                                                oView.addDependent(oDialog);
+                                                
+                                                oDialog.open();
+                                            } else {     
+                                                                               
+                                                oDialog.open();
+                                            }
+
+                                            // this.getViewSettingsDialog("com.tasa.distribucionflota.fragment.SortDialog")
+                                            // .then(function (oViewSettingsDialog) {
+                                            //     oViewSettingsDialog.open();
+                                            // });
+                                        }.bind(this)
+                                    }),
+                                    new sap.m.Button("idFilterButton" + IdTable, {
+                                        icon: "sap-icon://filter",
+                                        tooltip: "Filter",
+                                        type: "Emphasized",
+                                        press: function (oEvent) {
+                                            
+                                            var table = oEvent.getSource().getParent().getParent();
+
+                                            var columns = oEvent.getSource().getParent().getParent().getColumns();
+                                            var list = [];
+                                            for (let index = 0; index < columns.length; index++) {
+                                                const element = columns[index];
+                                                var obj = {};
+                                                var cabecera = element.getAggregation("header").getProperty("text");
+                                                var flag = false;
+                                                if(index === 1){
+                                                    obj.flag = true;
+                                                    obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].descEmba;
+                                                    obj.fieldName = cabecera;   
+                                                    list.push(obj);                                                      
+                                                } else if(index === 2){
+                                                    obj.flag = false;
+                                                    obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].cbodEmba;
+                                                    obj.fieldName = cabecera;
+                                                    list.push(obj);     
+                                                } else if(index === 3){
+                                                    obj.flag = false;
+                                                    obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].pescDecl;
+                                                    obj.fieldName = cabecera;    
+                                                    list.push(obj);                                                     
+                                                } else if(index === 4){
+                                                    obj.flag = false;
+                                                    obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].estado;
+                                                    obj.fieldName = cabecera;    
+                                                    list.push(obj);                                                     
+                                                } else if(index === 5){
+                                                    obj.flag = false;
+                                                    obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].horaArribo;
+                                                    obj.fieldName = cabecera;      
+                                                    list.push(obj);                                                   
+                                                } 
+                                                // else if(index === 6){
+                                                //     flag = this.getView().getModel("modelDistFlota").getProperty("/ShowTdc");
+                                                //     obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].tdc;
+                                                //     obj.fieldName = cabecera;     
+                                                //     if(flag){
+                                                //         list.push(obj);  
+                                                //     }                                                    
+                                                // } 
+                                                else if(index === 7){
+                                                    obj.flag = false;
+                                                    flag = this.getView().getModel("modelDistFlota").getProperty("/ShowZonP");
+                                                    obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].tdc;
+                                                    obj.fieldName = cabecera;   
+                                                    if(flag){
+                                                        list.push(obj);  
+                                                    }                                               
+                                                } else if(index === 8){
+                                                    obj.flag = false;
+                                                    flag = this.getView().getModel("modelDistFlota").getProperty("/ShowEstSisFrio");
+                                                    obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].descZonaCala;
+                                                    obj.fieldName = cabecera;
+                                                    if(flag){
+                                                        list.push(obj);  
+                                                    }                                                          
+                                                }                                              
+                                                
+                                                
+                                            }
+                                            var model = this.getOwnerComponent().getModel("modelDistFlota");
+                                            model.setProperty("/listField", list);         
+                                            model.setProperty("/currentTable", table);
+                                            //open dialog
+                                            var oDialog = self.byId("DialogFilter");
+                                            if (!oDialog) {
+                                                // load asynchronous XML fragment
+                                                oDialog = sap.ui.xmlfragment(oView.getId(), "com.tasa.distribucionflota.fragment.FilterDialog", self);
+                                                oView.addDependent(oDialog);
+                                               
+                                                this.getView().byId("idInputValueFilter").setValue("");
+                                                oDialog.open();
+                                            } else {     
+                                                
+                                                this.getView().byId("idInputValueFilter").setValue("");                                   
+                                                oDialog.open();
+                                            }
+
+                                            // this.getViewSettingsDialog("com.tasa.distribucionflota.fragment.FilterDialog")
+                                            // .then(function (oViewSettingsDialog) {
+                                            //     oViewSettingsDialog.open();
+                                            // });
+                                        }.bind(this)
+                                    })
+                                 
+                                 ]
+                                }),
                                 columns: [
                                     new sap.m.Column({
                                         width: "10%",
-                                        visible: false,
+                                        visible: false,                                        
                                         header: new sap.m.Label({
                                             text: "FlagEmba"
                                         }),
@@ -817,9 +1036,9 @@ sap.ui.define([
                                             text: ""
                                         })
                                     }), new sap.m.Column({
-                                        width: "30%",
+                                        width: "30%",                                        
                                         header: new sap.m.Label({
-                                            text: "Embarcación"
+                                            text: "Embarcación"                                            
                                         }),
                                         footer: new sap.m.Label({ // footer of the second column
                                             text: "EP: " + tot_emb
@@ -905,6 +1124,7 @@ sap.ui.define([
                                     class: ".sapMTextEMB"
                                 }), new sap.m.Link({
                                     text: "{modelDistFlota>descEmba}",
+                                    wrapping: true,
                                     press: async function(evt){
                                         //console.log(evt.getSource().getParent().getBindingContext("modelDistFlota").getObject());
                                         var object = evt.getSource().getParent().getBindingContext("modelDistFlota").getObject();
@@ -1014,6 +1234,123 @@ sap.ui.define([
                 }else{
                     BusyIndicator.hide();
                 }
+            },
+            onActionCloseDialog: function(oEvent, id){
+                // var self = this;
+			    // self.getViewSettingsDialog("com.tasa.distribucionflota.fragment.FilterDialog")
+                //                             .then(function (oViewSettingsDialog) {
+                //                                 oViewSettingsDialog.close();
+                //                             });
+                var self = this;
+                var idPopUp = "";
+                if (oEvent !== null) {
+                    idPopUp = oEvent.getSource().getParent().getId();
+                } else {
+                    idPopUp = id;
+                }
+    
+                var oDialog = self.getView().byId(idPopUp);
+                oDialog.close();                
+            },
+            onActionOkFilter: function(oEvent){
+                var self = this;
+                var oView = self.getView();
+                var model = this.getOwnerComponent().getModel("modelDistFlota");
+                // var sflagSeleted = oView.byId("idListFieldFilter").getSelectedContexts().length;
+                // if(sflagSeleted < 1){
+                //     MessageBox.information("Seleccione un campo de filtrado");
+                //     return;
+                // }
+                var sQuery = oView.byId("idInputValueFilter").getValue();
+                // if(Utils.isEmpty(sQuery)){
+                //     MessageBox.information("Ingrese el valor de filtro");
+                //     return;
+                // }
+
+                var aContexts = oView.byId("idListFieldFilter").getSelectedContexts();
+                var oThisObj = {};
+                for (var i=aContexts.length -1; i>=0; i--) {
+                    oThisObj = aContexts[i].getObject();
+                }
+                var sField = "";
+                if(oThisObj.fieldName === "Embarcación"){                                   
+                    sField = "descEmba";
+                } else if(oThisObj.fieldName === "Cbod"){                                   
+                    sField = "cbodEmba";
+                } else if(oThisObj.fieldName === "Decl"){                                   
+                    sField = "pescDecl";
+                } else if(oThisObj.fieldName === "Est"){                                   
+                    sField = "estado";
+                } else if(oThisObj.fieldName === "Arr"){                                   
+                    sField = "horaArribo";
+                } else if(oThisObj.fieldName === "ZonP"){                                   
+                    sField = "tdc";
+                } else if(oThisObj.fieldName === "SisFrio"){                                   
+                    sField = "descZonaCala";
+                } 
+                // add filter for search
+                var aFilters = [];                
+                
+                if (sQuery && sQuery.length > 0) {
+                    var filter = new Filter(sField, FilterOperator.Contains, sQuery);
+                    aFilters.push(filter);
+                }
+
+                // update list binding
+                var oList =  model.getProperty("/currentTable");
+                var oBinding = oList.getBinding("items");
+                oBinding.filter(aFilters, "Application");
+                var idPopUp = oEvent.getSource().getParent().getId();
+                self.onActionCloseDialog(null, idPopUp);
+                                 
+            },
+            onActionOkSort: function(oEvent){
+                var self = this;
+                var oView = self.getView();
+                var model = this.getOwnerComponent().getModel("modelDistFlota");
+                  
+                var oTable = model.getProperty("/currentTable"),
+				mParams = oEvent.getParameters(),
+				oBinding = oTable.getBinding("items"),
+				sPath,
+				bDescending,
+				aSorters = [];                
+                var aContexts = oView.byId("idListFieldSort").getSelectedContexts();
+                var oThisObj = {};
+                for (var i=aContexts.length -1; i>=0; i--) {
+                    oThisObj = aContexts[i].getObject();
+                }
+                var sField = "";
+                if(oThisObj.fieldName === "Embarcación"){                                   
+                    sField = "descEmba";
+                } else if(oThisObj.fieldName === "Cbod"){                                   
+                    sField = "cbodEmba";
+                } else if(oThisObj.fieldName === "Decl"){                                   
+                    sField = "pescDecl";
+                } else if(oThisObj.fieldName === "Est"){                                   
+                    sField = "estado";
+                } else if(oThisObj.fieldName === "Arr"){                                   
+                    sField = "horaArribo";
+                } else if(oThisObj.fieldName === "ZonP"){                                   
+                    sField = "tdc";
+                } else if(oThisObj.fieldName === "SisFrio"){                                   
+                    sField = "descZonaCala";
+                } 
+                var selected = oView.byId("idRbtnSortOrder").getSelectedIndex();
+                if(selected === 0){
+                    bDescending = false;
+                } else if(selected === 1){
+                    bDescending = true;
+                }
+                   
+                aSorters.push(new Sorter(sField, bDescending));
+
+                // apply the selected sort and group settings
+                oBinding.sort(aSorters);
+
+                var idPopUp = oEvent.getSource().getParent().getId();
+                self.onActionCloseDialog(null, idPopUp);
+                                 
             }
 
         });

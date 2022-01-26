@@ -76,23 +76,20 @@ sap.ui.define([
                 service = 'https://cf-nodejs-cheerful-bat-js.cfapps.us10.hana.ondemand.com/api/'
                 //service='https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
 
-            }
-
-            if (oRouter.indexOf("tasadev") !== -1) {
+            } else if (oRouter.indexOf("tasadev") !== -1) {
 
                 service = 'https://cf-nodejs-cheerful-bat-js.cfapps.us10.hana.ondemand.com/api/'
 
-            }
-
-            if (oRouter.indexOf("tasaprd") !== -1) {
+            } else if (oRouter.indexOf("tasaprd") !== -1) {
 
                 service = 'https://cf-nodejs-prd.cfapps.us10.hana.ondemand.com/api/'
 
-            }
-
-            if (oRouter.indexOf("tasaqas") !== -1) {
+            } else if (oRouter.indexOf("tasaqas") !== -1) {
 
                 service = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
+
+            } else {
+                service = 'https://cf-nodejs-cheerful-bat-js.cfapps.us10.hana.ondemand.com/api/'
 
             }
 

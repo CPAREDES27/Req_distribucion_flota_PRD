@@ -263,7 +263,25 @@ sap.ui.define([
         },
         convKmAMillNaut :function(km){
             return km/1.852;
-        }
+        },
+        isEmpty: function (inputStr) {
+
+			var flag = false;
+			if (inputStr === '') {
+				flag = true;
+			}
+			if (inputStr === null) {
+				flag = true;
+			}
+			if (inputStr === undefined) {
+				flag = true;
+			}
+			if (inputStr == null) {
+				flag = true;
+			}
+
+			return flag;
+		}
 
 
     }

@@ -1,0 +1,50 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" controllerName="com.sap.build.standard.demo.controller.FilterDialog" xmlns="sap.m" xmlns:form="sap.ui.layout.form">
+    <Dialog id="DialogFilter" icon="sap-icon://filter" horizontalScrolling="true" showHeader="true" state="Information" stretch="false" title="Filtro" type="Standard" verticalScrolling="true">
+        <content>
+            <List id="idListFieldFilter" mode="SingleSelectLeft" width="100%" footerText="" backgroundDesign="Solid" 
+                showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" visible="true" 
+                items="{path: 'modelDistFlota>/listField'}">
+                <infoToolbar>
+                    <Toolbar width="100%" height="auto" design="Auto" visible="true" enabled="true">
+                        <content>
+                            <Label text="Filtrar por" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </content>
+                    </Toolbar>
+                </infoToolbar>
+                <headerToolbar/>
+                <items>
+                    <StandardListItem title="{modelDistFlota>fieldName}" selected="{modelDistFlota>flag}" type="Inactive" visible="true"/>                   
+                </items>
+            </List>
+            <form:Form width="100%" editable="true" visible="true">
+                <form:title/>
+                <form:formContainers>
+                    <form:FormContainer visible="true">
+                        <form:formElements>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Valor de Filtro" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <Input id="idInputValueFilter" type="Text" editable="{ModelFilter>/editableValueFilter}" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                        <form:title/>
+                    </form:FormContainer>
+                </form:formContainers>
+                <form:layout>
+                    <form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
+                </form:layout>
+            </form:Form>
+        </content>
+        <beginButton/>
+        <buttons>
+            <Button text="OK" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onActionOkFilter"/>
+            <Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onActionCloseDialog"/>
+        </buttons>
+        <customHeader/>
+        <endButton/>
+        <subHeader/>
+    </Dialog>
+</core:FragmentDefinition>

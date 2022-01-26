@@ -7,10 +7,10 @@
 <App>
     <pages>
         <Page showHeader="true" title="Distribución de Flota" showFooter="false" showNavButton="false">
-            <Label text="{modelDistFlota>/Now}" visible="true" />
+            <Label text="{modelDistFlota>/Now}" visible="true" design="Bold"/>
             <headerContent>
-                <Button tooltip="Emphasized" text="Actualizar" icon="sap-icon://refresh" press="onSelectionFilter"/>
-                <Button tooltip="Emphasized" text="Mover Embarcación" icon="sap-icon://display-more" press="_onOpenDialogMovEmbarcacion"/>
+                <Button type="Emphasized" text="Actualizar" icon="sap-icon://refresh" press="onSelectionFilter"/>
+                <Button type="Emphasized" text="Mover Embarcación" icon="sap-icon://display-more" press="_onOpenDialogMovEmbarcacion"/>
             </headerContent>
             <content>
 			<form:Form editable="true">
@@ -117,7 +117,7 @@
                         selectedKey="Ok">
                         <items>
                             <IconTabFilter text="Resumen" count="" design="Vertical" showAll="false"
-                                textDirection="Inherit" enabled="true" visible="true" iconDensityAware="false">
+                                textDirection="Inherit" enabled="true" visible="true" iconDensityAware="false" icon="sap-icon://bullet-text" iconColor="Default">
                                 <content>
                                     <HBox width="100%">
                                         <HBox id="hBoxContent1" renderType="Bare" width="50%">
@@ -339,7 +339,7 @@
                                 </content>
                             </IconTabFilter>
                             <IconTabFilter text="Distribución" count="" design="Vertical" showAll="false"
-                                textDirection="Inherit" enabled="true" visible="true" iconDensityAware="false">
+                                textDirection="Inherit" enabled="true" visible="true" iconDensityAware="false"  icon="sap-icon://overview-chart" iconColor="Default">
                                 <content>
                                     <HBox width="100%">
                                         <HBox id="hBoxContent2" renderType="Bare" width="100%">
