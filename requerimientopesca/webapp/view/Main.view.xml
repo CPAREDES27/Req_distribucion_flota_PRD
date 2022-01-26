@@ -7,7 +7,9 @@
 			<!-- DynamicPage Title -->
 			<f:title>
 				<f:DynamicPageTitle>
-                
+               	<f:heading>
+						<Title text="Requerimiento de Pesca"/>
+					</f:heading>
 				</f:DynamicPageTitle>
 			</f:title>
 			<!-- DynamicPage Header -->
