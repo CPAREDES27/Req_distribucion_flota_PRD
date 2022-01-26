@@ -297,7 +297,6 @@ sap.ui.define([
                             var cantidadRegistros="Lista de registros: "+data.data.length;
                             self.byId("idListaReg").setText(cantidadRegistros);
                         }
-                        oGlobalBusyDialog.close();
 
                     },
                     error: function (xhr, readyState) {
@@ -886,8 +885,8 @@ sap.ui.define([
             },
 
             registrarReqPesca: function () {
-
-                var date = new Date();
+                BusyIndicator.show(0);
+                var date = new Date;
                 var day;
                 if (date.getDate() < 10) day = "0" + date.getDate().toString();
                 if (date.getDate() >= 10) day = date.getDate().toString();
@@ -901,7 +900,7 @@ sap.ui.define([
                // var urlNodeJS = sessionService.getHostService(); //"https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com";
                 var self = this;
                 var validar = true;
-                var nrreq = self.getView().getModel("modelReqPesca").getProperty("/NewReg").NRREQ;
+                var nrreq = self.getView().getModel("modelReqPesca").getProperty("/NewReg   ").NRREQ;
                 //var cdpta = self.getView().getModel("modelReqPesca").getProperty("/centros").CDPTA;
                 var cdpta = sap.ui.getCore().byId("txtCentroNew").getValue();
                 var fhreq = self.getView().getModel("modelReqPesca").getProperty("/NewReg").FHREQ;
@@ -928,6 +927,8 @@ sap.ui.define([
                         fhcrn = self.getView().getModel("modelReqPesca").getProperty("/NewReg").FHCRN;
                         atcrn = self.getView().getModel("modelReqPesca").getProperty("/NewReg").ATCRN;
                         hrcrn = self.getView().getModel("modelReqPesca").getProperty("/NewReg").HRCRN;
+                        fhcrn = fhcrn.split("/")[2].concat(fhcrn.split("/")[1], fhcrn.split("/")[0]);
+			            hrcrn = hrcrn.split(":")[0].concat(hrcrn.split(":")[1])+"00";
                     } else {
                         fhcrn = today;
                         atcrn = self.getView().getModel("modelReqPesca").getProperty("/NewReg").ATCRN;
@@ -971,6 +972,8 @@ sap.ui.define([
                             
                             self._onCloseDialogNewReg();
                             console.log(data);
+                            BusyIndicator.hide();
+
                         },
                         error: function (xhr, readyState) {
                             console.log(xhr);
