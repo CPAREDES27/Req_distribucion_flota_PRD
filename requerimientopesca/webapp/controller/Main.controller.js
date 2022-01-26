@@ -900,7 +900,7 @@ sap.ui.define([
                // var urlNodeJS = sessionService.getHostService(); //"https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com";
                 var self = this;
                 var validar = true;
-                var nrreq = self.getView().getModel("modelReqPesca").getProperty("/NewReg   ").NRREQ;
+                var nrreq = self.getView().getModel("modelReqPesca").getProperty("/NewReg").NRREQ;
                 //var cdpta = self.getView().getModel("modelReqPesca").getProperty("/centros").CDPTA;
                 var cdpta = sap.ui.getCore().byId("txtCentroNew").getValue();
                 var fhreq = self.getView().getModel("modelReqPesca").getProperty("/NewReg").FHREQ;
