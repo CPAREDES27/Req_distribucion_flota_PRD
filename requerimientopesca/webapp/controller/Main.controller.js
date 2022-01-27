@@ -824,6 +824,37 @@ sap.ui.define([
 
             },
 
+            onhandleLiveChange: function (oEvent) {
+                // add filter for search
+                var aFilters = [];
+                var sQuery = oEvent.getSource().getValue();
+                if (sQuery && sQuery.length > 0) {
+                    var filter = new Filter([
+                        new Filter("PERNR", FilterOperator.Contains, sQuery),  
+                        new Filter("NRREQ", FilterOperator.Contains, sQuery),
+                        new Filter("FHREQ", FilterOperator.Contains, sQuery),
+                        new Filter("WERKS", FilterOperator.Contains, sQuery),
+                        new Filter("DESCR", FilterOperator.Contains, sQuery),
+                        new Filter("MEINS", FilterOperator.Contains, sQuery),
+                        new Filter("CNPRQ", FilterOperator.Contains, sQuery),
+                        new Filter("DESC_ESREG", FilterOperator.Contains, sQuery),
+                        new Filter("FHCRN", FilterOperator.Contains, sQuery),
+                        new Filter("HRCRN", FilterOperator.Contains, sQuery),
+                        new Filter("ATCRN", FilterOperator.Contains, sQuery),
+                        new Filter("HRMOD", FilterOperator.Contains, sQuery),
+                        new Filter("FHMOD", FilterOperator.Contains, sQuery),
+                        new Filter("ATMOD", FilterOperator.Contains, sQuery)
+                    
+                    ]);
+                    aFilters.push(filter);
+                }
+    
+                // update list binding
+                var oList = this.byId("tbl_reqpesca");
+                var oBinding = oList.getBinding("rows");
+                oBinding.filter(aFilters, "Application");
+            },
+
             _onBuscarButtonPress: function () {
                 this.searchCentroReqPesca();
             },
@@ -1124,6 +1155,8 @@ sap.ui.define([
             _OpenNewReg: function () {
                 this._onOpenDialogNewReg();
                 sap.ui.getCore().byId("txtCentroNew").setValue("");
+                sap.ui.getCore().byId("cboEstado").setSelectedKey("S");
+
 
             },
 

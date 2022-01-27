@@ -106,7 +106,7 @@
                                     <Label text="Estado" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <ComboBox editable="true" enabled="true" selectedKey="{modelReqPesca>/NewReg/ESREG}" visible="true" width="50%" valueState="None" maxWidth="100%">
+                                    <ComboBox id="cboEstado" editable="true" enabled="true" selectedKey="{modelReqPesca>/NewReg/ESREG}" visible="true" width="50%" valueState="None" maxWidth="100%">
                                         <items>
                                             <core:Item text="Válido" enabled="true" key="S"/>
                                             <core:Item text="Anulado" enabled="true" key="A"/>
