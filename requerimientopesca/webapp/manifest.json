@@ -22,7 +22,7 @@
                             "action": "display",
                             "title": "{{flpTitle}}",
                             "subTitle": "{{flpSubtitle}}",
-                            "icon": "sap-icon://legend"
+                            "icon": ""
                         }
                     }
                 }
@@ -30,7 +30,7 @@
     "sap.ui": {
         "technology": "UI5",
         "icons": {
-            "icon": "sap-icon://task",
+            "icon": "sap-icon://clinical-tast-tracker",
             "favIcon": "",
             "phone": "",
             "phone@2": "",

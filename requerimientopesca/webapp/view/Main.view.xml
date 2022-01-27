@@ -7,7 +7,9 @@
 			<!-- DynamicPage Title -->
 			<f:title>
 				<f:DynamicPageTitle>
-                
+               	<f:heading>
+						<Title text="Requerimiento de Pesca"/>
+					</f:heading>
 				</f:DynamicPageTitle>
 			</f:title>
 			<!-- DynamicPage Header -->
@@ -15,7 +17,7 @@
 				<f:DynamicPageHeader pinnable="true" hAlign="End">
                 <form:Form width="100%" editable="true" visible="true" hAlign="End">
                     <form:title>
-                        <core:Title text="Selección de Datos" level="Auto"/>
+                        <core:Title text="Selección de Datos" level="Auto" icon="sap-icon://filter"/>
                     </form:title>
                     <form:formContainers>
                         <form:FormContainer visible="true">
@@ -26,9 +28,9 @@
                                     </form:label>
                                     <form:fields>
                                         <HBox>
-                                            <Input type="Text" id="idNumReq1" showValueHelp="false" value="{modelReqPesca>/Search/NRREQ1}" enabled="true" visible="true" width="520px" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="10"/>
+                                            <Input type="Text" id="idNumReq1" showValueHelp="false" value="{modelReqPesca>/Search/NRREQ1}" enabled="true" visible="true" width="510px" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="10"/>
                                             <Text text="a" width="20px" textAlign="Center" />
-                                            <Input type="Text" id="idNumReq2" showValueHelp="false" value="{modelReqPesca>/Search/NRREQ2}" enabled="true" visible="true" width="400px" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="10"/>
+                                            <Input type="Text" id="idNumReq2" showValueHelp="false" value="{modelReqPesca>/Search/NRREQ2}" enabled="true" visible="true" width="405px" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="10"/>
                                         </HBox>
                                     </form:fields>
                                 </form:FormElement>
@@ -42,14 +44,12 @@
                                         <DatePicker id="fechaFin"  displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy" />
                                     </form:fields>
                                 </form:FormElement>
-                                <form:FormElement visible="true">
+                                <!--<form:FormElement visible="true">
                                     <form:label>
                                         <Label text="Centro"  design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                     </form:label>
                                     <form:fields>
-                                    <!--
-                                        <Input type="Text" value="{modelReqPesca>/Search/WERKS}" showValueHelp="true" enabled="true" visible="true" width="90.5%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogCentro"/>
-                                    -->
+                                    
                                     		<Input
                                                 id="centroInput"
                                                 value="{modelReqPesca>/Search/WERKS}"
@@ -123,9 +123,39 @@
                                                     </ColumnListItem>
                                                 </suggestionRows>
                                             </Input>
-                                            <!--<Label id="selectedKeyCentro" text="{modelReqPesca>/Search/DESCR}" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>-->
                                     </form:fields> 
-                                </form:FormElement>
+                                </form:FormElement>-->
+                                 <form:FormElement visible="true">
+                                            <form:label>
+                                                <Label text="Centro" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            </form:label>
+                                            <form:fields>
+                                                <Input id="txtCentro" suggestionItemSelected="onSelectWerks" type="Text" valueState="Information" valueStateText="Ingrese centro" showSuggestion="true" showTableSuggestionValueHelp="false" suggestionRows="{modelReqPesca>/centros}" width="100%">
+                                                    <suggestionColumns>
+                                                        <Column>
+                                                            <Label text="Planta" />
+                                                        </Column>
+                                                        <Column>
+                                                            <Label text="Descripción" />
+                                                        </Column>
+                                                        <Column>
+                                                            <Label text="Centro" />
+                                                        </Column>
+                                                        <Column>
+                                                            <Label text="Armador" />
+                                                        </Column>
+                                                    </suggestionColumns>
+                                                    <suggestionRows>
+                                                        <ColumnListItem>
+                                                            <Label text="{modelReqPesca>CDPTA}" />
+                                                            <Label text="{modelReqPesca>DESCR}" />
+                                                            <Label text="{modelReqPesca>WERKS}" />
+                                                            <Label text="{modelReqPesca>STCD1}" />
+                                                        </ColumnListItem>
+                                                    </suggestionRows>
+                                                </Input>
+                                            </form:fields>
+                                 </form:FormElement>
                                 <form:FormElement visible="true">
                                     <form:label>
                                         <Label text="Número de Filas" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
@@ -170,14 +200,14 @@
                             <Title text="Lista de Registro: 0" id="idListaReg" titleStyle="Auto" width="auto" textAlign="Begin" visible="true" wrapping="false"/>
                             <ToolbarSpacer/>
                             <ToggleButton text="Nuevo" type="Default" icon="sap-icon://add" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_OpenNewReg"/>
-                            <ToggleButton press="onExportar" icon="sap-icon://excel-attachment" tooltip="Exportar excel" type="Emphasized"/>
-                            <SearchField placeholder="Busqueda rápida" value="{modelReqPesca>/Search/searchField}" liveChange="handleLiveChange" showSearchButton="true" visible="true" width="auto" search="handleLiveChange"/>
+                            <ToggleButton text="Exportar" press="onExportar" icon="sap-icon://excel-attachment" tooltip="Exportar excel" type="Emphasized"/>
+                            <SearchField placeholder="Búsqueda rápida" value="{modelReqPesca>/Search/searchField}" liveChange="onhandleLiveChange" showSearchButton="true" visible="true" width="auto" search="handleLiveChange"/>
                             <OverflowToolbarButton text="Settings" type="Transparent" icon="sap-icon://sort" iconFirst="true" width="auto" enabled="true" visible="false" iconDensityAware="false" press="_onOverflowToolbarButtonPress"/>
                             <OverflowToolbarButton text="Group" type="Transparent" icon="sap-icon://group-2" iconFirst="true" width="auto" enabled="true" visible="false" iconDensityAware="false"/>
                         </OverflowToolbar>
                     </t:extension>
 					<t:columns>
-						<t:Column width="16%"
+						<t:Column width="6rem"
                             sortProperty="NRREQ"
                             filterProperty="NRREQ"
                             showFilterMenuEntry="true"
@@ -187,7 +217,7 @@
 								<ObjectIdentifier title="" text="{modelReqPesca>NRREQ}" titleActive="false" visible="true"/>
 							</t:template>
 						</t:Column>
-						<t:Column width="16%"
+						<t:Column width="5.5rem"
                             sortProperty="FHREQ"
                             filterProperty="FHREQ"
                             showFilterMenuEntry="true"
@@ -197,7 +227,7 @@
 								<Text text="{modelReqPesca>FHREQ}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
-                        <t:Column width="16%"
+                        <t:Column width="4.5rem"
                             sortProperty="WERKS"
                             filterProperty="WERKS"
                             showFilterMenuEntry="true"
@@ -207,7 +237,7 @@
 								<Text text="{modelReqPesca>WERKS}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
-						<t:Column width="16%"
+						<t:Column width="8rem"
                             sortProperty="DESCR"
                             filterProperty="DESCR"
                             showFilterMenuEntry="true"
@@ -217,7 +247,7 @@
 								<Text text="{modelReqPesca>DESCR}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
-                        <t:Column width="16%"
+                        <t:Column width="4rem"
                             sortProperty="MEINS"
                             filterProperty="MEINS"
                             showFilterMenuEntry="true"
@@ -227,7 +257,7 @@
 								<Text text="{modelReqPesca>MEINS}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
-						<t:Column width="16%" hAlign="End"
+						<t:Column width="5.5rem" hAlign="End"
                             sortProperty="CNPRQ"
                             filterProperty="CNPRQ"
                             showFilterMenuEntry="true"
@@ -246,7 +276,7 @@
 												}}" wrapping="false"/>
                             </t:template>
 						</t:Column>
-                        <t:Column width="16%"
+                        <t:Column width="4.5rem"
                             sortProperty="DESC_ESREG"
                             filterProperty="DESC_ESREG"
                             showFilterMenuEntry="true"
@@ -256,17 +286,19 @@
 								<Text text="{modelReqPesca>DESC_ESREG}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
-						<t:Column width="16%"
+						<t:Column width="6.5rem"
                             sortProperty="FHCRN"
                             filterProperty="FHCRN"
                             showFilterMenuEntry="true"
                             showSortMenuEntry="true">
 							<Label text="F. Creación"/>
 							<t:template>
-								<Text text="{modelReqPesca>FHCRN}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{parts:[{path: 'modelReqPesca>FHCRN'}],
+                                                    formatter: '.formatter.formatDate'
+                                                }" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
-                        <t:Column width="16%"
+                        <t:Column width="5rem"
                             sortProperty="HRCRN"
                             filterProperty="HRCRN"
                             showFilterMenuEntry="true"
@@ -276,7 +308,7 @@
 								<Text text="{modelReqPesca>HRCRN}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
-						<t:Column width="16%"
+						<t:Column width="7rem"
                             sortProperty="ATCRN"
                             filterProperty="ATCRN"
                             showFilterMenuEntry="true"
@@ -286,7 +318,7 @@
 								<Text text="{modelReqPesca>ATCRN}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
-                        <t:Column width="16%"
+                        <t:Column width="5rem"
                             sortProperty="HRMOD"
                             filterProperty="HRMOD"
                             showFilterMenuEntry="true"
@@ -296,7 +328,7 @@
 								<Text text="{modelReqPesca>HRMOD}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
-						<t:Column width="16%"
+						<t:Column width="6.5rem"
                             sortProperty="FHMOD"
                             filterProperty="FHMOD"
                             showFilterMenuEntry="true"
@@ -306,7 +338,7 @@
 								<Text text="{modelReqPesca>FHMOD}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
-                        <t:Column width="16%"
+                        <t:Column width="7rem"
                             sortProperty="ATMOD"
                             filterProperty="ATMOD"
                             showFilterMenuEntry="true"
@@ -316,7 +348,7 @@
 								<Text text="{modelReqPesca>ATMOD}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
-						<t:Column width="16%">
+						<t:Column width="6rem">
 							<Label text=""/>
 							<t:template>
 								<Button text="Editar" type="Default" icon="sap-icon://edit" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_onButtonEditarPress"/>

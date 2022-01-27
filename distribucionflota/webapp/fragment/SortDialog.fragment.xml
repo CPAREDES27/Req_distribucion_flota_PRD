@@ -13,8 +13,8 @@
                                 <form:fields>
                                     <RadioButtonGroup id="idRbtnSortOrder"  columns="1" selectedIndex="0" valueState="None" width="auto" editable="true" enabled="true" textDirection="Inherit" select="_onRadioButtonGroupSelect">
                                         <buttons>
-                                            <RadioButton text="Ascending" editable="true" enabled="true" visible="true" width="auto" valueState="None" selected="false"/>
-                                            <RadioButton text="Descending" editable="true" enabled="true" visible="true" width="auto" valueState="None" selected="false"/>
+                                            <RadioButton text="Ascendente" editable="true" enabled="true" visible="true" width="auto" valueState="None" selected="false"/>
+                                            <RadioButton text="Descendente" editable="true" enabled="true" visible="true" width="auto" valueState="None" selected="false"/>
                                         </buttons>
                                     </RadioButtonGroup>
                                 </form:fields>

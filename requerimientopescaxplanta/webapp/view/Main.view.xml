@@ -14,7 +14,7 @@
 				<f:DynamicPageHeader pinnable="true">
                 <form:Form width="100%" editable="true" visible="true">
                     <form:title>
-                        <core:Title text="Selección de Datos" level="Auto"/>
+                        <core:Title text="Selección de Datos" level="Auto" icon="sap-icon://filter"/>
                     </form:title>
                     <form:formContainers>
                         <form:FormContainer visible="true">

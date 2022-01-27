@@ -9,10 +9,11 @@ sap.ui.define([
     "sap/ui/export/Spreadsheet",
     "sap/ui/core/library",
     "sap/m/Token",
-    "com/tasa/requerimientopesca/util/formatter",
+	"../util/formatter",
     "sap/ui/core/Item",
     "sap/ui/core/BusyIndicator",
     "com/tasa/requerimientopesca/util/sessionService",
+    
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -26,6 +27,7 @@ sap.ui.define([
         var EdmType = exportLibrary.EdmType;
         var ValueState = CoreLibrary.ValueState;
         var usuario="";
+        var codigoPlanta="";
         return BaseController.extend("com.tasa.requerimientopesca.controller.Main", {
 
             formatter: formatter,
@@ -69,10 +71,11 @@ sap.ui.define([
                     }
                 });
 
-                this.searchCentroReqPesca();
+                this.searchCentro();
+                //this.searchCentroReqPesca();
 
                 var oInput = this.byId("centroInput");
-                oInput.setSuggestionRowValidator(this.suggestionRowValidator);
+                //oInput.setSuggestionRowValidator(this.suggestionRowValidator);
                 /*
                 
                             var that = this;
@@ -294,7 +297,6 @@ sap.ui.define([
                             var cantidadRegistros="Lista de registros: "+data.data.length;
                             self.byId("idListaReg").setText(cantidadRegistros);
                         }
-                        oGlobalBusyDialog.close();
 
                     },
                     error: function (xhr, readyState) {
@@ -333,9 +335,11 @@ sap.ui.define([
                 var numRequerimiento2=this.byId("idNumReq2").getValue();
                 var fechaInicio=this.byId("fechaInicio").getValue();
 				var fechaFin=this.byId("fechaFin").getValue();
-                var centro=this.byId("centroInput").getValue();
+                //var centro=this.byId("centroInput").getValue();
+                var werks = this.byId("txtCentro").getValue();
+
                 
-                if(!numRequerimiento1 && !numRequerimiento2 && !fechaInicio && !fechaFin && !centro ){
+                if(!numRequerimiento1 && !numRequerimiento2 && !fechaInicio && !fechaFin && !werks ){
 						var msj="Por favor ingrese un dato de selección";
 				
 						MessageBox.error(msj);
@@ -375,7 +379,7 @@ sap.ui.define([
                 }
 
                 //var werks = self.getView().getModel("modelReqPesca").getProperty("/Search").WERKS;
-                var werks = this.getView().byId("centroInput").getSelectedKey();
+                //var werks = this.getView().byId("centroInput").getSelectedKey();
                 var numfilas = self.getView().getModel("modelReqPesca").getProperty("/Search").Numfilas;
                 var nrreq1 = self.getView().getModel("modelReqPesca").getProperty("/Search").NRREQ1;
                 var nrreq2 = self.getView().getModel("modelReqPesca").getProperty("/Search").NRREQ2;
@@ -432,6 +436,39 @@ sap.ui.define([
                 });
 
             },
+
+            searchCentro:function(){
+
+                const bodyAyudaBusqueda = {
+                    "nombreAyuda": "BSQPLANTAS",
+                    "p_user": this.userOperation
+                };
+                fetch(`${this.onLocation()}General/AyudasBusqueda/`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify(bodyAyudaBusqueda)
+                })
+                .then(resp => resp.json()).then(data => {
+                    console.log("Busqueda: ", data);
+                    var centros = data.data;
+                    this.getModel("modelReqPesca").setProperty("/centros", centros);
+                    BusyIndicator.hide();
+                }).catch(error => console.log(error));
+        
+            },
+            onSelectWerks: function (evt) {
+				var objeto = evt.getParameter("selectedRow").getBindingContext("modelReqPesca").getObject();
+				if (objeto) {
+					this.getView().byId("txtCentro").setValue(objeto.WERKS);
+				}
+			},
+            onSelectWerksNew: function (evt) {
+				var objeto = evt.getParameter("selectedRow").getBindingContext("modelReqPesca").getObject();
+				if (objeto) {
+                    sap.ui.getCore().byId("txtCentroNew").setValue(objeto.WERKS);
+                    this.codigoPlanta=objeto.CDPTA;
+				}
+			},
 
             searchCentroReqPesca: function () {
                 BusyIndicator.show(0);
@@ -787,6 +824,37 @@ sap.ui.define([
 
             },
 
+            onhandleLiveChange: function (oEvent) {
+                // add filter for search
+                var aFilters = [];
+                var sQuery = oEvent.getSource().getValue();
+                if (sQuery && sQuery.length > 0) {
+                    var filter = new Filter([
+                        new Filter("PERNR", FilterOperator.Contains, sQuery),  
+                        new Filter("NRREQ", FilterOperator.Contains, sQuery),
+                        new Filter("FHREQ", FilterOperator.Contains, sQuery),
+                        new Filter("WERKS", FilterOperator.Contains, sQuery),
+                        new Filter("DESCR", FilterOperator.Contains, sQuery),
+                        new Filter("MEINS", FilterOperator.Contains, sQuery),
+                        new Filter("CNPRQ", FilterOperator.Contains, sQuery),
+                        new Filter("DESC_ESREG", FilterOperator.Contains, sQuery),
+                        new Filter("FHCRN", FilterOperator.Contains, sQuery),
+                        new Filter("HRCRN", FilterOperator.Contains, sQuery),
+                        new Filter("ATCRN", FilterOperator.Contains, sQuery),
+                        new Filter("HRMOD", FilterOperator.Contains, sQuery),
+                        new Filter("FHMOD", FilterOperator.Contains, sQuery),
+                        new Filter("ATMOD", FilterOperator.Contains, sQuery)
+                    
+                    ]);
+                    aFilters.push(filter);
+                }
+    
+                // update list binding
+                var oList = this.byId("tbl_reqpesca");
+                var oBinding = oList.getBinding("rows");
+                oBinding.filter(aFilters, "Application");
+            },
+
             _onBuscarButtonPress: function () {
                 this.searchCentroReqPesca();
             },
@@ -832,7 +900,8 @@ sap.ui.define([
                 var self = this;
                 var valido = true;
 
-                var cdpta = self.getView().getModel("modelReqPesca").getProperty("/NewReg").CDPTA;
+                //var cdpta = self.getView().getModel("modelReqPesca").getProperty("/centros").CDPTA;
+                var cdpta = sap.ui.getCore().byId("txtCentroNew").getValue();
                 var fhreq = self.getView().getModel("modelReqPesca").getProperty("/NewReg").FHREQ;
                 var cnprq = self.getView().getModel("modelReqPesca").getProperty("/NewReg").CNPRQ;
                 var esreg = self.getView().getModel("modelReqPesca").getProperty("/NewReg").ESREG;
@@ -847,8 +916,8 @@ sap.ui.define([
             },
 
             registrarReqPesca: function () {
-
-                var date = new Date();
+                BusyIndicator.show(0);
+                var date = new Date;
                 var day;
                 if (date.getDate() < 10) day = "0" + date.getDate().toString();
                 if (date.getDate() >= 10) day = date.getDate().toString();
@@ -857,20 +926,24 @@ sap.ui.define([
                 if (date.getMonth() >= 10) month = (date.getMonth() + 1).toString();
                 var today = date.getFullYear().toString() + month + day;
 
-                var hours = date.getHours().toString() + date.getMinutes().toString() + date.getSeconds().toString();
-
+                var hora=parseInt(date.getHours().toString())<10?"0"+date.getHours().toString():date.getHours().toString();
+                var minutos=parseInt(date.getMinutes().toString())<10?"0"+date.getMinutes().toString():date.getMinutes().toString();
+                var segundos=parseInt(date.getSeconds().toString())<10?"0"+date.getSeconds().toString():date.getSeconds().toString();
+                var hours = hora+ minutos + segundos;
+                
                // var urlNodeJS = sessionService.getHostService(); //"https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com";
                 var self = this;
                 var validar = true;
                 var nrreq = self.getView().getModel("modelReqPesca").getProperty("/NewReg").NRREQ;
-                var cdpta = self.getView().getModel("modelReqPesca").getProperty("/NewReg").CDPTA;
+                //var cdpta = self.getView().getModel("modelReqPesca").getProperty("/centros").CDPTA;
+                var cdpta = sap.ui.getCore().byId("txtCentroNew").getValue();
                 var fhreq = self.getView().getModel("modelReqPesca").getProperty("/NewReg").FHREQ;
 
-                var DD = fhreq.substring(0, 2);
-                var mm = fhreq.substring(2, 4);
-                var YYYY = fhreq.substring(4, 8);
+                var YYYY = fhreq.substring(0, 4);
+                var mm = fhreq.substring(4, 6);
+                var DD = fhreq.substring(6, 8);
                 fhreq = YYYY + mm + DD;
-
+                console.log(fhreq);
                 var cnprq = self.getView().getModel("modelReqPesca").getProperty("/NewReg").CNPRQ;
                 if (parseInt(cnprq) < 1000000000) cnprq;
                 if (parseInt(cnprq) > 1000000000) {
@@ -888,6 +961,18 @@ sap.ui.define([
                         fhcrn = self.getView().getModel("modelReqPesca").getProperty("/NewReg").FHCRN;
                         atcrn = self.getView().getModel("modelReqPesca").getProperty("/NewReg").ATCRN;
                         hrcrn = self.getView().getModel("modelReqPesca").getProperty("/NewReg").HRCRN;
+                        fhcrn = fhcrn.split("/")[2].concat(fhcrn.split("/")[1], fhcrn.split("/")[0]);
+			            hrcrn = hrcrn.split(":")[0].concat(hrcrn.split(":")[1])+"00";
+                        var model=self.getView().getModel("modelReqPesca");
+                        console.log(model);
+                        var list=self.getView().getModel("modelReqPesca").getProperty("/centros");
+                        this.codigoPlanta=sap.ui.getCore().byId("txtCentroNew").getValue(); 
+                        var obj=  list.find(x=>x.WERKS==this.codigoPlanta)                     
+                        this.codigoPlanta=obj.CDPTA;
+                        var DD = fhreq.substring(0, 2);
+                        var mm = fhreq.substring(2, 4);
+                        var YYYY = fhreq.substring(4, 8);
+                        fhreq = YYYY + mm + DD;
                     } else {
                         fhcrn = today;
                         atcrn = self.getView().getModel("modelReqPesca").getProperty("/NewReg").ATCRN;
@@ -895,7 +980,7 @@ sap.ui.define([
                     }
 
                     if (!nrreq) nrreq = "";
-                    var data = "|" + nrreq + "|" + cdpta + "|" + fhreq + "|" + hours + "|" + cnprq + "|" + "0.000" + "|" + esreg + "|" + fhcrn + "|" + hrcrn + "|" + atcrn + "|" + fhmod + "|" + hrmod + "|" + atmod + "|";
+                    var data = "|" + nrreq + "|" + this.codigoPlanta + "|" + fhreq + "|" + hours + "|" + cnprq + "|" + "0.000" + "|" + esreg + "|" + fhcrn + "|" + hrcrn + "|" + atcrn + "|" + fhmod + "|" + hrmod + "|" + atmod + "|";
                     var objectRT = {
                         "data": data,
                         "flag": "X",
@@ -924,10 +1009,15 @@ sap.ui.define([
                                 MessageBox.error(concatenar);
                             } else {
                                 MessageBox.success(concatenar);
+                                if(p_case=="E"){
+                                    self._onButtonPress(); 
+                                }
                             }
-                            self._onButtonPress();
+                            
                             self._onCloseDialogNewReg();
                             console.log(data);
+                            BusyIndicator.hide();
+
                         },
                         error: function (xhr, readyState) {
                             console.log(xhr);
@@ -952,6 +1042,8 @@ sap.ui.define([
                 var nrReqSelected = this.getView().getModel('modelReqPesca').getProperty(path);
                 this.getView().getModel('modelReqPesca').setProperty("/p_case", "E");
 
+                console.log("buttonEditar:"+nrReqSelected);
+
                 var cdpta = nrReqSelected.CDPTA;
                 var werks = nrReqSelected.WERKS;
                 var atcrn = nrReqSelected.ATCRN;
@@ -967,7 +1059,7 @@ sap.ui.define([
                 var hrreq = nrReqSelected.HRREQ;
                 var nrreq = nrReqSelected.NRREQ;
                 var atmod = nrReqSelected.ATMOD;
-
+                /*
                 if (fhcrn) {
                     var arrFhcrn = fhcrn.split("/");
                     fhcrn = arrFhcrn[2] + arrFhcrn[1] + arrFhcrn[0];
@@ -976,12 +1068,11 @@ sap.ui.define([
                 if (hrcrn) {
                     var arrHrcrn = hrcrn.split(":");
                     hrcrn = arrHrcrn[0] + arrHrcrn[1] + "00"
-                }
-
+                }*/
                 self.getView().getModel("modelReqPesca").setProperty("/NewReg/NRREQ", nrreq);
                 self.getView().getModel("modelReqPesca").setProperty("/NewReg/FHREQ", fhreq);
-                self.getView().getModel("modelReqPesca").setProperty("/NewReg/CDPTA", cdpta);
-                self.getView().getModel("modelReqPesca").setProperty("/NewReg/WERKS", werks);
+                self.getView().getModel("modelReqPesca").setProperty("/centros/CDPTA", cdpta);
+                self.getView().getModel("modelReqPesca").setProperty("/centros/WERKS", werks);
                 self.getView().getModel("modelReqPesca").setProperty("/NewReg/CNPRQ", cnprq);
                 self.getView().getModel("modelReqPesca").setProperty("/NewReg/ESREG", esreg);
                 self.getView().getModel("modelReqPesca").setProperty("/NewReg/FHMOD", fhmod);
@@ -991,8 +1082,9 @@ sap.ui.define([
                 self.getView().getModel("modelReqPesca").setProperty("/NewReg/HRCRN", hrcrn);
 
                 this.getView().getModel("modelReqPesca").setProperty("/VisibleAuditoria", true);
-
                 this._getDialogNewReg().open();
+                sap.ui.getCore().byId("txtCentroNew").setValue(werks);
+
                 this.searchCentroReqPesca();
                 //var oInputNew = this.byId("centroInput");
                 //oInputNew.setSuggestionRowValidator(this.suggestionRowValidator);
@@ -1032,6 +1124,8 @@ sap.ui.define([
 
                 this.byId("fechaInicio").setValue("");
 				this.byId("fechaFin").setValue("");
+                this.byId("txtCentro").setValue("");
+
             },
 
             _onLimpiarCentro: function () {
@@ -1060,15 +1154,33 @@ sap.ui.define([
 
             _OpenNewReg: function () {
                 this._onOpenDialogNewReg();
+                sap.ui.getCore().byId("txtCentroNew").setValue("");
+                sap.ui.getCore().byId("cboEstado").setSelectedKey("S");
+
+
             },
 
             _onOpenDialogNewReg: function () {
+                var date = new Date;
+                var day;
+                if (date.getDate() < 10) day = "0" + date.getDate().toString();
+                if (date.getDate() >= 10) day = date.getDate().toString();
+                var month;
+                if (date.getMonth() < 10) month = "0" + (date.getMonth() + 1).toString();
+                if (date.getMonth() >= 10) month = (date.getMonth() + 1).toString();
+                var today = date.getFullYear().toString() + month + day;
+
+
+
+                this.getView().getModel("modelReqPesca").setProperty("/NewReg/FHREQ", today);
                 this.getView().getModel('modelReqPesca').setProperty("/p_case", "N");
                 this.getView().getModel("modelReqPesca").setProperty("/NewReg", {});
                 this.getView().getModel('modelReqPesca').setProperty("/ProcessNewReg", true);
                 this.getView().getModel('modelReqPesca').setProperty("/NewReg/ATCRN", this.getUsuarioLogueado());
                 this.getView().getModel("modelReqPesca").setProperty("/VisibleAuditoria", false);
                 this._getDialogNewReg().open();
+                sap.ui.getCore().byId("idFecha").setValue(today);
+
                 //var oInputNew = this.getView().byId("NewcentroInput");
                 //oInputNew.setSuggestionRowValidator(this.suggestionRowValidatorNew);
             },
