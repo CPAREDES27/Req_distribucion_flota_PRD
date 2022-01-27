@@ -896,7 +896,9 @@ sap.ui.define([
                 var today = date.getFullYear().toString() + month + day;
 
                 var hora=parseInt(date.getHours().toString())<10?"0"+date.getHours().toString():date.getHours().toString();
-                var hours = hora+ date.getMinutes().toString() + date.getSeconds().toString();
+                var minutos=parseInt(date.getMinutes().toString())<10?"0"+date.getMinutes().toString():date.getMinutes().toString();
+                var segundos=parseInt(date.getSeconds().toString())<10?"0"+date.getSeconds().toString():date.getSeconds().toString();
+                var hours = hora+ minutos + segundos;
                 
                // var urlNodeJS = sessionService.getHostService(); //"https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com";
                 var self = this;
