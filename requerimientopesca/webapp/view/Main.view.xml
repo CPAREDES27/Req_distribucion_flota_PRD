@@ -237,7 +237,7 @@
 								<Text text="{modelReqPesca>WERKS}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
-						<t:Column width="8rem"
+						<t:Column width="7rem"
                             sortProperty="DESCR"
                             filterProperty="DESCR"
                             showFilterMenuEntry="true"
@@ -247,7 +247,7 @@
 								<Text text="{modelReqPesca>DESCR}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
-                        <t:Column width="4rem"
+                        <t:Column width="3.5rem"
                             sortProperty="MEINS"
                             filterProperty="MEINS"
                             showFilterMenuEntry="true"
