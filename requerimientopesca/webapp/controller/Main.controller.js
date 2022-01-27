@@ -895,8 +895,9 @@ sap.ui.define([
                 if (date.getMonth() >= 10) month = (date.getMonth() + 1).toString();
                 var today = date.getFullYear().toString() + month + day;
 
-                var hours = date.getHours().toString() + date.getMinutes().toString() + date.getSeconds().toString();
-
+                var hora=parseInt(date.getHours().toString())<10?"0"+date.getHours().toString():date.getHours().toString();
+                var hours = hora+ date.getMinutes().toString() + date.getSeconds().toString();
+                
                // var urlNodeJS = sessionService.getHostService(); //"https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com";
                 var self = this;
                 var validar = true;
@@ -905,11 +906,11 @@ sap.ui.define([
                 var cdpta = sap.ui.getCore().byId("txtCentroNew").getValue();
                 var fhreq = self.getView().getModel("modelReqPesca").getProperty("/NewReg").FHREQ;
 
-                var DD = fhreq.substring(0, 2);
-                var mm = fhreq.substring(2, 4);
-                var YYYY = fhreq.substring(4, 8);
+                var YYYY = fhreq.substring(0, 4);
+                var mm = fhreq.substring(4, 6);
+                var DD = fhreq.substring(6, 8);
                 fhreq = YYYY + mm + DD;
-
+                console.log(fhreq);
                 var cnprq = self.getView().getModel("modelReqPesca").getProperty("/NewReg").CNPRQ;
                 if (parseInt(cnprq) < 1000000000) cnprq;
                 if (parseInt(cnprq) > 1000000000) {
@@ -929,6 +930,16 @@ sap.ui.define([
                         hrcrn = self.getView().getModel("modelReqPesca").getProperty("/NewReg").HRCRN;
                         fhcrn = fhcrn.split("/")[2].concat(fhcrn.split("/")[1], fhcrn.split("/")[0]);
 			            hrcrn = hrcrn.split(":")[0].concat(hrcrn.split(":")[1])+"00";
+                        var model=self.getView().getModel("modelReqPesca");
+                        console.log(model);
+                        var list=self.getView().getModel("modelReqPesca").getProperty("/centros");
+                        this.codigoPlanta=sap.ui.getCore().byId("txtCentroNew").getValue(); 
+                        var obj=  list.find(x=>x.WERKS==this.codigoPlanta)                     
+                        this.codigoPlanta=obj.CDPTA;
+                        var DD = fhreq.substring(0, 2);
+                        var mm = fhreq.substring(2, 4);
+                        var YYYY = fhreq.substring(4, 8);
+                        fhreq = YYYY + mm + DD;
                     } else {
                         fhcrn = today;
                         atcrn = self.getView().getModel("modelReqPesca").getProperty("/NewReg").ATCRN;
@@ -998,6 +1009,8 @@ sap.ui.define([
                 var nrReqSelected = this.getView().getModel('modelReqPesca').getProperty(path);
                 this.getView().getModel('modelReqPesca').setProperty("/p_case", "E");
 
+                console.log("buttonEditar:"+nrReqSelected);
+
                 var cdpta = nrReqSelected.CDPTA;
                 var werks = nrReqSelected.WERKS;
                 var atcrn = nrReqSelected.ATCRN;
@@ -1023,11 +1036,10 @@ sap.ui.define([
                     var arrHrcrn = hrcrn.split(":");
                     hrcrn = arrHrcrn[0] + arrHrcrn[1] + "00"
                 }*/
-
                 self.getView().getModel("modelReqPesca").setProperty("/NewReg/NRREQ", nrreq);
                 self.getView().getModel("modelReqPesca").setProperty("/NewReg/FHREQ", fhreq);
-                self.getView().getModel("modelReqPesca").setProperty("/centro/CDPTA", cdpta);
-                self.getView().getModel("modelReqPesca").setProperty("/centro/WERKS", werks);
+                self.getView().getModel("modelReqPesca").setProperty("/centros/CDPTA", cdpta);
+                self.getView().getModel("modelReqPesca").setProperty("/centros/WERKS", werks);
                 self.getView().getModel("modelReqPesca").setProperty("/NewReg/CNPRQ", cnprq);
                 self.getView().getModel("modelReqPesca").setProperty("/NewReg/ESREG", esreg);
                 self.getView().getModel("modelReqPesca").setProperty("/NewReg/FHMOD", fhmod);
@@ -1038,6 +1050,8 @@ sap.ui.define([
 
                 this.getView().getModel("modelReqPesca").setProperty("/VisibleAuditoria", true);
                 this._getDialogNewReg().open();
+                sap.ui.getCore().byId("txtCentroNew").setValue(werks);
+
                 this.searchCentroReqPesca();
                 //var oInputNew = this.byId("centroInput");
                 //oInputNew.setSuggestionRowValidator(this.suggestionRowValidator);
@@ -1107,15 +1121,31 @@ sap.ui.define([
 
             _OpenNewReg: function () {
                 this._onOpenDialogNewReg();
+                sap.ui.getCore().byId("txtCentroNew").setValue("");
+
             },
 
             _onOpenDialogNewReg: function () {
+                var date = new Date;
+                var day;
+                if (date.getDate() < 10) day = "0" + date.getDate().toString();
+                if (date.getDate() >= 10) day = date.getDate().toString();
+                var month;
+                if (date.getMonth() < 10) month = "0" + (date.getMonth() + 1).toString();
+                if (date.getMonth() >= 10) month = (date.getMonth() + 1).toString();
+                var today = date.getFullYear().toString() + month + day;
+
+
+
+                this.getView().getModel("modelReqPesca").setProperty("/NewReg/FHREQ", today);
                 this.getView().getModel('modelReqPesca').setProperty("/p_case", "N");
                 this.getView().getModel("modelReqPesca").setProperty("/NewReg", {});
                 this.getView().getModel('modelReqPesca').setProperty("/ProcessNewReg", true);
                 this.getView().getModel('modelReqPesca').setProperty("/NewReg/ATCRN", this.getUsuarioLogueado());
                 this.getView().getModel("modelReqPesca").setProperty("/VisibleAuditoria", false);
                 this._getDialogNewReg().open();
+                sap.ui.getCore().byId("idFecha").setValue(today);
+
                 //var oInputNew = this.getView().byId("NewcentroInput");
                 //oInputNew.setSuggestionRowValidator(this.suggestionRowValidatorNew);
             },

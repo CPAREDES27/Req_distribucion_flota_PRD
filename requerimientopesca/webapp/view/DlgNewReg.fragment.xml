@@ -57,7 +57,7 @@
                                     <Label text="Fecha" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <DatePicker width="50%" value="{modelReqPesca>/NewReg/FHREQ}" class="sapUiSmallMarginBottom" displayFormat="dd/MM/yyyy" valueFormat="ddMMyyyy" />
+                                    <DatePicker width="50%" id="idFecha" value="{modelReqPesca>/NewReg/FHREQ}" class="sapUiSmallMarginBottom" displayFormat="dd/MM/yyyy" valueFormat="ddMMyyyy" />
                                    <!-- <DatePicker width="50%" displayFormat="dd/MM/yyyy" value="{modelReqPesca>/NewReg/FHREQ}" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="ddMMyyyy"/> -->
                                 </form:fields>
                             </form:FormElement>
