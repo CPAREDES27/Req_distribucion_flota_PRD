@@ -22,3 +22,12 @@
 .sapUiNoMargin.sapUiNoMargin .sapUiTableCellInner {
     padding: 0;
 }
+
+.sapUiDemoWT .myCustomButton.sapMBtn {
+    margin-right: 5rem;
+ }
+ #myCustomText {
+    font-weight: bold;
+    font-weight: bold;
+    font-size: 0.8rem;
+ }

@@ -26,7 +26,9 @@
                     <html:style>
                             .sapMLabel {color: #6a6d70; font-size: .8rem; font-family: "72","72full",Arial,Helvetica,sans-serif;
                             font-weight: normal; display: inline-block; white-space: nowrap; cursor: text; overflow: hidden; box-sizing: border-box;}
-                    </html:style>
+                            .sapUiTableHeaderDataCell .sapMText, .sapMColumnHeader .sapMText {font-weight: bold; font-size: .875rem; color: #FFFFFF}
+                            
+                   </html:style>
                     <form:Form editable="true">
                         <form:layout>
                             <form:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="4" singleContainerFullSize="true"/>
@@ -147,13 +149,12 @@
                                 <content>
                                     <IconTabBar expandable="true" expanded="true" applyContentPadding="false" backgroundDesign="Solid" upperCase="false" visible="true" selectedKey="Ok">
                                         <items>
-                                            <IconTabFilter text="Total" count="" showAll="false" key="All" design="Vertical">
+                                            <IconTabFilter text="Total" count="" showAll="false" key="All" design="Vertical" icon="sap-icon://sys-enter" iconColor="Positive">
                                                 <content>
-                                                    <Table id="table" inset="false" items="{modelDistFlota>/listTotal}" backgroundDesign="Solid">
+                                                    <Table id="table" inset="false" items="{modelDistFlota>/listTotal}" backgroundDesign="Solid" >
                                                         <columns>
                                                             <Column width="150px">
-
-                                                                <Text text="Planta"/>
+                                                                <Text text="Planta" class ="myCustomText"/>
                                                                 <footer>
                                                                     <Text id="idFoote2" text="Total General:"/>
                                                                 </footer>
@@ -204,7 +205,7 @@
                                                     </Table>
                                                 </content>
                                             </IconTabFilter>
-                                            <IconTabFilter text="Prop" count="" showAll="false" key="All" design="Vertical">
+                                            <IconTabFilter text="Prop" count="" showAll="false" key="All" design="Vertical" icon="sap-icon://sys-enter" iconColor="Positive">
                                                 <content>
                                                     <Table id="table2" inset="false" items="{modelDistFlota>/listPropios}">
                                                         <columns>
@@ -254,7 +255,7 @@
                                                     </Table>
                                                 </content>
                                             </IconTabFilter>
-                                            <IconTabFilter text="Terc" count="" showAll="false" key="All" design="Vertical">
+                                            <IconTabFilter text="Terc" count="" showAll="false" key="All" design="Vertical" icon="sap-icon://sys-enter" iconColor="Positive">
                                                 <content>
                                                     <Table id="table3" inset="false" items="{modelDistFlota>/listTerceros}">
                                                         <columns>
@@ -303,7 +304,7 @@
                                                     </Table>
                                                 </content>
                                             </IconTabFilter>
-                                            <IconTabFilter text="Desc" count="" showAll="false" key="All" design="Vertical">
+                                            <IconTabFilter text="Desc" count="" showAll="false" key="All" design="Vertical" icon="sap-icon://sys-enter" iconColor="Positive">
                                                 <content>
                                                     <Table id="table4" inset="false" items="{modelDistFlota>/listDescargas}">
                                                         <columns>

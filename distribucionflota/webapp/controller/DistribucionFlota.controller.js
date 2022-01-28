@@ -812,13 +812,15 @@ sap.ui.define([
                             var iconTabFilterPlanta = new sap.m.IconTabFilter({
                                 expanded: true,
                                 class: "sapUiNoMargin",
-                                text: PlantaDistribucion
+                                text: PlantaDistribucion,
+                                icon: "sap-icon://sys-enter",
+                                iconColor: "Positive"
                             });
 
                             var oTable = new sap.m.Table("idRandomDataTable" + IdTable, {
                                 width: "auto",
                                 class: "sapUiNoMargin",
-                                mode: "MultiSelect",
+                                mode: "MultiSelect",                                
                                 selectionChange: function (oEvent) {
                                     var sPath = oEvent.getParameters().listItem.oBindingContexts.modelDistFlota.sPath;
                                     var rowSelected = this.getView().getModel('modelDistFlota').getProperty(sPath);
