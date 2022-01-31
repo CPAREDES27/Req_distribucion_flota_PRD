@@ -27,11 +27,11 @@
                                         <Label text="Num. Requerimiento" labelFor="multiInput1" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                     </form:label>
                                     <form:fields>
-                                        <HBox>
-                                            <Input type="Text" id="idNumReq1" showValueHelp="false" value="{modelReqPesca>/Search/NRREQ1}" enabled="true" visible="true" width="510px" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="10"/>
-                                            <Text text="a" width="20px" textAlign="Center" />
-                                            <Input type="Text" id="idNumReq2" showValueHelp="false" value="{modelReqPesca>/Search/NRREQ2}" enabled="true" visible="true" width="405px" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="10"/>
-                                        </HBox>
+                                        <!--<HBox>-->
+                                            <Input type="Text" id="idNumReq1" showValueHelp="false" value="{modelReqPesca>/Search/NRREQ1}" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="10"/>
+                                           <!-- <Text text="a" width="20px" textAlign="Center" />-->
+                                            <Input type="Text" id="idNumReq2" showValueHelp="false" value="{modelReqPesca>/Search/NRREQ2}" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="10"/>
+                                        <!--</HBox>-->
                                     </form:fields>
                                 </form:FormElement>
                                 <form:FormElement visible="true">    
@@ -62,49 +62,49 @@
                                                 <suggestionColumns>
                                                     <Column width="10%" hAlign="Left" vAlign="Top" minScreenWidth="Phone" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
                                                         <header>
-                                                            <Text text="Cod. Planta" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            <Text text="Cod. Planta" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                         </header>
                                                         <footer/>
                                                     </Column>
                                                     <Column width="10%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                                                         <header>
-                                                            <Text text="Centro" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            <Text text="Centro" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                         </header>
                                                         <footer/>
                                                     </Column>
                                                     <Column width="13%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                                                         <header>
-                                                            <Text text="Descripción" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            <Text text="Descripción" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                         </header>
                                                         <footer/>
                                                     </Column>
                                                     <Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                                                         <header>
-                                                            <Text text="R.U.C. Empresa" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            <Text text="R.U.C. Empresa" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                         </header>
                                                         <footer/>
                                                     </Column>
                                                     <Column width="23%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                                                         <header>
-                                                            <Text text="Desc. Empresa" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            <Text text="Desc. Empresa" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                         </header>
                                                         <footer/>
                                                     </Column>
                                                     <Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                                                         <header>
-                                                            <Text text="Ind. Propiedad" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            <Text text="Ind. Propiedad" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                         </header>
                                                         <footer/>
                                                     </Column>
                                                     <Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                                                         <header>
-                                                            <Text text="Puerto" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            <Text text="Puerto" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                         </header>
                                                         <footer/>
                                                     </Column>
                                                     <Column width="10%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                                                         <header>
-                                                            <Text text="Desc. Puerto" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                            <Text text="Desc. Puerto" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                         </header>
                                                         <footer/>
                                                     </Column>                                                                                                 
@@ -112,14 +112,14 @@
 
                                                 <suggestionRows>
                                                     <ColumnListItem>
-                                                        <Text text="{modelReqPesca>CDPTA}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                                        <Text text="{modelReqPesca>WERKS}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                                        <Text text="{modelReqPesca>DESCR}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                                        <Text text="{modelReqPesca>STCD1}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                                        <Text text="{modelReqPesca>NAME1}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                                        <Text text="{modelReqPesca>DESC_INPRP}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                                        <Text text="{modelReqPesca>CDPTO}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                                        <Text text="{modelReqPesca>DSPTO}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>                                                    
+                                                        <Text text="{modelReqPesca>CDPTA}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                        <Text text="{modelReqPesca>WERKS}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                        <Text text="{modelReqPesca>DESCR}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                        <Text text="{modelReqPesca>STCD1}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                        <Text text="{modelReqPesca>NAME1}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                        <Text text="{modelReqPesca>DESC_INPRP}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                        <Text text="{modelReqPesca>CDPTO}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                        <Text text="{modelReqPesca>DSPTO}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>                                                    
                                                     </ColumnListItem>
                                                 </suggestionRows>
                                             </Input>
@@ -156,7 +156,20 @@
                                                 </Input>
                                             </form:fields>
                                  </form:FormElement>
-                                <form:FormElement visible="true">
+                                
+                               <!-- <form:FormElement visible="true">
+                                    <form:label>
+                                        <Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                    </form:label>
+                                    <form:fields>
+                                        <Button text="Limpiar"  icon="sap-icon://clear-filter" iconFirst="true" width="50%" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPressLimpiar"/>
+                                    </form:fields>
+                                </form:FormElement>-->
+                            </form:formElements>
+                            <form:title/>
+                        </form:FormContainer>
+                        <form:FormContainer>
+                        <form:FormElement visible="true">
                                     <form:label>
                                         <Label text="Número de Filas" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                     </form:label>
@@ -174,16 +187,6 @@
 
                                     </form:fields>
                                 </form:FormElement>
-                               <!-- <form:FormElement visible="true">
-                                    <form:label>
-                                        <Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                    </form:label>
-                                    <form:fields>
-                                        <Button text="Limpiar"  icon="sap-icon://clear-filter" iconFirst="true" width="50%" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPressLimpiar"/>
-                                    </form:fields>
-                                </form:FormElement>-->
-                            </form:formElements>
-                            <form:title/>
                         </form:FormContainer>
                     </form:formContainers>
                     <form:layout>
@@ -197,7 +200,7 @@
                 <t:Table id="tbl_reqpesca" rows="{ path:'modelReqPesca>/ListReqPesca', sorter : [{path: 'NRREQ', descending: true}, {path: 'FHCRN', descending: true}], templateShareable:true}" width="auto" selectionMode="None"  class="bigLabel">
                     <t:extension>
                         <OverflowToolbar style="Clear">
-                            <Title text="Lista de Registro: 0" id="idListaReg" titleStyle="Auto" width="auto" textAlign="Begin" visible="true" wrapping="false"/>
+                            <Title text="Lista de Registro: 0" id="idListaReg" titleStyle="Auto" width="auto" textAlign="Begin" visible="true" wrapping="true"/>
                             <ToolbarSpacer/>
                             <ToggleButton text="Nuevo" type="Default" icon="sap-icon://add" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_OpenNewReg"/>
                             <ToggleButton text="Exportar" press="onExportar" icon="sap-icon://excel-attachment" tooltip="Exportar excel" type="Emphasized"/>
@@ -224,7 +227,7 @@
                             showSortMenuEntry="true">
 							<Label text="Fecha"/>
 							<t:template>
-								<Text text="{modelReqPesca>FHREQ}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{modelReqPesca>FHREQ}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
                         <t:Column width="4.5rem"
@@ -234,7 +237,7 @@
                             showSortMenuEntry="true">
 							<Label text="Centro"/>
 							<t:template>
-								<Text text="{modelReqPesca>WERKS}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{modelReqPesca>WERKS}" width="auto"  wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
 						<t:Column width="7rem"
@@ -244,7 +247,7 @@
                             showSortMenuEntry="true">
 							<Label text="Planta"/>
 							<t:template>
-								<Text text="{modelReqPesca>DESCR}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{modelReqPesca>DESCR}" width="auto"  wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
                         <t:Column width="3.5rem"
@@ -254,7 +257,7 @@
                             showSortMenuEntry="true">
 							<Label text="Unidad"/>
 							<t:template>
-								<Text text="{modelReqPesca>MEINS}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{modelReqPesca>MEINS}" width="auto"  wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
 						<t:Column width="5.5rem" hAlign="End"
@@ -264,7 +267,7 @@
                             showSortMenuEntry="true">
 							<Label text="Cant. Req."/>
 							<t:template>
-								<!--<Text text="{modelReqPesca>CNPRQ}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>-->
+								<!--<Text text="{modelReqPesca>CNPRQ}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>-->
                                 <Text text="{path:'modelReqPesca>CNPRQ', type:'sap.ui.model.type.Float',
 												formatOptions:{
 													minIntegerDigits:1,
@@ -273,7 +276,7 @@
 													groupingEnabled:true,
 													groupingSeparator: ',',
 													decimalSeparator: '.'
-												}}" wrapping="false"/>
+												}}" wrapping="true"/>
                             </t:template>
 						</t:Column>
                         <t:Column width="4.5rem"
@@ -283,7 +286,7 @@
                             showSortMenuEntry="true">
 							<Label text="Estado"/>
 							<t:template>
-								<Text text="{modelReqPesca>DESC_ESREG}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{modelReqPesca>DESC_ESREG}" width="auto"  wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
 						<t:Column width="6.5rem"
@@ -295,7 +298,7 @@
 							<t:template>
 								<Text text="{parts:[{path: 'modelReqPesca>FHCRN'}],
                                                     formatter: '.formatter.formatDate'
-                                                }" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                }" width="auto"  wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
                         <t:Column width="5rem"
@@ -305,7 +308,7 @@
                             showSortMenuEntry="true">
 							<Label text="H. Creación"/>
 							<t:template>
-								<Text text="{modelReqPesca>HRCRN}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{modelReqPesca>HRCRN}" width="auto"  wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
 						<t:Column width="7rem"
@@ -315,7 +318,7 @@
                             showSortMenuEntry="true">
 							<Label text="U. Creación"/>
 							<t:template>
-								<Text text="{modelReqPesca>ATCRN}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{modelReqPesca>ATCRN}" width="auto"  wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
                         <t:Column width="5rem"
@@ -325,7 +328,7 @@
                             showSortMenuEntry="true">
 							<Label text="H. Modificación"/>
 							<t:template>
-								<Text text="{modelReqPesca>HRMOD}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{modelReqPesca>HRMOD}" width="auto"  wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
 						<t:Column width="6.5rem"
@@ -335,7 +338,7 @@
                             showSortMenuEntry="true">
 							<Label text="F. Modificación"/>
 							<t:template>
-								<Text text="{modelReqPesca>FHMOD}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{modelReqPesca>FHMOD}" width="auto"  wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
                         <t:Column width="7rem"
@@ -345,7 +348,7 @@
                             showSortMenuEntry="true">
 							<Label text="U. Modificación"/>
 							<t:template>
-								<Text text="{modelReqPesca>ATMOD}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{modelReqPesca>ATMOD}" width="auto"  wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 							</t:template>
 						</t:Column>
 						<t:Column width="6rem">
@@ -380,85 +383,85 @@
                     <columns>
                         <Column width="110px" hAlign="Left" vAlign="Top" minScreenWidth="Phone" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                             <header>
-                                <Text text="N° Requerimiento" width="100%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
+                                <Text text="N° Requerimiento" width="100%"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
                             </header>
                             <footer/>
                         </Column>
                         <Column  width="8%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                             <header>
-                                <Text text="Fecha" width="50%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
+                                <Text text="Fecha" width="50%"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
                             </header>
                             <footer/>
                         </Column>
                         <Column width="7%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                             <header>
-                                <Text text="Centro" width="48%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
+                                <Text text="Centro" width="48%"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
                             </header>
                             <footer/>
                         </Column>
                         <Column width="7%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                             <header>
-                                <Text text="Planta" width="55%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
+                                <Text text="Planta" width="55%"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
                             </header>
                             <footer/>
                         </Column>
                         <Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                             <header>
-                                <Text text="Unidad" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
+                                <Text text="Unidad" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
                             </header>
                             <footer/>
                         </Column>
                         <Column width="7%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                             <header>
-                                <Text text="Cant. Req." width="100%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
+                                <Text text="Cant. Req." width="100%"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
                             </header>
                             <footer/>
                         </Column>
                         <Column width="4.5%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                             <header>
-                                <Text text="Estado" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
+                                <Text text="Estado" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
                             </header>
                             <footer/>
                         </Column>
                         <Column width="8%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                             <header>
-                                <Text text="F. Creación" width="100%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
+                                <Text text="F. Creación" width="100%"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
                             </header>
                             <footer/>
                         </Column>
                         <Column width="6%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                             <header>
-                                <Text text="H. Creación" width="100%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
+                                <Text text="H. Creación" width="100%"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
                             </header>
                             <footer/>
                         </Column>
                         <Column width="9%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                             <header>
-                                <Text text="U. Creación" width="100%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
+                                <Text text="U. Creación" width="100%"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
                             </header>
                             <footer/>
                         </Column>
                         <Column width="8%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                             <header>
-                                <Text text="H. Modificación" width="100%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
+                                <Text text="H. Modificación" width="100%"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
                             </header>
                             <footer/>
                         </Column>
                         <Column width="8%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                             <header>
-                                <Text text="F. Modificación" width="90%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
+                                <Text text="F. Modificación" width="90%"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
                             </header>
                             <footer/>
                         </Column>
                         <Column width="8%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                             <header>
-                                <Text text="U. Modificación" width="90%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
+                                <Text text="U. Modificación" width="90%"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
                             </header>
                             <footer/>
                         </Column>
                         <Column width="6.5%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                             <header>
-                                <Text text="" width="10%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
+                                <Text text="" width="10%"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true" class="bigLabel"/>
                             </header>
                             <footer/>
                         </Column>
@@ -470,27 +473,27 @@
                                 
                                 //<Text text="{ parts: [ {path: 'modelReqPesca>FHREQ'}], formatter : '.formatter.formatoFechaString'}"></Text>
                                 
-                                <Text text="{modelReqPesca>FHREQ}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                <Text text="{modelReqPesca>WERKS}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                <Text text="{modelReqPesca>DESCR}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                <Text text="{modelReqPesca>MEINS}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                <Text text="{modelReqPesca>CNPRQ}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                <Text text="{modelReqPesca>FHREQ}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                <Text text="{modelReqPesca>WERKS}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                <Text text="{modelReqPesca>DESCR}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                <Text text="{modelReqPesca>MEINS}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                <Text text="{modelReqPesca>CNPRQ}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 
                                 //<Text text="{ parts: [ {path: 'modelReqPesca>DESC_ESREG'}], formatter : '.formatter.formatoEstado'}"></Text>
                                 //<Text text="{ parts: [ {path: 'modelReqPesca>FHCRN'}], formatter : '.formatter.formatoFechaString'}"></Text>
                                 //<Text text="{ parts: [ {path: 'modelReqPesca>HRCRN'}], formatter : '.formatter.formatoHoraString'}"></Text>
                                 
-                                <Text text="{modelReqPesca>DESC_ESREG}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                <Text text="{modelReqPesca>FHCRN}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                <Text text="{modelReqPesca>HRCRN}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                <Text text="{modelReqPesca>ATCRN}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                <Text text="{modelReqPesca>DESC_ESREG}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                <Text text="{modelReqPesca>FHCRN}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                <Text text="{modelReqPesca>HRCRN}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                <Text text="{modelReqPesca>ATCRN}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 
                                 //<Text text="{ parts: [ {path: 'modelReqPesca>HRMOD'}], formatter : '.formatter.formatoHoraString'}"></Text>
                                 //<Text text="{ parts: [ {path: 'modelReqPesca>FHMOD'}], formatter : '.formatter.formatoFechaString'}"></Text>
                                 
-                                <Text text="{modelReqPesca>HRMOD}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                <Text text="{modelReqPesca>FHMOD}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                <Text text="{modelReqPesca>ATMOD}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                <Text text="{modelReqPesca>HRMOD}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                <Text text="{modelReqPesca>FHMOD}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                <Text text="{modelReqPesca>ATMOD}" width="auto"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 <Button text="Editar" type="Default" icon="sap-icon://edit" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_onButtonEditarPress"/>
                             </cells>
                         </ColumnListItem>
