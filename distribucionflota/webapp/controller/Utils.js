@@ -5,7 +5,26 @@ sap.ui.define([
 	"use strict";
 
 	return {
+        formaterNumMiles: function (input) {
+			var num;
+			num = (input * 1).toFixed(2);
+			// num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g, '$1.');
+			// num = num.split('').reverse().join('').replace(/^[\.]/, '');
+			// return num;
+			var separador = ","; // separador para los miles
+			var sepDecimal = "."; // separador para los decimales
 
+			num += '';
+			var splitStr = num.split('.');
+			var splitLeft = splitStr[0];
+			var splitRight = splitStr.length > 1 ? sepDecimal + splitStr[1] : '';
+			var regx = /(\d+)(\d{3})/;
+			while (regx.test(splitLeft)) {
+				splitLeft = splitLeft.replace(regx, '$1' + separador + '$2');
+			}
+			return splitLeft + splitRight;
+
+		},
         formatDate: function (date) {
             var d = new Date(date),
                 month = '' + (d.getMonth() + 1),

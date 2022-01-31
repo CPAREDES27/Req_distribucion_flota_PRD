@@ -58,9 +58,9 @@ sap.ui.define([
 				return "0";
 			}
         },	 
-        formaterNumMiles: function (input) {
+        formaterNumMiles: function (NumberFormat) {
 			var num;
-			num = (input * 1).toFixed(2);
+			num = (NumberFormat * 1).toFixed(2);
 			// num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g, '$1.');
 			// num = num.split('').reverse().join('').replace(/^[\.]/, '');
 			// return num;
