@@ -16,7 +16,7 @@
     xmlns:variants="sap.ui.comp.variants">
     <App>
         <pages>
-            <Page showHeader="true" title="Distribución de Flota" showFooter="false" showNavButton="false">
+            <Page showHeader="true" title="Distribución de Flota" showFooter="false" showNavButton="false">                
                 <Label text="{modelDistFlota>/Now}" visible="true" design="Bold"/>
                 <headerContent>
                     <Button type="Emphasized" text="Actualizar" icon="sap-icon://refresh" press="onSelectionFilter"/>
@@ -27,8 +27,9 @@
                             .sapMLabel {color: #6a6d70; font-size: .8rem; font-family: "72","72full",Arial,Helvetica,sans-serif;
                             font-weight: normal; display: inline-block; white-space: nowrap; cursor: text; overflow: hidden; box-sizing: border-box;}
                             .sapUiTableHeaderDataCell .sapMText, .sapMColumnHeader .sapMText {font-weight: bold; font-size: .875rem; color: #FFFFFF}
-                            
-                   </html:style>
+                            .sapMListTbl .sapMText, .sapMListTbl .sapMLabel { font-size: .75rem; color: #32363a;}
+                            .sapMLnk { font-size: .75rem; cursor: pointer;}
+                    </html:style>
                     <form:Form editable="true">
                         <form:layout>
                             <form:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="4" singleContainerFullSize="true"/>

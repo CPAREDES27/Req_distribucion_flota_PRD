@@ -1080,15 +1080,16 @@ sap.ui.define([
                                             text: ""
                                         })
                                     }), new sap.m.Column({
-                                        width: "30%",
+                                        width: "35%",                                        
                                         header: new sap.m.Label({
+                                            wrapping: true,
                                             text: "Embarcación"
                                         }),
                                         footer: new sap.m.Label({ // footer of the second column
                                             text: "EP: " + tot_emb
                                         })
                                     }), new sap.m.Column({
-                                        width: "20%",
+                                        width: "25%",
                                         factory: '_resultColumnFactory',
                                         hAlign: "End",
                                         header: new sap.m.Label({
@@ -1185,10 +1186,12 @@ sap.ui.define([
                                     text: "{modelDistFlota>estado}"
                                 }), new sap.m.Text({
                                     text: "{ parts: [ {path: 'modelDistFlota>horaArribo'}], formatter : '.formatter.formatoHoraPlanta'}"
-                                }), new sap.ui.core.Icon({
-                                    src: "sap-icon://color-fill",
-                                    color: "#FF122A"
-                                }), new sap.m.Text({
+                                }),
+                                //  new sap.ui.core.Icon({
+                                //     src: "sap-icon://color-fill",
+                                //     color: "#FF122A"
+                                // }), 
+                                new sap.m.Text({
                                     text: "{modelDistFlota>tdc}"
                                 }), new sap.m.Text({
                                     text: "{modelDistFlota>descZonaCala}"
