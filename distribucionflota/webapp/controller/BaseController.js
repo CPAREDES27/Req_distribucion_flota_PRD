@@ -548,13 +548,26 @@ sap.ui.define([
         },
 
         getCurrentUser: async function () {
-            const oUserInfo = await this.getUserInfoService();
-            const sUserEmail = oUserInfo.getEmail(); //fgarcia@tasa.com.pe
-            var emailSplit = sUserEmail.split("@");
-            var usuario = emailSplit[0].toUpperCase();
-            if (emailSplit[1] == "xternal.biz") {
-                usuario = "FGARCIA";
+            let oUshell = sap.ushell,
+            oUser={};
+            if(oUshell){
+                let  oUserInfo =await sap.ushell.Container.getServiceAsync("UserInfo");
+                let sEmail = oUserInfo.getEmail().toUpperCase(),
+                sName = sEmail.split("@")[0],
+                sDominio= sEmail.split("@")[1];
+                if(sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
+                oUser = {
+                    name:sName
+                }
+            }else{
+                oUser = {
+                    name: "FGARCIA"
+                }
             }
+
+			var usuario=oUser.name;
+			console.log(usuario);
+
             return usuario;
         },
 

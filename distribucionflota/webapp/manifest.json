@@ -57,16 +57,6 @@
                 "sap.ui.core": {},
                 "sap.m": {},
                 "sap.ui.layout": {}
-            },
-        "config": {
-                "sample": {
-                    "files": [
-                        "DlgMoverEmbarcacion.fragment.xml",
-                        "DistribucionFlota.view.xml",
-                        "DistribucionFlota.controller.js",
-                        "manifest.json"
-                    ]
-                }
             }
         },
         "contentDensities": {
@@ -113,7 +103,14 @@
                     "target": [
                         "TargetDistribucionFlota"
                     ]
-                }
+                },
+                {
+					"pattern": "RouteDetalle/:aux:",
+					"name": "RouteDetalle",
+					"target": [
+						"TargetDetalle"
+					]
+				}
             ],
             "targets": {
                 "TargetDistribucionFlota": {
@@ -122,7 +119,13 @@
                     "clearControlAggregation": false,
                     "viewId": "DistribucionFlota",
                     "viewName": "DistribucionFlota"
-                }
+                },
+                "TargetDetalle": {
+					"controlAggregation": "pages",
+					"viewName": "Detalle",					
+					"viewLevel": 2,
+					"transition": "slide"
+				}
             }
         }
     },

@@ -1,0 +1,23 @@
+<mvc:View
+    controllerName="com.tasa.distribucionflota.controller.Detalle"
+    xmlns:mvc="sap.ui.core.mvc"
+     xmlns:semantic="sap.f.semantic"
+    displayBlock="true"
+    xmlns="sap.m"
+	xmlns:form="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core" 
+    xmlns:layout="sap.ui.layout"
+    xmlns:t="sap.ui.table"
+    height="100%"
+>
+<App id="appDetallex"> 
+			<pages> 
+				<Page id="pageDetallex" title="" class="sapUiResponsiveContentPadding" navButtonPress="onPrevio" showNavButton="true">
+					<content>                                
+                    </content>
+                    
+				</Page>
+			</pages>
+		</App> 
+
+</mvc:View>

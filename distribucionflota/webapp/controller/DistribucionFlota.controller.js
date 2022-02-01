@@ -1257,33 +1257,48 @@ sap.ui.define([
             },
 
             _onNavDetalleMarea: async function (objeto) {
-                BusyIndicator.show(0);
+                //BusyIndicator.show(0);
+                var self =  this;
                 var nrmar = !isNaN(objeto.numMarea) ? parseInt(objeto.numMarea) : 0;
                 if (nrmar > 0) {
                     var cargarMarea = await this.cargarDatosMarea(nrmar);
                     if (cargarMarea) {
-                        var modelo = this.getOwnerComponent().getModel("DetalleMarea");
-                        var modeloDistrFlota = this.getModel("modelDistFlota");
+                        var modelo = self.getOwnerComponent().getModel("DetalleMarea");
+                        var modeloDistrFlota = self.getModel("modelDistFlota");
                         var dataModelo = modelo.getData();
                         var dataDistrFlota = modeloDistrFlota.getData();
-                        var oStore = jQuery.sap.storage(jQuery.sap.storage.Type.Session);
-                        oStore.put("DataModelo", dataModelo);
-                        oStore.put("DistrFlota", dataDistrFlota);
-                        oStore.put("AppOrigin", "DistribucionFlota");
-                        BusyIndicator.hide();
-                        var oCrossAppNav = sap.ushell.Container.getService("CrossApplicationNavigation");
-                        oCrossAppNav.toExternal({
-                            target: {
-                                semanticObject: "mareaevento",
-                                action: "display"
-                            }
-                        });
+                        self.getOwnerComponent().setModel(modelo, "DataModelo");
+                        self.getOwnerComponent().setModel(modeloDistrFlota , "DistrFlota");
+                        var objAppOrigin = {};
+                        objAppOrigin.AppOrigin = 'DistribucionFlota';
+                        var modelAppOrigin = new JSONModel();
+                        modelAppOrigin.setData(objAppOrigin);
+                        self.getOwnerComponent().setModel(modelAppOrigin, "AppOrigin");                        
+
+                        //var oStore = jQuery.sap.storage(jQuery.sap.storage.Type.Session);
+                        // oStore.put("DataModelo", dataModelo);
+                        // oStore.put("DistrFlota", dataDistrFlota);
+                        // oStore.put("AppOrigin", "DistribucionFlota");
+                        // BusyIndicator.hide();
+                        // var oCrossAppNav = sap.ushell.Container.getService("CrossApplicationNavigation");
+                        // oCrossAppNav.toExternal({
+                        //     target: {
+                        //         semanticObject: "mareaevento",
+                        //         action: "display"
+                        //     }
+                        // });
                     } else {
-                        BusyIndicator.hide();
+                        // BusyIndicator.hide();
                     }
-                } else {
-                    BusyIndicator.hide();
-                }
+                } 
+                var oRouter = sap.ui.core.UIComponent.getRouterFor(self);			
+                oRouter.navTo('RouteDetalle', {
+                    aux: 'X'
+                });
+                
+                // else {
+                //     BusyIndicator.hide();
+                // }
             },
             onActionCloseDialog: function (oEvent, id) {
                 // var self = this;
