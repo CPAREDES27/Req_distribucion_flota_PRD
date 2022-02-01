@@ -14,7 +14,7 @@
     xmlns:filterbar="sap.ui.comp.filterbar"
     xmlns:l="sap.ui.layout"
     xmlns:variants="sap.ui.comp.variants">
-    <App>
+    <App id="app">
         <pages>
             <Page showHeader="true" title="Distribución de Flota" showFooter="false" showNavButton="false">                
                 <Label text="{modelDistFlota>/Now}" visible="true" design="Bold"/>

@@ -54,6 +54,7 @@ sap.ui.define([
 					  }).catch(error => console.log(error)
 				);
 			},
+            
             _onPatternMatched: async function (oEvt) {
                 var that = this;
                 var oView = this.getView();                
@@ -63,7 +64,7 @@ sap.ui.define([
                 this.url= this.objetoHelp[0].url;
                	await this.callConstantes();
                 var nameComponent = "com.tasa.mareaevento";
-                var idComponent = "com.tasa.mareaevento";                   
+                var idComponent = "com.tasa.mareaevento1";                   
                 var urlComponent = this.HOST_HELP+".com-tasa-mareaevento.comtasamareaevento-0.0.1";
 
                 var compCreateOk = function () {

@@ -94,12 +94,15 @@
                 "viewPath": "com.tasa.distribucionflota.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": "TargetDistribucionFlota"
+                }
             },
             "routes": [
                 {
                     "name": "RouteDistribucionFlota",
-                    "pattern": "RouteDistribucionFlota",
+                    "pattern": "",
                     "target": [
                         "TargetDistribucionFlota"
                     ]
@@ -121,7 +124,7 @@
                     "viewName": "DistribucionFlota"
                 },
                 "TargetDetalle": {
-					"controlAggregation": "pages",
+					"controlAggregation": "pages",                    
 					"viewName": "Detalle",					
 					"viewLevel": 2,
 					"transition": "slide"

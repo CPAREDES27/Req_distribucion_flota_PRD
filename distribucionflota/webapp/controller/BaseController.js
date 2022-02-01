@@ -63,6 +63,65 @@ sap.ui.define([
                 oViewModel.getProperty("/shareSendEmailMessage")
             );
         },
+        callConstantes: async function(){
+            oGlobalBusyDialog.open();
+            var body={
+                "nombreConsulta": "CONSGENCONST",
+                "p_user": this.userOperation,
+                "parametro1": this.parameter,
+                "parametro2": "",
+                "parametro3": "",
+                "parametro4": "",
+                "parametro5": ""
+            }
+            await fetch(`${this.onLocation()}General/ConsultaGeneral/`,
+                  {
+                      method: 'POST',
+                      body: JSON.stringify(body)
+                  })
+                  .then(resp => resp.json()).then(data => {
+                    
+                    console.log(data.data);
+                    this.HOST_HELP=this.url+data.data[0].LOW;
+                    console.log(this.HOST_HELP);
+                        oGlobalBusyDialog.close();
+                  }).catch(error => console.log(error)
+            );
+        },
+        _getHelpSearch:  function(){
+            var oRouter = window.location.origin;
+            var service=[];
+            if(oRouter.indexOf("localhost") !== -1){
+                service.push({
+                    url:"https://tasaqas.launchpad.cfapps.us10.hana.ondemand.com/",
+                    parameter:"IDEVT_QAS"
+                })
+            }
+            if(oRouter.indexOf("tasadev")!== -1){
+                service.push({
+                    url:"https://tasadev.launchpad.cfapps.us10.hana.ondemand.com/",
+                    parameter:"IDEVT_DEV"
+                })
+            }
+            if(oRouter.indexOf("tasaprd")!==-1){
+                service.push({
+                    url:"https://tasaprd.launchpad.cfapps.us10.hana.ondemand.com/",
+                    parameter:"IDEVT_PRD"
+                })
+            }
+            if(oRouter.indexOf("tasaqas")!==-1){
+                service.push({
+                    url:"https://tasaqas.launchpad.cfapps.us10.hana.ondemand.com/",
+                    parameter:"IDEVT_QAS"
+                })
+            } else{
+                service.push({
+                    url:"https://tasadev.launchpad.cfapps.us10.hana.ondemand.com/",
+                    parameter:"IDEVT_DEV"
+                })
+            }
+            return service;
+        },
         onLocation: function () {
 
             var oRouter = window.location.origin;
