@@ -622,7 +622,7 @@ sap.ui.define([
 
             },
 
-            createColumnConfig: function () {
+            createColumnConfigs: function () {
                 var aCols = [];
                 const title = [];
                 const table = this.byId('tbl_reqpesca');
@@ -681,6 +681,84 @@ sap.ui.define([
                     aCols.push(propCol);
                 });
                 return aCols;
+            },
+            createColumnConfig: function() {
+                return [
+                    {
+                        label: 'N° Requerimiento',
+                        property: 'NRREQ' ,
+                        type: EdmType.String
+                    },
+                    {
+                        label: 'Fecha',
+                        property: 'FHREQ' ,
+                        type: EdmType.String
+                    },
+                    {
+                        label: 'Centro',
+                        property: 'WERKS' ,
+                        type: EdmType.String
+                    },
+                    {
+                        label: 'Planta',
+                        property: 'DESCR' ,
+                        type: EdmType.String
+                    },
+                    {
+                        label: 'Unidad',
+                        property: 'MEINS' ,
+                        type: EdmType.String
+                    },
+                    {
+                        label: 'Cant. Req.',
+                        property: 'CNPRQ' ,
+                        type: EdmType.String
+                    },
+                    {
+                        label: 'Estado',
+                        property: 'DESC_ESREG' ,
+                        type: EdmType.String,
+                        scale: 2
+                    },
+                    {
+                        label: 'F. Creación',
+                        property: 'FHCRN' ,
+                        type: EdmType.String,
+                        scale: 2
+                    },
+                    {
+                        label: 'H. Creación',
+                        property: 'HRCRN' ,
+                        type: EdmType.String,
+                        scale: 2
+                    },
+                    {
+                        label: 'U. Creación',
+                        property: 'ATCRN' ,
+                        type: EdmType.String,
+                        scale: 2
+                    },
+                    {
+                        label: 'H. Modificación',
+                        property: 'HRMOD' ,
+                        type: EdmType.String,
+                        scale: 2
+                    },
+                    {
+                        label: 'F. Modificación',
+                        property: 'FHMOD' ,
+                        type: EdmType.String,
+                        scale: 2
+                    },
+                    {
+                        label: 'U. Modificación',
+                        property: 'ATMOD' ,
+                        type: EdmType.String,
+                        scale: 2
+                    }
+                    
+                    
+                    ];
             },
             /*createColumnsExport:function(aFields){
                 let aColumnsExport = aFields.map(oCol=>{
