@@ -28,17 +28,20 @@ sap.ui.define([
             formatter: formatter,
             onInit: function () {
                 var self = this;
+                self.router = this.getOwnerComponent().getRouter(self);
+			    self.router.getRoute("RouteDetalle").attachPatternMatched(self._onPatternMatched, self);
+
                 self._mViewSettingsDialogs = [];
-                this.getView().getModel("modelDistFlota").setProperty("/ListDistFlota", {});
-                this.getView().getModel("modelDistFlota").setProperty("/MoverEmbarcacion", {});
-                this.getView().getModel("modelDistFlota").setProperty("/EmbarcacionesSelectas", {});
-                this.getView().getModel("modelDistFlota").setProperty("/listPropios", {});
-                this.getView().getModel("modelDistFlota").setProperty("/listTerceros", {});
-                this.getView().getModel("modelDistFlota").setProperty("/listTotal", {});
-                this.getView().getModel("modelDistFlota").setProperty("/listDescargas", {});
-                this.getView().getModel("modelDistFlota").setProperty("/ListPlantaCbo", {});
-                this.getView().getModel("modelDistFlota").setProperty("/Search", {});
-                this.getView().getModel("modelDistFlota").setProperty("/SearchCabecera", {});
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ListDistFlota", {});
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/MoverEmbarcacion", {});
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/EmbarcacionesSelectas", {});
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listPropios", {});
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listTerceros", {});
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listTotal", {});
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listDescargas", {});
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ListPlantaCbo", {});
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/Search", {});
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/SearchCabecera", {});
                 this.objMTable = [];
                 this.arrHBox = [];
                 this.mTable = {};
@@ -56,7 +59,45 @@ sap.ui.define([
                 this.CargarIndPropiedad();
                 this.CargaTipoMarea();
             },
+            _onPatternMatched: async function (oEvt) {
+                var that = this;
+                var oView = this.getView();                
+                // this.userOperation =await this.getCurrentUser();
+                // this.objetoHelp =  this._getHelpSearch();
+                // this.parameter= this.objetoHelp[0].parameter;
+                // this.url= this.objetoHelp[0].url;
+               	// await this.callConstantes();
+                // var nameComponent = "com.tasa.mareaevento";
+                // var idComponent = "com.tasa.mareaevento1";                   
+                // var urlComponent = this.HOST_HELP+".com-tasa-mareaevento.comtasamareaevento-0.0.1";
 
+                // var compCreateOk = function () {
+                //     that.oGlobalBusyDialog.close();
+                // };
+                
+                // oView.byId('pageDetallex').destroyContent();
+
+                // var content = oView.byId('pageDetallex').getContent();
+                // if (content.length === 0) {
+                //     this.oGlobalBusyDialog = new sap.m.BusyDialog();
+                //     this.oGlobalBusyDialog.open();
+                //     var oContainer = new sap.ui.core.ComponentContainer({
+                //         id: idComponent,
+                //         name: nameComponent,
+                //         url: urlComponent,
+                //         settings: {},
+                //         componentData: {},
+                //         propagateModel: true,
+                //         componentCreated: compCreateOk,
+                //         height: '100%',
+                //         //manifest: true,
+                //         async: false
+                //     });
+
+                //     oView.byId('pageDetallex').addContent(oContainer);
+                // }
+
+            },
             getViewSettingsDialog: function (sDialogFragmentName) {
                 var self = this;
                 var pDialog = self._mViewSettingsDialogs[sDialogFragmentName];
@@ -78,7 +119,7 @@ sap.ui.define([
             },
 
             onAfterRendering: function () {
-
+                var self = this;
                 for (var i = 0; i < this.objMTable.length; i++) {
                     let oTable = this.objMTable[i].table;
                     let oHBox = this.objMTable[i].hbox;
@@ -96,7 +137,7 @@ sap.ui.define([
                         const COLOR_DEFAULT = "SinColor";
                         let sColor, Path;
                         aItems.forEach(oItem => {
-                            Path = this.getView().getModel("modelDistFlota").getProperty(oItem.getBindingContextPath());
+                            Path = self.getOwnerComponent().getModel("modelDistFlota").getProperty(oItem.getBindingContextPath());
                             sColor = Path.color;
                             oItem.addStyleClass(COLORS[sColor] || COLOR_DEFAULT);
                             oItem.addStyleClass("sapMTextEMB");
@@ -220,7 +261,7 @@ sap.ui.define([
                         var datos = data.data;
 
                         if (property === "/ListZonaArea") datos.push({ MANDT: "600", ZCDZAR: "0", ZDSZAR: "TODOS", ZESZAR: "S" });
-                        self.getView().getModel("modelDistFlota").setProperty(property, datos);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty(property, datos);
                         console.log(data);
                     },
                     error: function (xhr, readyState) {
@@ -270,7 +311,7 @@ sap.ui.define([
                     success: function (data, textStatus, jqXHR) {
                         var datos = data.data[0].data;
                         datos.push({ "id": "0", "descripcion": "Todos" });
-                        self.getView().getModel("modelDistFlota").setProperty(property, datos);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty(property, datos);
                         console.log(data);
                     },
                     error: function (xhr, readyState) {
@@ -285,7 +326,7 @@ sap.ui.define([
                 var self = this;
                 var dataEmba = [];
 
-                var embarcacionesSelectas = self.getView().getModel("modelDistFlota").getProperty("/EmbarcacionesSelectas");
+                var embarcacionesSelectas = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/EmbarcacionesSelectas");
                 var cdpta = sap.ui.getCore().byId("cbo_planta_aux").getSelectedKey();
                 if (!cdpta) {
                     MessageBox.error("Debe seleccionar la embarcación");
@@ -332,7 +373,7 @@ sap.ui.define([
                         data: JSON.stringify(objectRT),
                         success: function (data, textStatus, jqXHR) {
                             BusyIndicator.hide();
-                            self.getView().getModel("modelDistFlota").setProperty("/EmbarcacionesSelectas", []);
+                            self.getOwnerComponent().getModel("modelDistFlota").setProperty("/EmbarcacionesSelectas", []);
                             self.tablesDistribucion(true);
                             //MessageBox.success(data.dsmin);
                             console.log(data);
@@ -353,8 +394,8 @@ sap.ui.define([
                 var zflrps = [];
                 var urlNodeJS = sessionService.getHostService(); //"https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com";
                 var self = this;
-                var modelDistFlota = self.getView().getModel("modelDistFlota").getData();
-                var oSelectedItem = self.getView().byId("__table0-sapUiTableGridCnt").getSelectedItems();
+                var modelDistFlota = self.getOwnerComponent().getModel("modelDistFlota").getData();
+                var oSelectedItem = self.getOwnerComponent().byId("__table0-sapUiTableGridCnt").getSelectedItems();
 
                 for (var i = 0; i < oSelectedItem.length; i++) {
 
@@ -394,11 +435,11 @@ sap.ui.define([
                 var urlNodeJS = sessionService.getHostService(); //"https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com";
                 var self = this;
                 
-                var cdtem = self.getView().getModel("modelDistFlota").getProperty("/Search").tipoEmba;
-                var inprp = self.getView().getModel("modelDistFlota").getProperty("/Search").indProp;
-                var inubc = self.getView().getModel("modelDistFlota").getProperty("/Search").motMarea;
-                var numfl = self.getView().getModel("modelDistFlota").getProperty("/Search").numfilas;
-                var cdplt = self.getView().getModel("modelDistFlota").getProperty("/Search").cdplta;
+                var cdtem = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").tipoEmba;
+                var inprp = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").indProp;
+                var inubc = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").motMarea;
+                var numfl = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").numfilas;
+                var cdplt = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").cdplta;
 
                 if (!cdtem || cdtem === "0") cdtem = "";
                 if (!inprp || inprp === "0") inprp = "";
@@ -461,16 +502,16 @@ sap.ui.define([
 
                             var zonaIndex = i - 2;
 
-                            var ZonaDistribucion = self.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/zonaName");
-                            var NumPlantasDistribucion = self.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas").length;
-                            var NumZonasDistri = self.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/zonaName").length;
+                            var ZonaDistribucion = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/zonaName");
+                            var NumPlantasDistribucion = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas").length;
+                            var NumZonasDistri = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/zonaName").length;
 
                             for (var j = 2; j < NumPlantasDistribucion + 2; j++) {
 
                                 var plantaIndex = j - 2;
-                                var ListPlantas = self.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" +
+                                var ListPlantas = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" +
                                     zonaIndex + "/listaPlantas/" + plantaIndex);
-                                var ListEmbarcaciones = self.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" +
+                                var ListEmbarcaciones = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" +
                                     zonaIndex + "/listaPlantas/" + plantaIndex + "/listaEmbarcaciones");
                                 ListPlantas.tot_PescaReq = parseInt(ListPlantas.tot_PescaReq);
                                 ListPlantas.tot_bodFormat = Utils.formaterNumMiles(ListPlantas.tot_bod);
@@ -489,10 +530,10 @@ sap.ui.define([
                         }
 
 
-                        self.getView().getModel("modelDistFlota").setProperty("/listDescargas", data.listaDescargas);
-                        self.getView().getModel("modelDistFlota").setProperty("/listPropios", data.listaPropios);
-                        self.getView().getModel("modelDistFlota").setProperty("/listTerceros", data.listaTerceros);
-                        self.getView().getModel("modelDistFlota").setProperty("/listTotal", data.listaTotal);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listDescargas", data.listaDescargas);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listPropios", data.listaPropios);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listTerceros", data.listaTerceros);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listTotal", data.listaTotal);
 
                         var totCbodTodos = 0;
                         var totDeclTodos = 0;
@@ -572,29 +613,29 @@ sap.ui.define([
                             totDifDesc = "0";
                         }
 
-                        self.getView().getModel("modelDistFlota").setProperty("/totCbodTodos", totCbodTodos);
-                        self.getView().getModel("modelDistFlota").setProperty("/totDeclTodos", totDeclTodos);
-                        self.getView().getModel("modelDistFlota").setProperty("/totEPTodos", totEPTodos);
-                        self.getView().getModel("modelDistFlota").setProperty("/totPorcTodos", totPorcTodos);
-                        self.getView().getModel("modelDistFlota").setProperty("/totDifTodos", totDifTodos);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totCbodTodos", totCbodTodos);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDeclTodos", totDeclTodos);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totEPTodos", totEPTodos);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totPorcTodos", totPorcTodos);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDifTodos", totDifTodos);
 
-                        self.getView().getModel("modelDistFlota").setProperty("/totCbodProp", totCbodProp);
-                        self.getView().getModel("modelDistFlota").setProperty("/totDeclProp", totDeclProp);
-                        self.getView().getModel("modelDistFlota").setProperty("/totEPProp", totEPProp);
-                        self.getView().getModel("modelDistFlota").setProperty("/totPorcProp", totPorcProp);
-                        self.getView().getModel("modelDistFlota").setProperty("/totDifProp", totDifProp);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totCbodProp", totCbodProp);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDeclProp", totDeclProp);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totEPProp", totEPProp);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totPorcProp", totPorcProp);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDifProp", totDifProp);
 
-                        self.getView().getModel("modelDistFlota").setProperty("/totCbodTerc", totCbodTerc);
-                        self.getView().getModel("modelDistFlota").setProperty("/totDeclTerc", totDeclTerc);
-                        self.getView().getModel("modelDistFlota").setProperty("/totEPTerc", totEPTerc);
-                        self.getView().getModel("modelDistFlota").setProperty("/totPorcTerc", totPorcTerc);
-                        self.getView().getModel("modelDistFlota").setProperty("/totDifTerc", totDifTerc);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totCbodTerc", totCbodTerc);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDeclTerc", totDeclTerc);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totEPTerc", totEPTerc);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totPorcTerc", totPorcTerc);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDifTerc", totDifTerc);
 
-                        self.getView().getModel("modelDistFlota").setProperty("/totCbodDesc", totCbodDesc);
-                        self.getView().getModel("modelDistFlota").setProperty("/totDeclDesc", totDeclDesc);
-                        self.getView().getModel("modelDistFlota").setProperty("/totEPDesc", totEPDesc);
-                        self.getView().getModel("modelDistFlota").setProperty("/totPorcDesc", totPorcDesc);
-                        self.getView().getModel("modelDistFlota").setProperty("/totDifDesc", totDifDesc);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totCbodDesc", totCbodDesc);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDeclDesc", totDeclDesc);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totEPDesc", totEPDesc);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totPorcDesc", totPorcDesc);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDifDesc", totDifDesc);
 
                         self.generarPlantasDinamicas(self);
                         self.onAfterRendering();
@@ -640,7 +681,7 @@ sap.ui.define([
 
                         plantaIndex = j - 2;
                         var NumEmbarcacionDistribucion = model.getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/listaEmbarcaciones").length;
-                        // var Search = this.getView().getModel("modelDistFlota").getProperty("/Search/Embarcacion").trim().toUpperCase();
+                        // var Search = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search/Embarcacion").trim().toUpperCase();
                         var NumEmbarcacion = 0;
 
                         for (var m = 0; m < NumEmbarcacionDistribucion; m++) {
@@ -669,7 +710,7 @@ sap.ui.define([
             },
 
             handleSelectionChange: function (oEvent) {
-
+                var self =  this;
                 var changedItems = oEvent.getParameter("changedItems") || [oEvent.getParameter("changedItem")];
                 var isSelected = oEvent.getParameter("selected");
                 var isSelectAllTriggered = oEvent.getParameter("selectAll");
@@ -678,15 +719,15 @@ sap.ui.define([
 
                 if (Id === "T") {
 
-                    this.getView().getModel("modelDistFlota").setProperty("/ShowTdc", isSelected);
+                    self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowTdc", isSelected);
 
                 } else if (Id === "ZP") {
 
-                    this.getView().getModel("modelDistFlota").setProperty("/ShowZonP", isSelected);
+                    self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowZonP", isSelected);
 
                 } else {
 
-                    this.getView().getModel("modelDistFlota").setProperty("/ShowEstSisFrio", isSelected);
+                    self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowEstSisFrio", isSelected);
 
                 }
             },
@@ -700,8 +741,8 @@ sap.ui.define([
 
             rowcount: function () {
 
-                var numfilas = this.getView().getModel("modelDistFlota").getProperty("/Search").Numfilas;
-                var codPlanta = this.getView().getModel("modelDistFlota").getProperty("/Search").CodPlanta;
+                var numfilas = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").Numfilas;
+                var codPlanta = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").CodPlanta;
                 var table;
 
                 for (var i = 0; i < this.objMTable.length; i++) {
@@ -752,7 +793,7 @@ sap.ui.define([
             generarPlantasDinamicas: function (self, numfilas, codPlanta) {
                 var self = this;
                 var oView = self.getView();
-                var NumZonasDistribucion = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota").length;
+                var NumZonasDistribucion = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota").length;
                 var zonaIndex = 0;
                 var plantaIndex = 0;
                 var listPlantas = [];
@@ -761,18 +802,18 @@ sap.ui.define([
                 now = now.substring(0, 16);
                 var me = this;
 
-                this.getView().getModel("modelDistFlota").setProperty("/Now", now);
-                this.getView().getModel("modelDistFlota").setProperty("/ShowTdc", false);
-                this.getView().getModel("modelDistFlota").setProperty("/ShowEstSisFrio", false);
-                this.getView().getModel("modelDistFlota").setProperty("/ShowZonP", false);
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/Now", now);
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowTdc", false);
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowEstSisFrio", false);
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowZonP", false);
 
                 for (var i = 2; i < NumZonasDistribucion + 2; i++) {
 
                     zonaIndex = i - 2;
 
-                    var ZonaDistribucion = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/zonaName");
-                    var NumPlantasDistribucion = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas").length;
-                    var NumZonasDistri = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/zonaName").length;
+                    var ZonaDistribucion = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/zonaName");
+                    var NumPlantasDistribucion = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas").length;
+                    var NumZonasDistri = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/zonaName").length;
 
 
                     if (zonaIndex % 2 === 0) {
@@ -805,11 +846,11 @@ sap.ui.define([
                         plantaIndex = j - 2;
 
                         var idTableAux = "Table_DF1";
-                        var PlantaDistribucion = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/plantaName");
-                        var idPlantaDistribucion = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/codPlanta");
+                        var PlantaDistribucion = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/plantaName");
+                        var idPlantaDistribucion = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/codPlanta");
                         listPlantas.push({ "codPlanta": idPlantaDistribucion, "descPlanta": PlantaDistribucion });
 
-                        var rowstable = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/listaEmbarcaciones");
+                        var rowstable = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/listaEmbarcaciones");
                         var rowstableDistribucion = "modelDistFlota>/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/listaEmbarcaciones";
                         if (rowstable.length > 0) {
 
@@ -818,18 +859,18 @@ sap.ui.define([
                             //     element.cbodEmbaFormat = Utils.formaterNumMiles(element.cbodEmba);
                             // }
 
-                            this.getView().getModel("modelDistFlota").setProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/plantaTableId", idTableAux + plantaIndex);
-                            var NumvisibleRowCount = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/listaEmbarcaciones").length;
-                            var totalesTable = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex)
+                            self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/plantaTableId", idTableAux + plantaIndex);
+                            var NumvisibleRowCount = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/listaEmbarcaciones").length;
+                            var totalesTable = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex)
 
-                            var tot_Est = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/tot_Est");
-                            var tot_PescaReq = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/tot_PescaReq");
-                            var tot_bod = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/tot_bodFormat");
-                            var tot_decl = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/tot_declFormat");
-                            var tot_emb = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/tot_emb");
+                            var tot_Est = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/tot_Est");
+                            var tot_PescaReq = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/tot_PescaReq");
+                            var tot_bod = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/tot_bodFormat");
+                            var tot_decl = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/tot_declFormat");
+                            var tot_emb = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/tot_emb");
                             4
                             var IdTable = "Tbl" + PlantaDistribucion + zonaIndex + plantaIndex;
-                            var Row = this.getView().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/listaEmbarcaciones/0/cbodEmba");
+                            var Row = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/listaEmbarcaciones/0/cbodEmba");
 
 
                             var oHBoxPlantaBase = new sap.m.HBox({
@@ -868,15 +909,15 @@ sap.ui.define([
                                     var rowSelected = this.getView().getModel('modelDistFlota').getProperty(sPath);
                                     if (oEvent.getParameters().selected) {
                                         var depositoTemporal = [];
-                                        if (this.moverInit) depositoTemporal = this.getView().getModel("modelDistFlota").getProperty("/EmbarcacionesSelectas");
+                                        if (this.moverInit) depositoTemporal = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/EmbarcacionesSelectas");
                                         depositoTemporal.push(rowSelected);
-                                        this.getView().getModel("modelDistFlota").setProperty("/EmbarcacionesSelectas", depositoTemporal);
+                                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/EmbarcacionesSelectas", depositoTemporal);
                                         this.moverInit = true;
                                     } else {
-                                        var embarcacionesSelectas = this.getView().getModel("modelDistFlota").getProperty("/EmbarcacionesSelectas");
+                                        var embarcacionesSelectas = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/EmbarcacionesSelectas");
                                         for (var i = 0; i < embarcacionesSelectas.length; i++) {
                                             if (embarcacionesSelectas[i].codEmba === rowSelected.codEmba)
-                                                this.getView().getModel("modelDistFlota").getProperty("/EmbarcacionesSelectas").splice(i);
+                                                self.getOwnerComponent().getModel("modelDistFlota").getProperty("/EmbarcacionesSelectas").splice(i);
                                         }
                                     }
                                 }.bind(this),
@@ -924,7 +965,7 @@ sap.ui.define([
                                                         list.push(obj);
                                                     }
                                                     // else if(index === 6){
-                                                    //     flag = this.getView().getModel("modelDistFlota").getProperty("/ShowTdc");
+                                                    //     flag = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ShowTdc");
                                                     //     obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].tdc;
                                                     //     obj.fieldName = cabecera;     
                                                     //     if(flag){
@@ -933,7 +974,7 @@ sap.ui.define([
                                                     // } 
                                                     else if (index === 7) {
                                                         obj.flag = false;
-                                                        flag = this.getView().getModel("modelDistFlota").getProperty("/ShowZonP");
+                                                        flag = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ShowZonP");
                                                         obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].tdc;
                                                         obj.fieldName = cabecera;
                                                         if (flag) {
@@ -941,7 +982,7 @@ sap.ui.define([
                                                         }
                                                     } else if (index === 8) {
                                                         obj.flag = false;
-                                                        flag = this.getView().getModel("modelDistFlota").getProperty("/ShowEstSisFrio");
+                                                        flag = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ShowEstSisFrio");
                                                         obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].descZonaCala;
                                                         obj.fieldName = cabecera;
                                                         if (flag) {
@@ -1015,7 +1056,7 @@ sap.ui.define([
                                                         list.push(obj);
                                                     }
                                                     // else if(index === 6){
-                                                    //     flag = this.getView().getModel("modelDistFlota").getProperty("/ShowTdc");
+                                                    //     flag = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ShowTdc");
                                                     //     obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].tdc;
                                                     //     obj.fieldName = cabecera;     
                                                     //     if(flag){
@@ -1024,7 +1065,7 @@ sap.ui.define([
                                                     // } 
                                                     else if (index === 7) {
                                                         obj.flag = false;
-                                                        flag = this.getView().getModel("modelDistFlota").getProperty("/ShowZonP");
+                                                        flag = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ShowZonP");
                                                         obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].tdc;
                                                         obj.fieldName = cabecera;
                                                         if (flag) {
@@ -1032,7 +1073,7 @@ sap.ui.define([
                                                         }
                                                     } else if (index === 8) {
                                                         obj.flag = false;
-                                                        flag = this.getView().getModel("modelDistFlota").getProperty("/ShowEstSisFrio");
+                                                        flag = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/ShowEstSisFrio");
                                                         obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].descZonaCala;
                                                         obj.fieldName = cabecera;
                                                         if (flag) {
@@ -1232,7 +1273,7 @@ sap.ui.define([
                     }
                 }
                 listPlantas.push({ "codPlanta": "0", "descPlanta": "TODOS" });
-                self.getView().getModel("modelDistFlota").setProperty("/ListPlantaCbo", listPlantas);
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ListPlantaCbo", listPlantas);
             },
 
             _onOpenDialogMovEmbarcacion: function () { //_onOpenDialogCentro
@@ -1275,18 +1316,7 @@ sap.ui.define([
                         modelAppOrigin.setData(objAppOrigin);
                         self.getOwnerComponent().setModel(modelAppOrigin, "AppOrigin");                        
 
-                        //var oStore = jQuery.sap.storage(jQuery.sap.storage.Type.Session);
-                        // oStore.put("DataModelo", dataModelo);
-                        // oStore.put("DistrFlota", dataDistrFlota);
-                        // oStore.put("AppOrigin", "DistribucionFlota");
-                        // BusyIndicator.hide();
-                        // var oCrossAppNav = sap.ushell.Container.getService("CrossApplicationNavigation");
-                        // oCrossAppNav.toExternal({
-                        //     target: {
-                        //         semanticObject: "mareaevento",
-                        //         action: "display"
-                        //     }
-                        // });
+                       
                     } else {
                         // BusyIndicator.hide();
                     }
@@ -1416,6 +1446,14 @@ sap.ui.define([
                 var idPopUp = oEvent.getSource().getParent().getId();
                 self.onActionCloseDialog(null, idPopUp);
 
+            }, 
+            ontestnav: function(){
+                var self = this;
+                var oView = self.getView();
+                var oRouter = sap.ui.core.UIComponent.getRouterFor(self);			
+                oRouter.navTo('RouteDetalle', {
+                    aux: 'X'
+                });
             }
 
         });

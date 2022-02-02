@@ -96,30 +96,28 @@ sap.ui.define([
                     url:"https://tasaqas.launchpad.cfapps.us10.hana.ondemand.com/",
                     parameter:"IDEVT_QAS"
                 })
-            }
-            if(oRouter.indexOf("tasadev")!== -1){
+            } else if(oRouter.indexOf("tasadev")!== -1){
                 service.push({
                     url:"https://tasadev.launchpad.cfapps.us10.hana.ondemand.com/",
                     parameter:"IDEVT_DEV"
                 })
-            }
-            if(oRouter.indexOf("tasaprd")!==-1){
+            } else if(oRouter.indexOf("tasaprd")!==-1){
                 service.push({
                     url:"https://tasaprd.launchpad.cfapps.us10.hana.ondemand.com/",
                     parameter:"IDEVT_PRD"
                 })
-            }
-            if(oRouter.indexOf("tasaqas")!==-1){
+            } else if(oRouter.indexOf("tasaqas")!==-1){
                 service.push({
                     url:"https://tasaqas.launchpad.cfapps.us10.hana.ondemand.com/",
                     parameter:"IDEVT_QAS"
                 })
-            } else{
-                service.push({
-                    url:"https://tasadev.launchpad.cfapps.us10.hana.ondemand.com/",
-                    parameter:"IDEVT_DEV"
-                })
-            }
+            } 
+            // else{
+            //     service.push({
+            //         url:'https://cf-nodejs-cheerful-bat-js.cfapps.us10.hana.ondemand.com/api/',
+            //         parameter:"IDEVT_DEV"
+            //     })
+            // }
             return service;
         },
         onLocation: function () {

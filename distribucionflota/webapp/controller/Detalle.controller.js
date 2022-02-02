@@ -94,9 +94,19 @@ sap.ui.define([
                 }
 
             },
-            onPrevio: function(evt) {
-                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);               
-                oRouter.navTo('RouteDistribucionFlota');
+            onPrevio: function(evt) {               
+                var sPreviousHash = History.getInstance().getPreviousHash();
+                if (sPreviousHash !== undefined) {
+
+                    history.go(-1);
+
+                } else {
+
+                    this.router.navTo("RouteDistribucionFlota", {}, true);
+
+                }
+                // var oRouter = sap.ui.core.UIComponent.getRouterFor(this);                       
+                // oRouter.navTo('RouteDistribucionFlota');
             }
             
             

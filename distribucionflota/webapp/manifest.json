@@ -1,6 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
+        
         "id": "com.tasa.distribucionflota",
         "type": "application",
         "i18n": "i18n/i18n.properties",
@@ -12,20 +13,21 @@
         "resources": "resources.json",
         "ach": "ach",
         "crossNavigation": {
-                    "inbounds": {
-                        "com-tasa-distribucionflota-inbound": {
-                            "signature": {
-                                "parameters": {},
-                                "additionalParameters": "allowed"
-                            },
-                            "semanticObject": "DistribucionFlota",
-                            "action": "display",
-                            "title": "{{flpTitle}}",
-                            "subTitle": "{{flpSubtitle}}",
-                            "icon": ""
-                        }
-                    }
+            "inbounds": {
+                "tasa-com-distribucionflota-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "DistribucionFlota",
+                    "action": "display",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "icon": ""
                 }
+            }
+        }
+       
     },
     "sap.ui": {
         "technology": "UI5",
@@ -50,6 +52,7 @@
             "type": "XML",
             "async": true,
             "id": "DistribucionFlota"
+            
         },
         "dependencies": {
             "minUI5Version": "1.94.0",
@@ -93,20 +96,27 @@
                 "async": true,
                 "viewPath": "com.tasa.distribucionflota.view",
                 "controlAggregation": "pages",
-                "controlId": "app",
-                "clearControlAggregation": false,
+                "controlId": "App",
+                "clearTarget": false,
                 "bypassed": {
                     "target": "TargetDistribucionFlota"
                 }
             },
             "routes": [
                 {
+					"pattern": "",
+					"name": "default",
+					"target": [
+						"TargetDistribucionFlota"
+					]
+				},
+                {
                     "name": "RouteDistribucionFlota",
-                    "pattern": "",
+                    "pattern": "RouteDistribucionFlota",
                     "target": [
                         "TargetDistribucionFlota"
                     ]
-                },
+                },                
                 {
 					"pattern": "RouteDetalle/:aux:",
 					"name": "RouteDetalle",
@@ -117,17 +127,19 @@
             ],
             "targets": {
                 "TargetDistribucionFlota": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "DistribucionFlota",
-                    "viewName": "DistribucionFlota"
+					"controlAggregation": "pages",	
+                    "viewName": "DistribucionFlota",
+                    "viewId": "DistribucionFlota",	
+                    "viewLevel": 1, 		                   
+                    "transition": "slide"
                 },
                 "TargetDetalle": {
-					"controlAggregation": "pages",                    
-					"viewName": "Detalle",					
-					"viewLevel": 2,
+					"controlAggregation": "pages",   
+                    "viewName": "Detalle",
+                    "viewId": "Detalle",
+                    "viewLevel": 2,            												
 					"transition": "slide"
+                    
 				}
             }
         }

@@ -14,7 +14,8 @@
     xmlns:filterbar="sap.ui.comp.filterbar"
     xmlns:l="sap.ui.layout"
     xmlns:variants="sap.ui.comp.variants">
-    <App id="app">
+    
+    <App id="App">
         <pages>
             <Page showHeader="true" title="Distribución de Flota" showFooter="false" showNavButton="false">                
                 <Label text="{modelDistFlota>/Now}" visible="true" design="Bold"/>
@@ -378,7 +379,7 @@
                     <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
                         <content>
                             <ToolbarSpacer width=""/>
-                            <Button text="Save" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                            <Button text="Save" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="ontestnav"/>
                             <Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
                         </content>
                     </OverflowToolbar>
@@ -387,6 +388,7 @@
                 <subHeader/>
                 <customHeader/>
             </Page>
-        </pages>
+       </pages>
     </App>
+   
 </mvc:View>

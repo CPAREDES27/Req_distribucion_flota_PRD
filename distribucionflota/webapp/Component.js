@@ -2,8 +2,12 @@ sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
 	"com/tasa/distribucionflota/model/models"
-], function (UIComponent, Device, models) {
+], function(UIComponent, Device, models) {
 	"use strict";
+
+	var navigationWithContext = {
+
+	};
 
 	return UIComponent.extend("com.tasa.distribucionflota.Component", {
 
@@ -16,19 +20,52 @@ sap.ui.define([
 		 * @public
 		 * @override
 		 */
-		init: function () {
+		init: function() {
+			// set the device model
+			// this.setModel(models.createDeviceModel(), "device");
+			// set the FLP model
+			// this.setModel(models.createFLPModel(), "FLP");
+
+			// set the dataSource model
+			this.setModel(new sap.ui.model.json.JSONModel({
+				"uri": "/here/goes/your/serviceUrl/local/"
+			}), "dataSource");
+
+			// set application model
+			var oApplicationModel = new sap.ui.model.json.JSONModel({});
+			
+
 			// call the base component's init function
 			UIComponent.prototype.init.apply(this, arguments);
 
-			// enable routing
+			// delegate error handling
+			//errorHandling.register(this);
+
+			// create the views based on the url/hash
 			this.getRouter().initialize();
-
-			// set the device model
-			this.setModel(models.createDeviceModel(), "device");
-
-			this.setModel(models.createMareaModel(), "DetalleMarea");
-
-			sap.ui.getCore().setModel(models.createConstantsUtility(), "ConstantsUtility");
+            this.setModel(models.createMareaModel(), "DetalleMarea");
+            sap.ui.getCore().setModel(models.createConstantsUtility(), "ConstantsUtility");
 		}
+        ,
+
+		createContent: function() {
+			var app = new sap.m.App({
+				id: "App"
+			});
+			var appType = "App";
+			var appBackgroundColor = "#FFFFFF";
+			if (appType === "App" && appBackgroundColor) {
+				app.setBackgroundColor(appBackgroundColor);
+			}
+
+			return app;
+		},
+
+		getNavigationPropertyForNavigationWithContext: function(sEntityNameSet, targetPageName) {
+			var entityNavigations = navigationWithContext[sEntityNameSet];
+			return entityNavigations == null ? null : entityNavigations[targetPageName];
+		}
+
 	});
+
 });
