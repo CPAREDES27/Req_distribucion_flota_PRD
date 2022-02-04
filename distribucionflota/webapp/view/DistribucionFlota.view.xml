@@ -161,25 +161,25 @@
                                                                     <Text id="idFoote2" text="Total General:"/>
                                                                 </footer>
                                                             </Column>
-                                                            <Column>
+                                                            <Column hAlign="Right">
                                                                 <Text text="Cbod"/>
                                                                 <footer>
                                                                     <Text text="{modelDistFlota>/totCbodTodos}"/>
                                                                 </footer>
                                                             </Column>
-                                                            <Column>
-                                                                <Text text="Decl"/>
+                                                            <Column hAlign="Right">
+                                                                <Text text="Decl" />
                                                                 <footer>
                                                                     <Text text="{modelDistFlota>/totDeclTodos}"/>
                                                                 </footer>
                                                             </Column>
-                                                            <Column>
+                                                            <Column hAlign="Right">
                                                                 <Text text="EP"/>
                                                                 <footer>
                                                                     <Text text="{modelDistFlota>/totEPTodos}"/>
                                                                 </footer>
                                                             </Column>
-                                                            <Column>
+                                                            <Column hAlign="Right">
                                                                 <Text text="%"/>
                                                                 <footer>
                                                                     <Text text="{modelDistFlota>/totPorcTodos}" visible="false"/>
@@ -196,9 +196,9 @@
                                                             <ColumnListItem>
                                                                 <cells>
                                                                     <Text text="{modelDistFlota>descPlanta}" />
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>cbodProp'}], formatter : '.formatter.formatoEnteros'}"></Text>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>pescDeclProp'}], formatter : '.formatter.formatoEnteros'}"></Text>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>embaPescProp'}], formatter : '.formatter.formatoEnteros'}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>cbodPropF'}]}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>pescDeclPropF'}]}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>embaPescPropF'}]}"></Text>
                                                                     <Text text="{modelDistFlota>porcTodos}"></Text>
                                                                     <Text text="{modelDistFlota>dif}" />
                                                                 </cells>
@@ -217,19 +217,19 @@
                                                                     <Text id="idFo1ot2" text="Total General:"/>
                                                                 </footer>
                                                             </Column>
-                                                            <Column>
+                                                            <Column hAlign="Right">
                                                                 <Text text="Cbod"/>
                                                                 <footer>
                                                                     <Text text="{modelDistFlota>/totCbodProp}"/>
                                                                 </footer>
                                                             </Column>
-                                                            <Column>
+                                                            <Column hAlign="Right">
                                                                 <Text text="Decl"/>
                                                                 <footer>
                                                                     <Text text="{modelDistFlota>/totDeclProp}"/>
                                                                 </footer>
                                                             </Column>
-                                                            <Column>
+                                                            <Column hAlign="Right">
                                                                 <Text text="EP"/>
                                                                 <footer>
                                                                     <Text text="{modelDistFlota>/totEPProp}"/>
@@ -246,9 +246,9 @@
                                                             <ColumnListItem>
                                                                 <cells>
                                                                     <Text text="{modelDistFlota>descPlanta}"/>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>cbodProp'}], formatter : '.formatter.formatoEnteros'}"></Text>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>pescDeclProp'}], formatter : '.formatter.formatoEnteros'}"></Text>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>embaPescProp'}], formatter : '.formatter.formatoEnteros'}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>cbodPropF'}], formatter : '.formatter.formatoEnteros'}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>pescDeclPropF'}], formatter : '.formatter.formatoEnteros'}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>embaPescPropF'}], formatter : '.formatter.formatoEnteros'}"></Text>
                                                                     <Text text="{modelDistFlota>porcPropios}"></Text>
                                                                 </cells>
                                                             </ColumnListItem>
@@ -267,19 +267,19 @@
                                                                     <Text id="idFo1ot3" text="Total General:"/>
                                                                 </footer>
                                                             </Column>
-                                                            <Column>
+                                                            <Column hAlign="Right">
                                                                 <Text text="Cbod"/>
                                                                 <footer>
                                                                     <Text text="{modelDistFlota>/totCbodTerc}"/>
                                                                 </footer>
                                                             </Column>
-                                                            <Column>
+                                                            <Column hAlign="Right">
                                                                 <Text text="Decl"/>
                                                                 <footer>
                                                                     <Text text="{modelDistFlota>/totDeclTerc}"/>
                                                                 </footer>
                                                             </Column>
-                                                            <Column>
+                                                            <Column hAlign="Right">
                                                                 <Text text="EP"/>
                                                                 <footer>
                                                                     <Text text="{modelDistFlota>/totEPTerc}"/>
@@ -296,9 +296,9 @@
                                                             <ColumnListItem>
                                                                 <cells>
                                                                     <Text text="{modelDistFlota>descPlanta}"/>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>cbodProp'}], formatter : '.formatter.formatoEnteros'}"></Text>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>pescDeclProp'}], formatter : '.formatter.formatoEnteros'}"></Text>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>embaPescProp'}], formatter : '.formatter.formatoEnteros'}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>cbodPropF'}], formatter : '.formatter.formaterNumMiles'}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>pescDeclPropF'}], formatter : '.formatter.formaterNumMiles'}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>embaPescPropF'}], formatter : '.formatter.formaterNumMiles'}"></Text>
                                                                     <Text text="{modelDistFlota>porcTerceros}"></Text>
                                                                 </cells>
                                                             </ColumnListItem>
@@ -322,19 +322,19 @@
                                                                     <Text text="" visible="false"/>
                                                                 </footer>
                                                             </Column>
-                                                            <Column>
+                                                            <Column hAlign="Right">
                                                                 <Text text="CBOD"/>
                                                                 <footer>
                                                                     <Text text="{modelDistFlota>/totCbodDesc}"/>
                                                                 </footer>
                                                             </Column>
-                                                            <Column>
+                                                            <Column hAlign="Right">
                                                                 <Text text="Pesc. decl"/>
                                                                 <footer>
                                                                     <Text text="{modelDistFlota>/totDifDesc}"/>
                                                                 </footer>
                                                             </Column>
-                                                            <Column>
+                                                            <Column hAlign="Right">
                                                                 <Text text="Pesc. desc"/>
                                                                 <footer>
                                                                     <Text text="{modelDistFlota>/totEPDesc}"/>
@@ -345,9 +345,9 @@
                                                             <ColumnListItem>
                                                                 <cells>
                                                                     <Text text="{modelDistFlota>descPlanta}"/>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>cbodProp'}], formatter : '.formatter.formatoEnteros'}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>cbodPropF'}], formatter : '.formatter.formatoEnteros'}"></Text>
                                                                     <Text text="{modelDistFlota>dif}"/>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>embaPescProp'}], formatter : '.formatter.formatoEnteros'}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>embaPescPropF'}], formatter : '.formatter.formatoEnteros'}"></Text>
                                                                 </cells>
                                                             </ColumnListItem>
                                                         </items>

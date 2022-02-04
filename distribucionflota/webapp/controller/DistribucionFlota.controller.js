@@ -265,7 +265,7 @@ sap.ui.define([
                         console.log(data);
                     },
                     error: function (xhr, readyState) {
-                        console.log(xhr);
+                        MessageBox.error(xhr.statusText);
                     }
                 });
             },
@@ -529,10 +529,33 @@ sap.ui.define([
                             }
                         }
 
-
+                        for (let index = 0; index < data.listaDescargas.length; index++) {
+                            const element = data.listaDescargas[index];
+                            element.cbodPropF = Utils.formaterNumMiles(element.cbodProp);                            
+                            element.embaPescPropF = Utils.formaterNumMiles(element.embaPescProp);
+                        }
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listDescargas", data.listaDescargas);
+                        for (let index = 0; index < data.listaPropios.length; index++) {
+                            const element = data.listaPropios[index];
+                            element.cbodPropF = Utils.formaterNumMiles(element.cbodProp);
+                            element.pescDeclPropF = Utils.formaterNumMiles(element.pescDeclProp);
+                            element.embaPescPropF = Utils.formaterNumMiles(element.embaPescProp);
+                        }
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listPropios", data.listaPropios);
+
+                        for (let index = 0; index < data.listaTerceros.length; index++) {
+                            const element = data.listaTerceros[index];
+                            element.cbodPropF = Utils.formaterNumMiles(element.cbodProp);
+                            element.pescDeclPropF = Utils.formaterNumMiles(element.pescDeclProp);
+                            element.embaPescPropF = Utils.formaterNumMiles(element.embaPescProp);
+                        }
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listTerceros", data.listaTerceros);
+                        for (let index = 0; index < data.listaTotal.length; index++) {
+                            const element = data.listaTotal[index];
+                            element.cbodPropF = Utils.formaterNumMiles(element.cbodProp);
+                            element.pescDeclPropF = Utils.formaterNumMiles(element.pescDeclProp);
+                            element.embaPescPropF = Utils.formaterNumMiles(element.embaPescProp);
+                        }
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listTotal", data.listaTotal);
 
                         var totCbodTodos = 0;
@@ -613,27 +636,27 @@ sap.ui.define([
                             totDifDesc = "0";
                         }
 
-                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totCbodTodos", totCbodTodos);
-                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDeclTodos", totDeclTodos);
-                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totEPTodos", totEPTodos);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totCbodTodos", Utils.formaterNumMiles(totCbodTodos));
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDeclTodos", Utils.formaterNumMiles(totDeclTodos));
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totEPTodos", Utils.formaterNumMiles(totEPTodos));
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totPorcTodos", totPorcTodos);
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDifTodos", totDifTodos);
 
-                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totCbodProp", totCbodProp);
-                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDeclProp", totDeclProp);
-                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totEPProp", totEPProp);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totCbodProp", Utils.formaterNumMiles(totCbodProp));
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDeclProp", Utils.formaterNumMiles(totDeclProp));
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totEPProp", Utils.formaterNumMiles(totEPProp));
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totPorcProp", totPorcProp);
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDifProp", totDifProp);
 
-                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totCbodTerc", totCbodTerc);
-                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDeclTerc", totDeclTerc);
-                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totEPTerc", totEPTerc);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totCbodTerc", Utils.formaterNumMiles(totCbodTerc));
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDeclTerc", Utils.formaterNumMiles(totDeclTerc));
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totEPTerc", Utils.formaterNumMiles(totEPTerc));
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totPorcTerc", totPorcTerc);
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDifTerc", totDifTerc);
 
-                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totCbodDesc", totCbodDesc);
-                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDeclDesc", totDeclDesc);
-                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totEPDesc", totEPDesc);
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totCbodDesc", Utils.formaterNumMiles(totCbodDesc));
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDeclDesc", Utils.formaterNumMiles(totDeclDesc));
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totEPDesc", Utils.formaterNumMiles(totEPDesc));
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totPorcDesc", totPorcDesc);
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/totDifDesc", totDifDesc);
 

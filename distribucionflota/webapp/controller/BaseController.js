@@ -146,7 +146,7 @@ sap.ui.define([
                 service = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
 
             } else {
-                service = 'https://cf-nodejs-cheerful-bat-js.cfapps.us10.hana.ondemand.com/api/'
+                service = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
 
             }
 
