@@ -246,9 +246,9 @@
                                                             <ColumnListItem>
                                                                 <cells>
                                                                     <Text text="{modelDistFlota>descPlanta}"/>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>cbodPropF'}], formatter : '.formatter.formatoEnteros'}"></Text>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>pescDeclPropF'}], formatter : '.formatter.formatoEnteros'}"></Text>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>embaPescPropF'}], formatter : '.formatter.formatoEnteros'}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>cbodPropF'}], formatter : '.formatter.formaterNumMiles'}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>pescDeclPropF'}], formatter : '.formatter.formaterNumMiles'}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>embaPescPropF'}], formatter : '.formatter.formaterNumMiles'}"></Text>
                                                                     <Text text="{modelDistFlota>porcPropios}"></Text>
                                                                 </cells>
                                                             </ColumnListItem>
@@ -345,9 +345,9 @@
                                                             <ColumnListItem>
                                                                 <cells>
                                                                     <Text text="{modelDistFlota>descPlanta}"/>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>cbodPropF'}], formatter : '.formatter.formatoEnteros'}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>cbodPropF'}], formatter : '.formatter.formaterNumMiles'}"></Text>
                                                                     <Text text="{modelDistFlota>dif}"/>
-                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>embaPescPropF'}], formatter : '.formatter.formatoEnteros'}"></Text>
+                                                                    <Text text="{ parts: [ {path: 'modelDistFlota>embaPescPropF'}], formatter : '.formatter.formaterNumMiles'}"></Text>
                                                                 </cells>
                                                             </ColumnListItem>
                                                         </items>
