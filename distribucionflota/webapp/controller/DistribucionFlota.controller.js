@@ -29,7 +29,7 @@ sap.ui.define([
             onInit: function () {
                 var self = this;
                 self.router = this.getOwnerComponent().getRouter(self);
-			    self.router.getRoute("RouteDetalle").attachPatternMatched(self._onPatternMatched, self);
+                self.router.getRoute("RouteDetalle").attachPatternMatched(self._onPatternMatched, self);
 
                 self._mViewSettingsDialogs = [];
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ListDistFlota", {});
@@ -61,12 +61,12 @@ sap.ui.define([
             },
             _onPatternMatched: async function (oEvt) {
                 var that = this;
-                var oView = this.getView();                
+                var oView = this.getView();
                 // this.userOperation =await this.getCurrentUser();
                 // this.objetoHelp =  this._getHelpSearch();
                 // this.parameter= this.objetoHelp[0].parameter;
                 // this.url= this.objetoHelp[0].url;
-               	// await this.callConstantes();
+                // await this.callConstantes();
                 // var nameComponent = "com.tasa.mareaevento";
                 // var idComponent = "com.tasa.mareaevento1";                   
                 // var urlComponent = this.HOST_HELP+".com-tasa-mareaevento.comtasamareaevento-0.0.1";
@@ -74,7 +74,7 @@ sap.ui.define([
                 // var compCreateOk = function () {
                 //     that.oGlobalBusyDialog.close();
                 // };
-                
+
                 // oView.byId('pageDetallex').destroyContent();
 
                 // var content = oView.byId('pageDetallex').getContent();
@@ -434,18 +434,20 @@ sap.ui.define([
                 BusyIndicator.show(0);
                 var urlNodeJS = sessionService.getHostService(); //"https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com";
                 var self = this;
-                
+                var oView = self.getView();
                 var cdtem = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").tipoEmba;
                 var inprp = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").indProp;
                 var inubc = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").motMarea;
                 var numfl = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").numfilas;
                 var cdplt = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").cdplta;
+                //var zonaArea = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").zonaArea;
 
                 if (!cdtem || cdtem === "0") cdtem = "";
                 if (!inprp || inprp === "0") inprp = "";
                 if (!inubc || inubc === "0") inubc = "";
                 if (!numfl || numfl === "0") numfl = "";
                 if (!cdplt || cdplt === "0") cdplt = "";
+                //if (!zonaArea || zonaArea === "0") zonaArea = "";
 
                 var objectRT = {
                     "p_cdtem": cdtem,
@@ -453,11 +455,12 @@ sap.ui.define([
                     "p_inprp": inprp,
                     "p_inubc": inubc,
                     "p_numFilas": numfl,
+                    //"p_zonaArea": zonaArea,
                     "p_user": "this.usuario " //sessionService.getCurrentUser(),
                 }
 
                 //var url=this.onLocation();
-                var urlPost = this.onLocation() + "distribucionflota/listar";
+                var urlPost = self.onLocation() + "distribucionflota/listar";
 
                 $.ajax({
                     url: urlPost,
@@ -469,7 +472,8 @@ sap.ui.define([
                     success: function (data, textStatus, jqXHR) {
 
                         var model = self.getOwnerComponent().getModel("modelDistFlota");
-                        model.setProperty("/ListDistFlota", data.listaZonas);                        
+                        model.setProperty("/ListDistFlota", data.listaZonas);
+
 
                         // var NumZonasDistribucion = model.getProperty("/ListDistFlota").length;
                         // var zonaIndex = 0;
@@ -486,7 +490,7 @@ sap.ui.define([
                         //         cab.tot_bodFormat = Utils.formaterNumMiles(cab.tot_bod);
                         //         cab.tot_declFormat = Utils.formaterNumMiles(cab.tot_decl);
                         //         var lista = model.getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/listaEmbarcaciones");
-                                
+
                         //         for (var k = 0; k < lista.length; k++) {
                         //             var value = lista[k];
                         //             value.cbodEmbaFormat = Utils.formaterNumMiles(value.cbodEmba);
@@ -496,7 +500,7 @@ sap.ui.define([
 
                         // }
 
-                       
+
 
                         for (var i = 2; i < data.listaZonas.length + 2; i++) {
 
@@ -531,7 +535,7 @@ sap.ui.define([
 
                         for (let index = 0; index < data.listaDescargas.length; index++) {
                             const element = data.listaDescargas[index];
-                            element.cbodPropF = Utils.formaterNumMiles(element.cbodProp);                            
+                            element.cbodPropF = Utils.formaterNumMiles(element.cbodProp);
                             element.embaPescPropF = Utils.formaterNumMiles(element.embaPescProp);
                         }
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listDescargas", data.listaDescargas);
@@ -697,8 +701,8 @@ sap.ui.define([
 
                 for (var i = 2; i < NumZonasDistribucion + 2; i++) {
 
-                    zonaIndex = i - 2;                    
-                    NumPlantasDistribucion = model.getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas").length;                    
+                    zonaIndex = i - 2;
+                    NumPlantasDistribucion = model.getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas").length;
 
                     for (var j = 2; j < NumPlantasDistribucion + 2; j++) {
 
@@ -708,7 +712,7 @@ sap.ui.define([
                         var NumEmbarcacion = 0;
 
                         for (var m = 0; m < NumEmbarcacionDistribucion; m++) {
-                            
+
                             ZonaDistribucion = model.getProperty("/ListDistFlota/" + zonaIndex + "/zonaName");
                             PlantaDistribucion = model.getProperty("/ListDistFlota/" + zonaIndex + "/listaPlantas/" + plantaIndex + "/plantaName");
                             NumEmbarcacion = m;
@@ -733,7 +737,7 @@ sap.ui.define([
             },
 
             handleSelectionChange: function (oEvent) {
-                var self =  this;
+                var self = this;
                 var changedItems = oEvent.getParameter("changedItems") || [oEvent.getParameter("changedItem")];
                 var isSelected = oEvent.getParameter("selected");
                 var isSelectAllTriggered = oEvent.getParameter("selectAll");
@@ -756,8 +760,8 @@ sap.ui.define([
             },
 
             onSelectionFilter: function () {
-
-                this.tablesDistribucion(true);
+                var self = this;
+                self.tablesDistribucion(true);
                 MessageBox.success("La actualización se realizo satisfactoriamente");
 
             },
@@ -829,6 +833,25 @@ sap.ui.define([
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowTdc", false);
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowEstSisFrio", false);
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowZonP", false);
+                var model = self.getOwnerComponent().getModel("modelDistFlota");                
+                var selectedTdcZpSf = oView.byId("idTdcZpSf").getSelectedKeys();
+                selectedTdcZpSf.forEach(function(element){
+                
+                    var isSelected = false;                    
+                    if (element === "T") {
+                        isSelected =  true;
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowTdc", isSelected);
+
+                    } else if (element === "ZP") {   
+                        isSelected =  true;         
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowZonP", isSelected);
+
+                    } else if (element === "SF") {    
+                        isSelected =  true;        
+                        self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowEstSisFrio", isSelected);
+
+                    }
+                });            
 
                 for (var i = 2; i < NumZonasDistribucion + 2; i++) {
 
@@ -1144,7 +1167,7 @@ sap.ui.define([
                                             text: ""
                                         })
                                     }), new sap.m.Column({
-                                        width: "35%",                                        
+                                        width: "35%",
                                         header: new sap.m.Label({
                                             wrapping: true,
                                             text: "Embarcación"
@@ -1322,7 +1345,7 @@ sap.ui.define([
 
             _onNavDetalleMarea: async function (objeto) {
                 //BusyIndicator.show(0);
-                var self =  this;
+                var self = this;
                 var nrmar = !isNaN(objeto.numMarea) ? parseInt(objeto.numMarea) : 0;
                 if (nrmar > 0) {
                     var cargarMarea = await this.cargarDatosMarea(nrmar);
@@ -1332,23 +1355,23 @@ sap.ui.define([
                         var dataModelo = modelo.getData();
                         var dataDistrFlota = modeloDistrFlota.getData();
                         self.getOwnerComponent().setModel(modelo, "DataModelo");
-                        self.getOwnerComponent().setModel(modeloDistrFlota , "DistrFlota");
+                        self.getOwnerComponent().setModel(modeloDistrFlota, "DistrFlota");
                         var objAppOrigin = {};
                         objAppOrigin.AppOrigin = 'DistribucionFlota';
                         var modelAppOrigin = new JSONModel();
                         modelAppOrigin.setData(objAppOrigin);
-                        self.getOwnerComponent().setModel(modelAppOrigin, "AppOrigin");                        
+                        self.getOwnerComponent().setModel(modelAppOrigin, "AppOrigin");
 
-                       
+
                     } else {
                         // BusyIndicator.hide();
                     }
-                } 
-                var oRouter = sap.ui.core.UIComponent.getRouterFor(self);			
+                }
+                var oRouter = sap.ui.core.UIComponent.getRouterFor(self);
                 oRouter.navTo('RouteDetalle', {
                     aux: 'X'
                 });
-                
+
                 // else {
                 //     BusyIndicator.hide();
                 // }
@@ -1469,11 +1492,11 @@ sap.ui.define([
                 var idPopUp = oEvent.getSource().getParent().getId();
                 self.onActionCloseDialog(null, idPopUp);
 
-            }, 
-            ontestnav: function(){
+            },
+            ontestnav: function () {
                 var self = this;
                 var oView = self.getView();
-                var oRouter = sap.ui.core.UIComponent.getRouterFor(self);			
+                var oRouter = sap.ui.core.UIComponent.getRouterFor(self);
                 oRouter.navTo('RouteDetalle', {
                     aux: 'X'
                 });

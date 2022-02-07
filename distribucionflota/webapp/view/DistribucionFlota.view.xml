@@ -124,7 +124,7 @@
                                             <Label text="Tdc-ZonaP-SistFrio" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                         </form:label>
                                         <form:fields>
-                                            <MultiComboBox selectionChange="handleSelectionChange" width="350px">
+                                            <MultiComboBox id="idTdcZpSf" selectionChange="handleSelectionChange" width="350px">
                                                 <core:Item key="T" text="Tdc"/>
                                                 <core:Item key="ZP" text="ZonP"/>
                                                 <core:Item key="SF" text="Sist Frio"/>
