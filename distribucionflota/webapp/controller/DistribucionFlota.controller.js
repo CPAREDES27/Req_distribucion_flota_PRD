@@ -40,24 +40,28 @@ sap.ui.define([
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listTotal", {});
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listDescargas", {});
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ListPlantaCbo", {});
-                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/Search", {});
+                
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/SearchCabecera", {});
                 this.objMTable = [];
                 this.arrHBox = [];
                 this.mTable = {};
                 this.moverInit = false;
-                this.totDeclTodosAux;
-                this.getView().byId("cbo_filter_indprp").setSelectedKey("0");
-                this.getView().byId("cbo_filter_motMarea").setSelectedKey("2");
-                this.getView().byId("cbo_filter_ZonaArea").setSelectedKey("0");
-                this.getView().byId("cbo_filter_Tipemb").setSelectedKey("001");
-
-                this.tablesDistribucion(false);
+                this.totDeclTodosAux;               
+               
                 this.ObtenerZonaArea();
                 this.ObtenerTipoEmba();
                 this.CargaMovEmba();
                 this.CargarIndPropiedad();
                 this.CargaTipoMarea();
+                
+                var obj = {};
+                obj.indProp = "0";
+                obj.motMarea = "2";
+                obj.zonaArea = "0";
+                obj.tipoEmba = "001";
+                self.getOwnerComponent().getModel("modelDistFlota").setProperty("/Search", obj);
+                self.tablesDistribucion(false);
+               
             },
             _onPatternMatched: async function (oEvt) {
                 var that = this;
@@ -456,7 +460,7 @@ sap.ui.define([
                     "p_inubc": inubc,
                     "p_numFilas": numfl,
                     //"p_zonaArea": zonaArea,
-                    "p_user": "this.usuario " //sessionService.getCurrentUser(),
+                    "p_user": "" //sessionService.getCurrentUser(),
                 }
 
                 //var url=this.onLocation();
@@ -812,7 +816,7 @@ sap.ui.define([
                 if (minute < 10) minute = '0' + minute;
                 if (second < 10) second = '0' + second;
 
-                dateFormatted = year + '/' + month + '/' + day + ' ' + hour + ':' + minute + ':' + second;
+                dateFormatted = day + '/' + month + '/' + year + ' ' + hour + ':' + minute + ':' + second;
 
                 return dateFormatted;
             },
@@ -825,7 +829,7 @@ sap.ui.define([
                 var plantaIndex = 0;
                 var listPlantas = [];
                 sap.ui.getCore().byId("__bar1").destroyContent();
-                var now = this.formatDate(new Date());
+                var now = self.formatDate(new Date());
                 now = now.substring(0, 16);
                 var me = this;
 
