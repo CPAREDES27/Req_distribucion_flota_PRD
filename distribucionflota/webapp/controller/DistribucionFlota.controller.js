@@ -444,14 +444,14 @@ sap.ui.define([
                 var inubc = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").motMarea;
                 var numfl = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").numfilas;
                 var cdplt = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").cdplta;
-                //var zonaArea = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").zonaArea;
+                var zonaArea = self.getOwnerComponent().getModel("modelDistFlota").getProperty("/Search").zonaArea;
 
                 if (!cdtem || cdtem === "0") cdtem = "";
                 if (!inprp || inprp === "0") inprp = "";
                 if (!inubc || inubc === "0") inubc = "";
                 if (!numfl || numfl === "0") numfl = "";
                 if (!cdplt || cdplt === "0") cdplt = "";
-                //if (!zonaArea || zonaArea === "0") zonaArea = "";
+                if (!zonaArea || zonaArea === "0") zonaArea = "";
 
                 var objectRT = {
                     "p_cdtem": cdtem,
@@ -459,7 +459,7 @@ sap.ui.define([
                     "p_inprp": inprp,
                     "p_inubc": inubc,
                     "p_numFilas": numfl,
-                    //"p_zonaArea": zonaArea,
+                    "p_zonaarea": zonaArea,
                     "p_user": "" //sessionService.getCurrentUser(),
                 }
 
@@ -528,6 +528,11 @@ sap.ui.define([
 
                                 for (var k = 0; k < ListEmbarcaciones.length; k++) {
                                     ListEmbarcaciones[k].cbodEmbaFormat = Utils.formaterNumMiles(ListEmbarcaciones[k].cbodEmba);
+                                    if(ListEmbarcaciones[k].cbodEmba > 300){
+                                    ListEmbarcaciones[k].cbodEmbaState = "Warning";
+                                    } else{
+                                        ListEmbarcaciones[k].cbodEmbaState = "Success";
+                                    }
                                     ListEmbarcaciones[k].pescDeclFormat = Utils.formaterNumMiles(ListEmbarcaciones[k].pescDecl);
                                     ListEmbarcaciones[k].horaArribo = ListEmbarcaciones[k].horaArribo.substring(0, 5);
                                     ListEmbarcaciones[k].pescDecl = parseInt(ListEmbarcaciones[k].pescDecl);
@@ -1269,27 +1274,36 @@ sap.ui.define([
                                         var object = evt.getSource().getParent().getBindingContext("modelDistFlota").getObject();
                                         await me._onNavDetalleMarea(object);
                                     }
-                                }), new sap.m.Text({
-                                    text: "{ parts: [ {path: 'modelDistFlota>cbodEmbaFormat'}]}"
-                                }), new sap.m.Text({
-                                    text: "{ parts: [ {path: 'modelDistFlota>pescDeclFormat'}], formatter : '.formatter.formaterNumMiles'}"
-                                }), new sap.m.Text({
-                                    text: "{modelDistFlota>estado}"
-                                }), new sap.m.Text({
-                                    text: "{ parts: [ {path: 'modelDistFlota>horaArribo'}], formatter : '.formatter.formatoHoraPlanta'}"
+                                }), new sap.m.ObjectNumber({
+                                    number: "{ parts: [ {path: 'modelDistFlota>cbodEmbaFormat'}]}",
+                                    state: "{ parts: [ {path: 'modelDistFlota>cbodEmbaState'}]}"
+                                }), new sap.m.ObjectNumber({
+                                    number: "{ parts: [ {path: 'modelDistFlota>pescDeclFormat'}], formatter : '.formatter.formaterNumMiles'}",
+                                    state: "Warning"
+                                }), new sap.m.ObjectNumber({
+                                    number: "{modelDistFlota>estado}",
+                                    state: "Warning"
+                                }), new sap.m.ObjectNumber({
+                                    number: "{ parts: [ {path: 'modelDistFlota>horaArribo'}], formatter : '.formatter.formatoHoraPlanta'}",
+                                    state: "Warning"
                                 }),
                                 //  new sap.ui.core.Icon({
                                 //     src: "sap-icon://color-fill",
                                 //     color: "#FF122A"
                                 // }), 
-                                new sap.m.Text({
-                                    text: "{modelDistFlota>tdc}"
-                                }), new sap.m.Text({
-                                    text: "{modelDistFlota>descZonaCala}"
-                                }), new sap.m.Text({
-                                    text: "{modelDistFlota>estSisFrio}"
-                                }), new sap.m.Text({
-                                    text: "{modelDistFlota>zonP}"
+                                new sap.m.ObjectNumber({
+                                    number: "{modelDistFlota>tdc}",
+                                    state: "Warning"
+                                }), new sap.m.ObjectNumber({
+                                    number: "{modelDistFlota>descZonaCala}",
+                                    state: "Warning"
+                                }), new sap.m.ObjectNumber({
+                                    number: "{modelDistFlota>estSisFrio}",
+                                    state: "Warning"
+                                }), new sap.m.ObjectNumber({
+                                    number: "{modelDistFlota>zonP}",
+                                    state: "Warning",
+                                    wrapping: true
                                 }), new sap.m.Text({
                                     text: "{modelDistFlota>semaforo}",
                                 }),]
