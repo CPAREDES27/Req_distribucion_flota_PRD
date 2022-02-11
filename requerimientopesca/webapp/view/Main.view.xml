@@ -40,8 +40,8 @@
                                     </form:label>
                                     <form:fields>
                                         <!--<DateRangeSelection width="50%" id="DRS1" delimiter="{path:'/delimiterDRS1'}" dateValue="{path:'/dateValueDRS1'}" secondDateValue="{path:'/secondDateValueDRS1'}" displayFormat="dd/MM/yyyy" change="handleChange"/>-->    
-                                        <DatePicker id="fechaInicio"  displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
-                                        <DatePicker id="fechaFin"  displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy" />
+                                        <DatePicker id="fechaInicio"  displayFormat="dd/MM/yyyy" required="false" valueState="" valueStateText="Fecha no válida" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
+                                        <DatePicker id="fechaFin"  displayFormat="dd/MM/yyyy" required="false" valueState="" valueStateText="Fecha no válida" enabled="true" visible="true" valueFormat="dd/MM/yyyy" />
                                     </form:fields>
                                 </form:FormElement>
                                 <!--<form:FormElement visible="true">
