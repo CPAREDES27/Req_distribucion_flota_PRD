@@ -995,12 +995,12 @@ sap.ui.define([
                                                         list.push(obj);
                                                     } else if (index === 2) {
                                                         obj.flag = false;
-                                                        obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].cbodEmba;
+                                                        obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].cbodEmbaFormat;
                                                         obj.fieldName = cabecera;
                                                         list.push(obj);
                                                     } else if (index === 3) {
                                                         obj.flag = false;
-                                                        obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].pescDecl;
+                                                        obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].pescDeclFormat;
                                                         obj.fieldName = cabecera;
                                                         list.push(obj);
                                                     } else if (index === 4) {
@@ -1086,12 +1086,12 @@ sap.ui.define([
                                                         list.push(obj);
                                                     } else if (index === 2) {
                                                         obj.flag = false;
-                                                        obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].cbodEmba;
+                                                        obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].cbodEmbaFormat;
                                                         obj.fieldName = cabecera;
                                                         list.push(obj);
                                                     } else if (index === 3) {
                                                         obj.flag = false;
-                                                        obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].pescDecl;
+                                                        obj.field = oEvent.getSource().getParent().getParent().getBindingInfo("items").binding.oList[0].pescDeclFormat;
                                                         obj.fieldName = cabecera;
                                                         list.push(obj);
                                                     } else if (index === 4) {
@@ -1143,11 +1143,11 @@ sap.ui.define([
                                                     oDialog = sap.ui.xmlfragment(oView.getId(), "com.tasa.distribucionflota.fragment.FilterDialog", self);
                                                     oView.addDependent(oDialog);
 
-                                                    this.getView().byId("idInputValueFilter").setValue("");
+                                                    // this.getView().byId("idInputValueFilter").setValue("");
                                                     oDialog.open();
                                                 } else {
 
-                                                    this.getView().byId("idInputValueFilter").setValue("");
+                                                    // this.getView().byId("idInputValueFilter").setValue("");
                                                     oDialog.open();
                                                 }
 
@@ -1421,9 +1421,9 @@ sap.ui.define([
                 if (oThisObj.fieldName === "Embarcación") {
                     sField = "descEmba";
                 } else if (oThisObj.fieldName === "Cbod") {
-                    sField = "cbodEmba";
+                    sField = "cbodEmbaFormat";
                 } else if (oThisObj.fieldName === "Decl") {
-                    sField = "pescDecl";
+                    sField = "pescDeclFormat";
                 } else if (oThisObj.fieldName === "Est") {
                     sField = "estado";
                 } else if (oThisObj.fieldName === "Arr") {
@@ -1469,9 +1469,9 @@ sap.ui.define([
                 if (oThisObj.fieldName === "Embarcación") {
                     sField = "descEmba";
                 } else if (oThisObj.fieldName === "Cbod") {
-                    sField = "cbodEmba";
+                    sField = "cbodEmbaFormat";
                 } else if (oThisObj.fieldName === "Decl") {
-                    sField = "pescDecl";
+                    sField = "pescDeclFormat";
                 } else if (oThisObj.fieldName === "Est") {
                     sField = "estado";
                 } else if (oThisObj.fieldName === "Arr") {
