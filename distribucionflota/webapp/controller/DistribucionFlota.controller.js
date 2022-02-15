@@ -40,20 +40,20 @@ sap.ui.define([
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listTotal", {});
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/listDescargas", {});
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ListPlantaCbo", {});
-                
+
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/SearchCabecera", {});
                 this.objMTable = [];
                 this.arrHBox = [];
                 this.mTable = {};
                 this.moverInit = false;
-                this.totDeclTodosAux;               
-               
+                this.totDeclTodosAux;
+
                 this.ObtenerZonaArea();
                 this.ObtenerTipoEmba();
                 this.CargaMovEmba();
                 this.CargarIndPropiedad();
                 this.CargaTipoMarea();
-                
+
                 var obj = {};
                 obj.indProp = "0";
                 obj.motMarea = "2";
@@ -61,7 +61,7 @@ sap.ui.define([
                 obj.tipoEmba = "001";
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/Search", obj);
                 self.tablesDistribucion(false);
-               
+
             },
             _onPatternMatched: async function (oEvt) {
                 var that = this;
@@ -460,6 +460,7 @@ sap.ui.define([
                     "p_inubc": inubc,
                     "p_numFilas": numfl,
                     "p_zonaarea": zonaArea,
+                    "p_appdfl" : "X",
                     "p_user": "" //sessionService.getCurrentUser(),
                 }
 
@@ -528,10 +529,11 @@ sap.ui.define([
 
                                 for (var k = 0; k < ListEmbarcaciones.length; k++) {
                                     ListEmbarcaciones[k].cbodEmbaFormat = Utils.formaterNumMiles(ListEmbarcaciones[k].cbodEmba);
-                                    if(ListEmbarcaciones[k].cbodEmba > 300){
-                                    ListEmbarcaciones[k].cbodEmbaState = "Warning";
-                                    } else{
-                                        ListEmbarcaciones[k].cbodEmbaState = "Success";
+                                    console.log("valprod: " + ListEmbarcaciones[k].valProd)
+                                    if (ListEmbarcaciones[k].valProd === "X") {
+                                        ListEmbarcaciones[k].cbodEmbaState = "None";
+                                    } else {
+                                        ListEmbarcaciones[k].cbodEmbaState = "Warning";
                                     }
                                     ListEmbarcaciones[k].pescDeclFormat = Utils.formaterNumMiles(ListEmbarcaciones[k].pescDecl);
                                     ListEmbarcaciones[k].horaArribo = ListEmbarcaciones[k].horaArribo.substring(0, 5);
@@ -686,7 +688,7 @@ sap.ui.define([
                 });
 
             },
-
+           
             BuscarTable: function () {
                 var table = this.mTable["mitabla"];
                 var table2 = this.getView().byId("idRandomDataTableTableDsF3");
@@ -842,25 +844,25 @@ sap.ui.define([
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowTdc", false);
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowEstSisFrio", false);
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowZonP", false);
-                var model = self.getOwnerComponent().getModel("modelDistFlota");                
+                var model = self.getOwnerComponent().getModel("modelDistFlota");
                 var selectedTdcZpSf = oView.byId("idTdcZpSf").getSelectedKeys();
-                selectedTdcZpSf.forEach(function(element){
-                
-                    var isSelected = false;                    
+                selectedTdcZpSf.forEach(function (element) {
+
+                    var isSelected = false;
                     if (element === "T") {
-                        isSelected =  true;
+                        isSelected = true;
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowTdc", isSelected);
 
-                    } else if (element === "ZP") {   
-                        isSelected =  true;         
+                    } else if (element === "ZP") {
+                        isSelected = true;
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowZonP", isSelected);
 
-                    } else if (element === "SF") {    
-                        isSelected =  true;        
+                    } else if (element === "SF") {
+                        isSelected = true;
                         self.getOwnerComponent().getModel("modelDistFlota").setProperty("/ShowEstSisFrio", isSelected);
 
                     }
-                });            
+                });
 
                 for (var i = 2; i < NumZonasDistribucion + 2; i++) {
 
@@ -1279,13 +1281,13 @@ sap.ui.define([
                                     state: "{ parts: [ {path: 'modelDistFlota>cbodEmbaState'}]}"
                                 }), new sap.m.ObjectNumber({
                                     number: "{ parts: [ {path: 'modelDistFlota>pescDeclFormat'}], formatter : '.formatter.formaterNumMiles'}",
-                                    state: "Warning"
+                                    state: "{ parts: [ {path: 'modelDistFlota>cbodEmbaState'}]}"
                                 }), new sap.m.ObjectNumber({
                                     number: "{modelDistFlota>estado}",
-                                    state: "Warning"
+                                    state: "{ parts: [ {path: 'modelDistFlota>cbodEmbaState'}]}"
                                 }), new sap.m.ObjectNumber({
                                     number: "{ parts: [ {path: 'modelDistFlota>horaArribo'}], formatter : '.formatter.formatoHoraPlanta'}",
-                                    state: "Warning"
+                                    state: "{ parts: [ {path: 'modelDistFlota>cbodEmbaState'}]}"
                                 }),
                                 //  new sap.ui.core.Icon({
                                 //     src: "sap-icon://color-fill",
@@ -1293,16 +1295,16 @@ sap.ui.define([
                                 // }), 
                                 new sap.m.ObjectNumber({
                                     number: "{modelDistFlota>tdc}",
-                                    state: "Warning"
+                                    state: "{ parts: [ {path: 'modelDistFlota>cbodEmbaState'}]}"
                                 }), new sap.m.ObjectNumber({
                                     number: "{modelDistFlota>descZonaCala}",
-                                    state: "Warning"
+                                    state: "{ parts: [ {path: 'modelDistFlota>cbodEmbaState'}]}"
                                 }), new sap.m.ObjectNumber({
                                     number: "{modelDistFlota>estSisFrio}",
-                                    state: "Warning"
+                                    state: "{ parts: [ {path: 'modelDistFlota>cbodEmbaState'}]}"
                                 }), new sap.m.ObjectNumber({
                                     number: "{modelDistFlota>zonP}",
-                                    state: "Warning",
+                                    state: "{ parts: [ {path: 'modelDistFlota>cbodEmbaState'}]}",
                                     wrapping: true
                                 }), new sap.m.Text({
                                     text: "{modelDistFlota>semaforo}",
