@@ -130,7 +130,7 @@ sap.ui.define([
 
             if (oRouter.indexOf("localhost") !== -1) {
 
-                service = 'https://cf-nodejs-cheerful-bat-js.cfapps.us10.hana.ondemand.com/api/'
+                service = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
                 //service='https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
 
             } else if (oRouter.indexOf("tasadev") !== -1) {

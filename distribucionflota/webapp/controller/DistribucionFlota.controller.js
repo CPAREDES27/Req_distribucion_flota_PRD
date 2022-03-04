@@ -61,6 +61,7 @@ sap.ui.define([
                 obj.tipoEmba = "001";
                 self.getOwnerComponent().getModel("modelDistFlota").setProperty("/Search", obj);
                 self.tablesDistribucion(false);
+                console.log("despliege 2022");
 
             },
             _onPatternMatched: async function (oEvt) {
@@ -1274,7 +1275,7 @@ sap.ui.define([
                                     press: async function (evt) {
                                         //console.log(evt.getSource().getParent().getBindingContext("modelDistFlota").getObject());
                                         var object = evt.getSource().getParent().getBindingContext("modelDistFlota").getObject();
-                                        await me._onNavDetalleMarea(object);
+                                        await me.detalleMarea(object);
                                     }
                                 }), new sap.m.ObjectNumber({
                                     number: "{ parts: [ {path: 'modelDistFlota>cbodEmbaFormat'}]}",
@@ -1362,6 +1363,39 @@ sap.ui.define([
                 }
                 return this._oDialogMoverEmbarcacion;
             },
+            detalleMarea: async function (objeto) {
+				//BusyIndicator.show(0); @pprincipe comment
+            
+                var nrmar = !isNaN(objeto.numMarea) ? parseInt(objeto.numMarea) : 0;
+				if (nrmar) {
+
+						let oCrossAppNavigator = await sap.ushell.Container.getServiceAsync("CrossApplicationNavigation"); 
+						oCrossAppNavigator.isIntentSupported(["mareaevento-display"])
+						.done(function(aResponses) { 
+
+						}) 
+						.fail(function() { 
+							new sap.m.MessageToast("Provide corresponding intent to navigate"); 
+						}); 
+						// generate the Hash to display a employee Id 
+						var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({ 
+							target: { 
+								semanticObject: "mareaevento", 
+								action: "display" 
+							} ,
+							params: {
+								appName : "ConsultaMareas",
+								marea: nrmar,
+								soloLectura : true,
+								mareaReabierta :true
+							}
+						})) || "";
+						//Generate a URL for the second application 
+						var url = window.location.href.split('#')[0] + hash; 
+						//Navigate to second app 
+						sap.m.URLHelper.redirect(url, true);
+				}
+			},
 
             _onNavDetalleMarea: async function (objeto) {
                 //BusyIndicator.show(0);
