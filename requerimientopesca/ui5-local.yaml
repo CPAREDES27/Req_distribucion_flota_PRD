@@ -2,7 +2,7 @@
 
 specVersion: "2.5"
 metadata:
-  name: com.tasa.requerimientopesca
+  name: tasa.com.pe.fl.pesca.requerimientoflota.requerimientopesca
 type: application
 framework:
   name: SAPUI5
@@ -35,4 +35,4 @@ server:
     - name: fiori-tools-preview
       afterMiddleware: fiori-tools-appreload
       configuration:
-        component: com.tasa.requerimientopesca
+        component: tasa.com.pe.fl.pesca.requerimientoflota.requerimientopesca

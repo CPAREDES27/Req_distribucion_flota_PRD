@@ -2,7 +2,7 @@
     "_version": "1.32.0",
     "sap.app": {
         
-        "id": "com.tasa.distribucionflota",
+        "id": "tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -48,7 +48,7 @@
     "sap.ui5": {
         "flexEnabled": false,
         "rootView": {
-            "viewName": "com.tasa.distribucionflota.view.DistribucionFlota",
+            "viewName": "tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota.view.DistribucionFlota",
             "type": "XML",
             "async": true,
             "id": "DistribucionFlota"
@@ -70,7 +70,7 @@
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
-                    "bundleName": "com.tasa.distribucionflota.i18n.i18n"
+                    "bundleName": "tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota.i18n.i18n"
                 }
             },
             "DsFlota": {
@@ -94,7 +94,7 @@
                 "routerClass": "sap.m.routing.Router",
                 "viewType": "XML",
                 "async": true,
-                "viewPath": "com.tasa.distribucionflota.view",
+                "viewPath": "tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota.view",
                 "controlAggregation": "pages",
                 "controlId": "App",
                 "clearTarget": false,

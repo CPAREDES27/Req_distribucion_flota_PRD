@@ -10,7 +10,7 @@
 |**Service URL**<br>N/A
 |**Module Name**<br>requerimientopesca|
 |**Application Title**<br>Requerimiento de Pesca|
-|**Namespace**<br>com.tasa|
+|**Namespace**<br>tasa.com.pe.fl.pesca.requerimientoflota|
 |**UI5 Theme**<br>sap_fiori_3|
 |**UI5 Version**<br>Latest|
 |**Enable Code Assist Libraries**<br>False|

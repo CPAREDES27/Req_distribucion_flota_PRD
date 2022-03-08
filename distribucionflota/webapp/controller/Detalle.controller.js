@@ -17,7 +17,7 @@ sap.ui.define([
 	function (BaseController, Controller, JSONModel, formatter, Filter, FilterOperator, exportLibrary, Spreadsheet, BusyIndicator, MessageBox, History) {
 		"use strict";		
         var oGlobalBusyDialog = new sap.m.BusyDialog();
-		return BaseController.extend("com.tasa.distribucionflota.controller.Detalle", {
+		return BaseController.extend("tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota.controller.Detalle", {
 			
 			onInit: async function () {
                 this.router = this.getOwnerComponent().getRouter(this);
@@ -63,8 +63,8 @@ sap.ui.define([
                 this.parameter= this.objetoHelp[0].parameter;
                 this.url= this.objetoHelp[0].url;
                	await this.callConstantes();
-                var nameComponent = "com.tasa.mareaevento";
-                var idComponent = "com.tasa.mareaevento1";                   
+                var nameComponent = "tasa.com.pe.fl.pesca.requerimientoflota.mareaevento";
+                var idComponent = "tasa.com.pe.fl.pesca.requerimientoflota.mareaevento1";                   
                 var urlComponent = this.HOST_HELP+".com-tasa-mareaevento.comtasamareaevento-0.0.1";
 
                 var compCreateOk = function () {

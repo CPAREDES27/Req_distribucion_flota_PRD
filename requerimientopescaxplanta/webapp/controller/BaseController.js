@@ -8,7 +8,7 @@ sap.ui.define([
 	// shortcut for sap.m.URLHelper
 	var URLHelper = mobileLibrary.URLHelper;
 
-	return Controller.extend("com.tasa.requerimientopescaxplanta.controller.BaseController", {
+	return Controller.extend("tasa.com.pe.fl.pesca.requerimientoflota.requerimientopescaxplanta.controller.BaseController", {
 		/**
 		 * Convenience method for accessing the router.
 		 * @public

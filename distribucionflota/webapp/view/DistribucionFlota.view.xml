@@ -1,4 +1,4 @@
-<mvc:View controllerName="com.tasa.distribucionflota.controller.DistribucionFlota"
+<mvc:View controllerName="tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota.controller.DistribucionFlota"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
     xmlns:f="sap.f"

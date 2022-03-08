@@ -5,7 +5,7 @@ sap.ui.define([
 ) {
 	"use strict";
 
-	return Object.extend("com.tasa.distribucionflota.Service.CoreService", {
+	return Object.extend("tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota.Service.CoreService", {
 
         constructor: function () {},
 

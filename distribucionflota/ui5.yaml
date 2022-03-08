@@ -2,7 +2,7 @@
 
 specVersion: "2.5"
 metadata:
-  name: com.tasa.distribucionflota
+  name: tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota
 type: application
 server:
   customMiddleware:
@@ -28,4 +28,4 @@ server:
     - name: fiori-tools-preview
       afterMiddleware: fiori-tools-appreload
       configuration:
-        component: com.tasa.distribucionflota
+        component: tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota

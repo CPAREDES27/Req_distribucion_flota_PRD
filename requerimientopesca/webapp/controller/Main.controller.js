@@ -12,7 +12,7 @@ sap.ui.define([
 	"../util/formatter",
     "sap/ui/core/Item",
     "sap/ui/core/BusyIndicator",
-    "com/tasa/requerimientopesca/util/sessionService",
+    "tasa/com/pe/fl/pesca/requerimientodistribucion/requerimientopesca/util/sessionService",
     
 ],
     /**
@@ -28,7 +28,7 @@ sap.ui.define([
         var ValueState = CoreLibrary.ValueState;
         var usuario="";
         var codigoPlanta="";
-        return BaseController.extend("com.tasa.requerimientopesca.controller.Main", {
+        return BaseController.extend("tasa.com.pe.fl.pesca.requerimientoflota.requerimientopesca.controller.Main", {
 
             formatter: formatter,
             dataTableKeys: [
@@ -81,7 +81,7 @@ sap.ui.define([
                             var that = this;
                 
                             if (!this._oResponsivePopover) {
-                                this._oResponsivePopover = sap.ui.xmlfragment("com.tasa.requerimientopesca.view.DlgHeaderTable", this);
+                                this._oResponsivePopover = sap.ui.xmlfragment("tasa.com.pe.fl.pesca.requerimientoflota.requerimientopesca.view.DlgHeaderTable", this);
                                 this._oResponsivePopover.setModel(this.getView().getModel());
                             }
                 
@@ -1250,7 +1250,7 @@ sap.ui.define([
 
             _getDialogCentro: function () {
                 if (!this._oDialogCentro) {
-                    this._oDialogCentro = sap.ui.xmlfragment("com.tasa.requerimientopesca.view.DlgCentro", this.getView().getController());
+                    this._oDialogCentro = sap.ui.xmlfragment("tasa.com.pe.fl.pesca.requerimientoflota.requerimientopesca.view.DlgCentro", this.getView().getController());
                     this.getView().addDependent(this._oDialogCentro);
                 }
                 return this._oDialogCentro;
@@ -1295,7 +1295,7 @@ sap.ui.define([
 
             _getDialogNewReg: function () {
                 if (!this._oDialogNewReg) {
-                    this._oDialogNewReg = sap.ui.xmlfragment("com.tasa.requerimientopesca.view.DlgNewReg", this.getView().getController());
+                    this._oDialogNewReg = sap.ui.xmlfragment("tasa.com.pe.fl.pesca.requerimientoflota.requerimientopesca.view.DlgNewReg", this.getView().getController());
                     this.getView().addDependent(this._oDialogNewReg);
                 }
                 return this._oDialogNewReg;

@@ -240,12 +240,12 @@ sap.ui.define([
                 },
                 RolesFlota:{
                     RolRadOpe: [
-                        "pcd:portal_content/com.tasa.SistemaFlota/com.tasa.Roles/com.tasa.flota_ro",
-                        "pcd:portal_content/com.tasa.SistemaFlota/com.tasa.Roles/com.tasa.flota_rcp",
-                        "pcd:portal_content/com.tasa.SistemaFlota/com.tasa.Roles/com.tasa.flota_ro_protesto"
+                        "pcd:portal_content/tasa.com.pe.fl.pesca.requerimientoflota.SistemaFlota/tasa.com.pe.fl.pesca.requerimientoflota.Roles/tasa.com.pe.fl.pesca.requerimientoflota.flota_ro",
+                        "pcd:portal_content/tasa.com.pe.fl.pesca.requerimientoflota.SistemaFlota/tasa.com.pe.fl.pesca.requerimientoflota.Roles/tasa.com.pe.fl.pesca.requerimientoflota.flota_rcp",
+                        "pcd:portal_content/tasa.com.pe.fl.pesca.requerimientoflota.SistemaFlota/tasa.com.pe.fl.pesca.requerimientoflota.Roles/tasa.com.pe.fl.pesca.requerimientoflota.flota_ro_protesto"
                     ],
                     RolIngCom: [
-                        "pcd:portal_content/com.tasa.SistemaFlota/com.tasa.Roles/com.tasa.flota_acc"
+                        "pcd:portal_content/tasa.com.pe.fl.pesca.requerimientoflota.SistemaFlota/tasa.com.pe.fl.pesca.requerimientoflota.Roles/tasa.com.pe.fl.pesca.requerimientoflota.flota_acc"
                     ]
                 },
                 Utils:{

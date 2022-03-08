@@ -1,8 +1,8 @@
 sap.ui.define([
     "./BaseController",
     "sap/m/MessageBox",
-    "com/tasa/requerimientopescaxplanta/util/formatter",
-    "com/tasa/requerimientopescaxplanta/util/sessionService",
+    "tasa/com/pe/fl/pesca/requerimientodistribucion/requerimientopescaxplanta/util/formatter",
+    "tasa/com/pe/fl/pesca/requerimientodistribucion/requerimientopescaxplanta/util/sessionService",
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -11,7 +11,7 @@ sap.ui.define([
         "use strict";
 
         var usuario="";
-        return BaseController.extend("com.tasa.requerimientopescaxplanta.controller.Main", {
+        return BaseController.extend("tasa.com.pe.fl.pesca.requerimientoflota.requerimientopescaxplanta.controller.Main", {
             formatter: formatter,
             onInit: function () {
                 this.getView().getModel("modelReqPescaxPlanta").setProperty("/SearchTemporada", {});
@@ -340,7 +340,7 @@ sap.ui.define([
 
             _getDialogTemporada: function () {
                 if (!this._oDialogTemporada) {
-                    this._oDialogTemporada = sap.ui.xmlfragment("com.tasa.requerimientopescaxplanta.view.DlgTemporada", this.getView().getController());
+                    this._oDialogTemporada = sap.ui.xmlfragment("tasa.com.pe.fl.pesca.requerimientoflota.requerimientopescaxplanta.view.DlgTemporada", this.getView().getController());
                     this.getView().addDependent(this._oDialogTemporada);
                 }
                 return this._oDialogTemporada;

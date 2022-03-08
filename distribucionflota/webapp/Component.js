@@ -1,7 +1,7 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"com/tasa/distribucionflota/model/models"
+	"tasa/com/pe/fl/pesca/requerimientodistribucion/distribucionflota/model/models"
 ], function(UIComponent, Device, models) {
 	"use strict";
 
@@ -9,7 +9,7 @@ sap.ui.define([
 
 	};
 
-	return UIComponent.extend("com.tasa.distribucionflota.Component", {
+	return UIComponent.extend("tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota.Component", {
 
 		metadata: {
 			manifest: "json"

@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "com.tasa.requerimientopesca",
+        "id": "tasa.com.pe.fl.pesca.requerimientoflota.requerimientopesca",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -46,7 +46,7 @@
     "sap.ui5": {
         "flexEnabled": false,
         "rootView": {
-            "viewName": "com.tasa.requerimientopesca.view.Main",
+            "viewName": "tasa.com.pe.fl.pesca.requerimientoflota.requerimientopesca.view.Main",
             "type": "XML",
             "async": true,
             "id": "Main"
@@ -78,7 +78,7 @@
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
-                    "bundleName": "com.tasa.requerimientopesca.i18n.i18n"
+                    "bundleName": "tasa.com.pe.fl.pesca.requerimientoflota.requerimientopesca.i18n.i18n"
                 }
             },
             "modelReqPesca": {
@@ -98,7 +98,7 @@
                 "routerClass": "sap.m.routing.Router",
                 "viewType": "XML",
                 "async": true,
-                "viewPath": "com.tasa.requerimientopesca.view",
+                "viewPath": "tasa.com.pe.fl.pesca.requerimientoflota.requerimientopesca.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
                 "clearControlAggregation": false

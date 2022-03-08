@@ -5,9 +5,9 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/CustomData",
-    "com/tasa/distribucionflota/util/formatter",
+    "tasa/com/pe/fl/pesca/requerimientodistribucion/distribucionflota/util/formatter",
     "sap/ui/core/BusyIndicator",
-    "com/tasa/distribucionflota/util/sessionService",
+    "tasa/com/pe/fl/pesca/requerimientodistribucion/distribucionflota/util/sessionService",
     "sap/ui/core/Fragment",
     'sap/ui/Device',
     "sap/ui/model/Filter",
@@ -23,7 +23,7 @@ sap.ui.define([
         var oGlobalBusyDialog = new sap.m.BusyDialog();
 
         var usuario = "";
-        return BaseController.extend("com.tasa.distribucionflota.controller.DistribucionFlota", {
+        return BaseController.extend("tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota.controller.DistribucionFlota", {
 
             formatter: formatter,
             onInit: function () {
@@ -72,8 +72,8 @@ sap.ui.define([
                 // this.parameter= this.objetoHelp[0].parameter;
                 // this.url= this.objetoHelp[0].url;
                 // await this.callConstantes();
-                // var nameComponent = "com.tasa.mareaevento";
-                // var idComponent = "com.tasa.mareaevento1";                   
+                // var nameComponent = "tasa.com.pe.fl.pesca.requerimientoflota.mareaevento";
+                // var idComponent = "tasa.com.pe.fl.pesca.requerimientoflota.mareaevento1";                   
                 // var urlComponent = this.HOST_HELP+".com-tasa-mareaevento.comtasamareaevento-0.0.1";
 
                 // var compCreateOk = function () {
@@ -1057,7 +1057,7 @@ sap.ui.define([
                                                 var oDialog = self.byId("DialogSort");
                                                 if (!oDialog) {
                                                     // load asynchronous XML fragment
-                                                    oDialog = sap.ui.xmlfragment(oView.getId(), "com.tasa.distribucionflota.fragment.SortDialog", self);
+                                                    oDialog = sap.ui.xmlfragment(oView.getId(), "tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota.fragment.SortDialog", self);
                                                     oView.addDependent(oDialog);
 
                                                     oDialog.open();
@@ -1066,7 +1066,7 @@ sap.ui.define([
                                                     oDialog.open();
                                                 }
 
-                                                // this.getViewSettingsDialog("com.tasa.distribucionflota.fragment.SortDialog")
+                                                // this.getViewSettingsDialog("tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota.fragment.SortDialog")
                                                 // .then(function (oViewSettingsDialog) {
                                                 //     oViewSettingsDialog.open();
                                                 // });
@@ -1148,7 +1148,7 @@ sap.ui.define([
                                                 var oDialog = self.byId("DialogFilter");
                                                 if (!oDialog) {
                                                     // load asynchronous XML fragment
-                                                    oDialog = sap.ui.xmlfragment(oView.getId(), "com.tasa.distribucionflota.fragment.FilterDialog", self);
+                                                    oDialog = sap.ui.xmlfragment(oView.getId(), "tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota.fragment.FilterDialog", self);
                                                     oView.addDependent(oDialog);
 
                                                     // this.getView().byId("idInputValueFilter").setValue("");
@@ -1159,7 +1159,7 @@ sap.ui.define([
                                                     oDialog.open();
                                                 }
 
-                                                // this.getViewSettingsDialog("com.tasa.distribucionflota.fragment.FilterDialog")
+                                                // this.getViewSettingsDialog("tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota.fragment.FilterDialog")
                                                 // .then(function (oViewSettingsDialog) {
                                                 //     oViewSettingsDialog.open();
                                                 // });
@@ -1358,7 +1358,7 @@ sap.ui.define([
 
             _getDialogMovEmbarcacion: function () {
                 if (!this._oDialogMoverEmbarcacion) {
-                    this._oDialogMoverEmbarcacion = sap.ui.xmlfragment("com.tasa.distribucionflota.view.DlgMoverEmbarcacion", this.getView().getController());
+                    this._oDialogMoverEmbarcacion = sap.ui.xmlfragment("tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota.view.DlgMoverEmbarcacion", this.getView().getController());
                     this.getView().addDependent(this._oDialogMoverEmbarcacion);
                 }
                 return this._oDialogMoverEmbarcacion;
@@ -1432,7 +1432,7 @@ sap.ui.define([
             },
             onActionCloseDialog: function (oEvent, id) {
                 // var self = this;
-                // self.getViewSettingsDialog("com.tasa.distribucionflota.fragment.FilterDialog")
+                // self.getViewSettingsDialog("tasa.com.pe.fl.pesca.requerimientoflota.distribucionflota.fragment.FilterDialog")
                 //                             .then(function (oViewSettingsDialog) {
                 //                                 oViewSettingsDialog.close();
                 //                             });
